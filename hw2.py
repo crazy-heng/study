@@ -59,7 +59,7 @@ while True:
     if ch_city == 'q':exit()
     # elif len(D[ch_city]) == 0:break
     elif ch_city in city:
-        print("已选择%s"%ch_city)
+        print(u"已选择{0:s}".format(ch_city))
         while len(D[ch_city]) != 0:
             D_qu = D[ch_city]
             qu = list(D_qu.keys())
@@ -68,7 +68,7 @@ while True:
             if ch_qu == '0':
                 break
             elif ch_qu in qu:
-                print("已选择%s区域%s"%(ch_city,ch_qu))
+                print(u"已选择{0:s}区域{1:s}".format(ch_city, ch_qu))
 
                 while len(D[ch_city][ch_qu]) != 0:
                     D_street = D[ch_city][ch_qu]
@@ -78,7 +78,7 @@ while True:
                     if ch_street == '0':
                         break
                     elif ch_street in street:
-                        print("已选择%s%s地块%s"%(ch_city,ch_qu,ch_street))
+                        print(u"已选择{0:s}{1:s}地块{2:s}".format(ch_city, ch_qu, ch_street))
 
                         while len(D[ch_city][ch_qu][ch_street]) != 0:
                             D_company = D[ch_city][ch_qu][ch_street]
@@ -88,7 +88,7 @@ while True:
                             if ch_company == '0':
                                 break
                             elif ch_company in company:
-                                print("已选择%s%s%s公司%s"%(ch_city,ch_qu,ch_street,ch_company))
+                                print(u"已选择{0:s}{1:s}{2:s}公司{3:s}".format(ch_city, ch_qu, ch_street, ch_company))
                                 exit()
                             elif ch_company == 'q':
                                 exit()
@@ -108,7 +108,7 @@ while True:
 
     else:
         print("输入错误请重新输入城市")
-print("您已选择%s"%ch_city)
+#print("您已选择%s"%ch_city)
 
 
 
