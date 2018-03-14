@@ -35,13 +35,14 @@ for line in f:
     if line == '\n':
         break
     else:
-        line = line.replace("{", '').replace("}", '').strip().replace("'", '').replace(",", ':').replace(" ", '')\
-            .split(":")
-        i = j = 0
-        while i < (len(line) // 2):
-            i += 1
-            d[line[j]] = line[j+1]
-            j += 2
+        d = eval(line)
+        # line = line.replace("{", '').replace("}", '').strip().replace("'", '').replace(",", ':').replace(" ", '')\
+        #     .split(":")
+        # i = j = 0
+        # while i < (len(line) // 2):
+        #     i += 1
+        #     d[line[j]] = line[j+1]
+        #     j += 2
 f.close()
 # 查询用户上次购买物品
 f = open("last.log", "r", encoding="utf-8")
@@ -49,13 +50,7 @@ for line in f:
     if line == '\n':
         break
     else:
-        line = line.replace("{", '').replace("}", '').strip().replace("'", '').replace(",", ':').replace(" ", '')\
-            .split(":")
-        i = j = 0
-        while i < (len(line) // 2):
-            i += 1
-            d_last[line[j]] = line[j+1]
-            j += 2
+        d_last = eval(line)
 f.close()
 # 查询用户历史购物记录
 f = open("history.log", "r", encoding="utf-8")
@@ -63,13 +58,7 @@ for line in f:
     if line == '\n':
         break
     else:
-        line = line.replace("{", '').replace("}", '').strip().replace("'", '').replace(",", ':').replace(" ", '')\
-            .split(":")
-        i = j = 0
-        while i < (len(line) // 2):
-            i += 1
-            d_history[line[j]] = line[j+1]
-            j += 2
+        d_history = eval(line)
 f.close()
 if d.get(name):
     user_price = int(d[name])
