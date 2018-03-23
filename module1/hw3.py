@@ -67,7 +67,7 @@ if d.get(name):
     else:
          print('\033[1;31;40m' + "上次没有购买,当前余额：" + str(user_price) + '\033[0m')
 else:
-# 新用户输入工资记录
+    # 新用户输入工资记录
     while True:
         price = input("请输入工资：")
         if price.isdigit():
