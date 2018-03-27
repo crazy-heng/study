@@ -60,8 +60,7 @@ while True:
             # 判断是否在顶层
             print("无法继续返回！")
         elif choice == "b" and len(last) > 0:
-            d_choice = eval(str(last[-1]))
-            last.pop()
+            d_choice = last.pop()
         else:
             print("输入错误！")
     else:
@@ -70,5 +69,4 @@ while True:
         if i == "q":
             break
         elif i == "b":
-            d_choice = eval(str(last[-1]))
-            last.pop()
+            d_choice = last.pop()
