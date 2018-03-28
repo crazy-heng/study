@@ -35,8 +35,9 @@ if os.path.exists("%s/%s" % (Base_Dir, _name)):
 else:
     while data == {}:
         balance = input("请输入工资：")
-        if balance.isdigit():
+        if balance.isdigit() and int(balance) > 0:
             f = open("%s/%s" % (Base_Dir, _name), 'w')
+            data = {"name": _name, "price": int(balance), "cart": []}
             f.write(str(data))
             f.close()
         else:
