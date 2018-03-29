@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import os
-goods = [{"name": "电脑", "price": 1999}, {"name": "鼠标", "price": 10}, {"name": "游艇", "price": 20},
-         {"name": "美女", "price": 998}]
+
+goods = [{"name": "电脑", "price": 1999}, {"name": "鼠标", "price": 10},
+         {"name": "游艇", "price": 20}, {"name": "美女", "price": 998}]
 user_list = [["fan", "123"], ["alex", "234"], ["li", "456"]]
 # 用户登录检测
 count = 0
 login_flag = False
 _name = ""
+
 while count < 3:
     if login_flag:
         break
@@ -44,7 +46,8 @@ else:
             print("输入错误请输入正确金额！")
 # 提示用户最后购买物品和余额
 if len(data["cart"]) > 0:
-    print("最近一次购物[%s]，余额[\033[31;1m%s\033[0m]" % (data["cart"][-1]["name"], data["price"]))
+    print("最近一次购物[%s]，余额[\033[31;1m%s\033[0m]" %
+          (data["cart"][-1]["name"], data["price"]))
 else:
     print("现有余额[\033[31;1m%s\033[0m]" % (data["price"]))
 # 用户开始购物
@@ -59,7 +62,9 @@ while True:
             if ch_item["price"] < data["price"]:
                 data["cart"].append(ch_item)
                 data["price"] -= ch_item["price"]
-                print("已添加[%s]到您的购物车，您的余额还有[\033[31;1m%s\033[0m]" % (ch_item["name"], data["price"]))
+                print(
+                    "已添加[%s]到您的购物车，您的余额还有[\033[31;1m%s\033[0m]" %
+                    (ch_item["name"], data["price"]))
             else:
                 print("余额%s不足以购买[%s]！" % (data["price"], ch_item["name"]))
         else:
