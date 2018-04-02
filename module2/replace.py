@@ -5,8 +5,8 @@ import os
 
 # 脚本替换文件内容，参数1:要查找内容，参数2:要替换的内容，参数3:文件名
 print("脚本名：", sys.argv)
-f = open(sys.argv[3], 'r')
-f_new = open("new.txt", 'w')
+f = open(sys.argv[3], 'r', encoding="utf-8")
+f_new = open("new.txt", 'w', encoding="utf-8")
 for line in f:
     if sys.argv[1] in line:
         newline = line.replace(sys.argv[1], sys.argv[2])
