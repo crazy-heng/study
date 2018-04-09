@@ -111,20 +111,21 @@ def update_accounts(account_dic, up1, up2):
     if len(up1.split("=")) == 2 and up1.split("=")[0].strip() in account_dic["staff_id"]:
         if "=" not in up2:
             exit("参数[%s]错误" % up2)
-        key = where(accounts, up1.split("=")[0])
-        w1 = up2.split("=")[0].strip()
-        w2 = up2.split("=")[1].strip().strip('"')
-        w3 = up1.split("=")[1].strip().strip('"')
-        num = where(accounts, w1)
-        for v in account_dic:
-            if account_dic[v][num] == w2:
-                account_dic[v][key] = w3
-                print(account_dic[v])
-                i += 1
-        save_file(account_dic)
-        print("无符合条件数据！") if i == 0 else print("修改%s条数据" % i)
-        # else:
-        #     print("参数[%s]错误" % up2)
+        elif up2.split("=")[0].strip() in account_dic["staff_id"]:
+            key = where(accounts, up1.split("=")[0])
+            w1 = up2.split("=")[0].strip()
+            w2 = up2.split("=")[1].strip().strip('"')
+            w3 = up1.split("=")[1].strip().strip('"')
+            num = where(accounts, w1)
+            for v in account_dic:
+                if account_dic[v][num] == w2:
+                    account_dic[v][key] = w3
+                    print(account_dic[v])
+                    i += 1
+            save_file(account_dic)
+            print("无符合条件数据！") if i == 0 else print("修改%s条数据" % i)
+        else:
+            print("参数[%s]错误" % up2)
     else:
         print("条件[%s]错误！" % up1)
 
