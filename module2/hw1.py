@@ -30,25 +30,17 @@ def where(account_dic, content):
 # find查找函数
 def find_accounts(account_dic, fd1, fd2, fd3, fd4):
     i = 0
+    li = ["<", ">", ">=", "<="]
     if fd1 == "*":
         if where(accounts, fd2):
             num = where(accounts, fd2)
             for v in account_dic:
                 if v == "staff_id":
                     pass
-                elif fd3 == "<" and account_dic[v][num] < fd4:
+                elif fd3 in li and eval(account_dic[v][num]+fd3+fd4):
                     print(account_dic[v])
                     i += 1
-                elif fd3 == ">" and account_dic[v][num] > fd4:
-                    print(account_dic[v])
-                    i += 1
-                elif fd3 == ">=" and account_dic[v][num] >= fd4:
-                    print(account_dic[v])
-                    i += 1
-                elif fd3 == "<=" and account_dic[v][num] <= fd4:
-                    print(account_dic[v])
-                    i += 1
-                elif fd3 == "=" and account_dic[v][num] == fd4:
+                elif fd3 == "=" and fd4 in account_dic[v][num] == fd4:
                     print(account_dic[v])
                     i += 1
                 elif fd3 == "like" and fd4 in account_dic[v][num]:
@@ -57,7 +49,7 @@ def find_accounts(account_dic, fd1, fd2, fd3, fd4):
             print("无符合条件数据！") if i == 0 else print("查找到%s条数据" % i)
         else:
             print("没有[%s]这个字段！" % fd2)
-    elif set(fd1.split(",")) < set(account_dic["staff_id"]):
+    elif set(fd1.split(",")) < set(account_dic["staff_id"]) and len(fd1.split(",")) <= 2:
         if where(accounts, fd2):
             num = where(accounts, fd2)
             for v in account_dic:
@@ -69,24 +61,13 @@ def find_accounts(account_dic, fd1, fd2, fd3, fd4):
                     elif len(_li) == 2:
                         print(dic[v][where(dic, _li[0])] + " " +
                               dic[v][where(dic, _li[1])])
-                    elif len(_li) > 2:
-                        print("字段数过多，只能2个！")
 
                 if v == "staff_id":
                     pass
-                elif fd3 == "<" and account_dic[v][num] < fd4:
+                elif fd3 in li and eval(account_dic[v][num]+fd3+fd4):
                     p_list(account_dic, fd1.split(","))
                     i += 1
-                elif fd3 == ">" and account_dic[v][num] > fd4:
-                    p_list(account_dic, fd1.split(","))
-                    i += 1
-                elif fd3 == ">=" and account_dic[v][num] >= fd4:
-                    p_list(account_dic, fd1.split(","))
-                    i += 1
-                elif fd3 == "<=" and account_dic[v][num] <= fd4:
-                    p_list(account_dic, fd1.split(","))
-                    i += 1
-                elif fd3 == "=" and account_dic[v][num] == fd4:
+                elif fd3 == "=" and fd4 in account_dic[v][num] == fd4:
                     p_list(account_dic, fd1.split(","))
                     i += 1
                 elif fd3 == "like" and fd4 in account_dic[v][num]:
@@ -98,10 +79,10 @@ def find_accounts(account_dic, fd1, fd2, fd3, fd4):
 
 
 # add新增函数
-def add_accounts(account_dic, add):
-    if len(add) == 5:
+def add_accounts(account_dic, _add):
+    if len(_add) == 5:
         for v in account_dic:
-            if add[2] == account_dic[v][3]:
+            if _add[2] == account_dic[v][3]:
                 exit("电话号不能重复！")
         a = []
         i = list(account_dic.keys())
@@ -109,80 +90,85 @@ def add_accounts(account_dic, add):
         for k in i:
             a.append(int(k))
         num = max(a) + 1
-        add = [str(num)] + add
-        account_dic[str(num)] = add
+        _add = [str(num)] + _add
+        account_dic[str(num)] = _add
         save_file(account_dic)
 
 
 # del删除函数
-def del_accounts(account_dic, num):
-    a = num.split("=")
+def del_accounts(account_dic, _num):
+    a = _num.split("=")
     if len(a) == 2 and a[0] == "id" and a[1].isdigit():
         account_dic.pop(a[1])
         save_file(account_dic)
     else:
-        print("删除条件错误%s" % num)
+        print("删除条件错误%s" % _num)
 
 
 # update修改函数
-def update_accounts(account_dic, up1, up2, up3, up4):
+def update_accounts(account_dic, up1, up2):
     i = 0
-    if len(up1.split("=")) == 2 and up1.split("=")[0] in account_dic["staff_id"]:
-        key = where(accounts, up1.split("=")[0])
-        if where(accounts, up2):
-            num = where(accounts, up2)
-            if up3 != "=":
-                exit("参数%s %s %s错误" % (up2, up3, up4))
+    if len(up1.split("=")) == 2 and up1.split("=")[0].strip() in account_dic["staff_id"]:
+        if "=" not in up2:
+            exit("参数[%s]错误" % up2)
+        elif up2.split("=")[0].strip() in account_dic["staff_id"]:
+            key = where(accounts, up1.split("=")[0])
+            w1 = up2.split("=")[0].strip()
+            w2 = up2.split("=")[1].strip().strip('"')
+            w3 = up1.split("=")[1].strip().strip('"')
+            num = where(accounts, w1)
             for v in account_dic:
-                if account_dic[v][num] == up4:
-                    account_dic[v][key] = up1.split("=")[1].strip('"')
+                if account_dic[v][num] == w2:
+                    account_dic[v][key] = w3
                     print(account_dic[v])
                     i += 1
             save_file(account_dic)
             print("无符合条件数据！") if i == 0 else print("修改%s条数据" % i)
         else:
-            print("参数[%s %s %s]错误" % (up2, up3, up4))
+            print("参数[%s]错误" % up2)
     else:
         print("条件[%s]错误！" % up1)
 
 
-# 拆分命令为几个参数
-_cmd = input("请输入命令：")
-if _cmd.startswith("find "):
-    li = list(_cmd.split(" "))
-    if len(li) == 8:
-        _find1, _find2, _find3, _find4 = li[1], li[5], li[6], li[7].strip('"')
-        print("执行查找。。。")
-        find_accounts(accounts, _find1, _find2, _find3, _find4)
+# 运行函数
+def main():
+    # 拆分命令为几个参数
+    _cmd = input("请输入命令：").strip()
+    if _cmd.startswith("find "):
+        li = _cmd.split(" ")
+        if len(li) == 8:
+            _find1, _find2, _find3, _find4 = li[1], li[5], li[6], li[7].strip('"')
+            print("执行查找。。。")
+            find_accounts(accounts, _find1, _find2, _find3, _find4)
+        else:
+            print("命令参数有误！")
+    elif _cmd.startswith("add "):
+        li = _cmd.split("table ")
+        if len(li) == 2:
+            _add = li[1]
+            print("执行添加。。。")
+            add_accounts(accounts, _add.split(","))
+        else:
+            print("命令参数有误！")
+    elif _cmd.startswith("del "):
+        li = _cmd.split(" ")
+        if len(li) == 5:
+            _del = li[4]
+            print("执行删除。。。")
+            del_accounts(accounts, _del)
+        else:
+            print("命令参数有误！")
+    elif _cmd.startswith("UPDATE "):
+        li = _cmd.split(" WHERE ")
+        if len(li) == 2 and len(li[0].split(" SET ")) == 2:
+            _up1, _up2 = li[0].split(" SET ")[1], li[1]
+            print("执行修改。。。")
+            update_accounts(accounts, _up1, _up2)
+        else:
+            print("命令参数有误！")
     else:
-        print("命令参数有误！")
-elif _cmd.startswith("add "):
-    li = list(_cmd.split("table "))
-    if len(li) == 2:
-        _add = li[1]
-        print("执行添加。。。")
-        add_accounts(accounts, _add.split(","))
-    else:
-        print("命令参数有误！")
-elif _cmd.startswith("del "):
-    li = list(_cmd.split(" "))
-    if len(li) == 5:
-        _del = li[4]
-        print("执行删除。。。")
-        del_accounts(accounts, _del)
-    else:
-        print("命令参数有误！")
-elif _cmd.startswith("UPDATE "):
-    li = list(_cmd.split(" "))
-    if len(li) == 8:
-        _up1, _up2, _up3, _up4 = li[3], li[5], li[6], li[7].strip('"')
-        print("执行修改。。。")
-        update_accounts(accounts, _up1, _up2, _up3, _up4)
-    else:
-        print("命令参数有误！")
-else:
-    print("命令输入有误！")
+        print("命令输入有误！")
 
 
-
-
+if __name__ == "__main__":
+    main()
