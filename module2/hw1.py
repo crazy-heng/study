@@ -98,13 +98,13 @@ def add_accounts(account_dic, _add):
 
 
 # del删除函数
-def del_accounts(account_dic, num):
-    a = num.split("=")
+def del_accounts(account_dic, _num):
+    a = _num.split("=")
     if len(a) == 2 and a[0] == "id" and a[1].isdigit():
         account_dic.pop(a[1])
         save_file(account_dic)
     else:
-        print("删除条件错误%s" % num)
+        print("删除条件错误%s" % _num)
 
 
 # update修改函数
