@@ -10,7 +10,7 @@ class IgnoreBackupLogFilter(logging.Filter):  # filter过滤日志
         return "db backup" not in record.getMessage()
 
 
-# 1 生成logger对象,默认全局日志级别info
+# 1 生成logger对象,web为模块名,默认全局日志级别info
 logger = logging.getLogger("web")
 logger.setLevel(logging.DEBUG)
 
