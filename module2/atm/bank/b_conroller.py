@@ -14,7 +14,7 @@ def login(func):  # 银行用户登陆验证
         global _username
         _password_md5 = hashlib.md5()
         _username = input("请输入银行用户名：").strip()
-        _password = input("请输入密码:").strip()
+        _password = input("请输入银行密码:").strip()
         _password_md5.update(_password.encode(encoding="utf-8"))
         # 导入用户文件成为列表
         account = {}
