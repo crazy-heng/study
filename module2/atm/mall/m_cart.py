@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import logging
+from logging import handlers
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 from bank import b_pay
@@ -9,7 +11,14 @@ from mall import m_login
 
 goods = [{"name": "电脑", "price": 1999}, {"name": "鼠标", "price": 10},
          {"name": "游艇", "price": 20}, {"name": "美女", "price": 998}]
-# li = []
+
+#  添加记录购物是否成功日志
+logger = logging.getLogger("cart")
+logger.setLevel(logging.DEBUG)
+fh = handlers.TimedRotatingFileHandler("../logs/cart.log", when="D", interval=1, backupCount=30, encoding="utf-8")
+file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger.addHandler(fh)
+fh.setFormatter(file_formatter)
 
 
 def buy_list(name, data):  # 购物历史写入文件
@@ -17,6 +26,7 @@ def buy_list(name, data):  # 购物历史写入文件
     f = open("%s.txt" % name, 'w+', encoding="utf-8")
     f.write(str(data))
     f.close()
+
 
 @m_login.login
 def cart(name):  # 购物操作
@@ -42,8 +52,10 @@ def cart(name):  # 购物操作
             b_pay_status = b_pay.pay(name, price)
             if b_pay_status:
                 buy_list(name, data)
+                logger.info("用户%s购物花费%s成功！" % (name, price))
                 exit("购物成功！")
             else:
+                logger.error("用户%s购物花费%s,结算失败！" % (name, price))
                 print("信用卡消费失败！")
         elif ch == "q":
             exit()
@@ -56,4 +68,4 @@ def cart(name):  # 购物操作
             print("输入有误，请重新选择!")
 
 
-cart("fan")
+# cart("fan")
