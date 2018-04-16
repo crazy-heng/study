@@ -10,6 +10,3 @@ name:   %s
 balance:    %s
 cardno: %s
 """ % (account["name"], account["balance"], account["card"]))
-
-
-# view("fan")

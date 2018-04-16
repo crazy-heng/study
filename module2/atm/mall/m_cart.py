@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import hashlib
 import logging
 from logging import handlers
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 from bank import b_pay
-from mall import m_login
 
 goods = [{"name": "电脑", "price": 1999}, {"name": "鼠标", "price": 10},
          {"name": "游艇", "price": 20}, {"name": "美女", "price": 998}]
-
+name = None
 #  添加记录购物是否成功日志
 logger = logging.getLogger("cart")
 logger.setLevel(logging.DEBUG)
@@ -21,6 +21,38 @@ logger.addHandler(fh)
 fh.setFormatter(file_formatter)
 
 
+def login(func):
+    def wrapper(*args, **kwargs):
+        global name
+        _password_md5 = hashlib.md5()
+        # 导入用户文件成为列表
+        account = []
+        with open("user.txt", "r", encoding="utf-8") as f:
+            for line in f.readlines():
+                account.append(line.strip().split(","))
+        i = 0
+        login_flag = False
+        while i < 3:
+            if login_flag:
+                break
+            _username = input("请输入用户名：").strip()
+            _password = input("请输入密码：").strip()
+            _password_md5.update(_password.encode(encoding="utf-8"))
+            for k in account:
+                if k[0] == _username and k[1] == _password_md5.hexdigest():
+                    print("登陆成功！")
+                    name = _username
+                    func(*args, **kwargs)
+                    login_flag = True
+                    break
+            else:
+                print("用户名或密码错误")
+            i += 1
+        else:
+            exit("输入错误次数过多！")
+    return wrapper
+
+
 def buy_list(name, data):  # 购物历史写入文件
     print(data)
     f = open("%s.txt" % name, 'w+', encoding="utf-8")
@@ -28,12 +60,19 @@ def buy_list(name, data):  # 购物历史写入文件
     f.close()
 
 
-@m_login.login
-def cart(name):  # 购物操作
+@login
+def cart():  # 购物操作
     price = 0
     li = []
-    with open("%s.txt" % name, 'r', encoding="utf-8") as f:
-        data = eval(f.readline())
+    # 判断是否有历史购物记录
+    if os.path.exists("mall/%s.log" % name):
+        with open("%s.txt" % name, 'r', encoding="utf-8") as file:
+            data = eval(file.readline())
+    else:
+        file = open("%s.txt" % name, 'w+', encoding="utf-8")
+        data = []
+        file.write(str(data))
+        file.close()
     while True:
         for index, items in enumerate(goods):
             print("%s %s %s" % (index, items["name"], items["price"]))
@@ -68,4 +107,5 @@ def cart(name):  # 购物操作
             print("输入有误，请重新选择!")
 
 
-# cart("fan")
+if __name__ == "__main__":
+    cart()

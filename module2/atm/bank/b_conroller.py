@@ -18,11 +18,13 @@ def login(func):  # 银行用户登陆验证
         _password = input("请输入银行密码:").strip()
         _password_md5.update(_password.encode(encoding="utf-8"))
         # 导入用户文件成为列表
-        account = {}
         if os.path.exists("../bank/%s.log" % _username):
             with open("../bank/%s.log" % _username, "r", encoding="utf-8") as f:
                 account = eval(f.readline())
-            if account["password"] == _password_md5.hexdigest():
+            if account["lock"] == "locked":
+                print("账号被锁定！")
+                return False
+            elif account["password"] == _password_md5.hexdigest():
                 print("登陆成功,余额%s" % account["balance"])
                 func(*args, **kwargs)
                 return True

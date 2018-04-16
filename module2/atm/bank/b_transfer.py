@@ -26,6 +26,3 @@ def transfer(_username, _username1, price):
     else:
         print("对方账户不存在！")
         return False
-
-
-# transfer("fan", "cai", 5000)
