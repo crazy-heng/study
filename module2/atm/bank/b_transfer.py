@@ -17,9 +17,11 @@ def transfer(_username, _username1, price):
             print("当前余额%s" % account["balance"])
             write.write_account(_username, account)
             write.write_account(_username1, account1)
+            write.log("转账", "info", "用户[%s]转给[%s][%s]" % (_username, _username1, price))
             return True
         else:
             print("余额不足%s，无法转账！" % price)
+            write.log("转账", "error", "用户[%s]转给[%s]失败！" % (_username, _username1))
             return False
     else:
         print("对方账户不存在！")

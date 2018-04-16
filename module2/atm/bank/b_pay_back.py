@@ -9,6 +9,4 @@ def pay_back(_username, price):
     account["balance"] += price
     print("还款%s成功,当前余额%s!" % (price, account["balance"]))
     write.write_account(_username, account)
-
-
-# pay_back("fan", 1500)
+    write.log("还款", "info", "用户[%s]还款[%s]" % (_username, price))

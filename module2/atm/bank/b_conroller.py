@@ -6,6 +6,7 @@ import b_draw
 import b_pay_back
 import b_transfer
 import b_view
+import write
 _username = None
 
 
@@ -37,14 +38,17 @@ def login(func):  # 银行用户登陆验证
 @login
 def main():
     name = _username
+    write.blog("login", "用户%s登陆了系统！" % name)
     while True:
         ch = input("欢迎进入银行后台！请选择操作内容：1查询 2取现 3转账 4还款 q退出").strip()
         if ch.isdigit() and ch == "1":
             b_view.view(name)
+            write.blog("view", "%s执行了查询账户操作！" % name)
         elif ch.isdigit() and ch == "2":
             price = input("请输入取现金额：").strip()
             if price.isdigit() and int(price) > 0:
                 b_draw.draw(name, int(price))
+                write.blog("draw", "%s执行了取现操作！" % name)
             else:
                 print("输入有误！")
         elif ch.isdigit() and ch == "3":
@@ -52,15 +56,18 @@ def main():
             price = input("请输入转账金额:").strip()
             if price.isdigit() and int(price) > 0:
                 b_transfer.transfer(name, name1, int(price))
+                write.blog("transfer", "%s用户执行了转账操作！" % name)
             else:
                 print("输入有误！")
         elif ch.isdigit() and ch == "4":
             price = input("请输入还款金额：").strip()
             if price.isdigit() and int(price) > 0:
                 b_pay_back.pay_back(name, int(price))
+                write.blog("pay_back", "%s用户执行了还款操作!" % name)
             else:
                 print("输入有误！")
         elif ch == 'q':
+            write.blog("exit", "用户%s退出" % name)
             exit("欢迎下次登陆！")
         else:
             print("输入错误！")
