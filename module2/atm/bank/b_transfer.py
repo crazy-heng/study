@@ -5,7 +5,7 @@ import write
 
 
 def transfer(_username, _username1, price):
-    with open("%s.log" % _username, 'r', encoding="utf-8") as f:
+    with open("userdata/%s.log" % _username, 'r', encoding="utf-8") as f:
         account = eval(f.readline())
     if os.path.exists("%s.log" % _username1):
         with open("%s.log" % _username1, 'r', encoding="utf-8") as f:

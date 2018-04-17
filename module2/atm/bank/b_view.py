@@ -3,7 +3,7 @@
 
 
 def view(_username):
-    with open("%s.log" % _username, 'r', encoding="utf-8") as f:
+    with open("userdata/%s.log" % _username, 'r', encoding="utf-8") as f:
         account = eval(f.readline())
     print("""--------user info--------
 name:   %s

@@ -4,7 +4,7 @@ import write
 
 
 def pay_back(_username, price):
-    with open("%s.log" % _username, 'r', encoding="utf-8") as f:
+    with open("userdata/%s.log" % _username, 'r', encoding="utf-8") as f:
         account = eval(f.readline())
     account["balance"] += price
     print("还款%s成功,当前余额%s!" % (price, account["balance"]))
