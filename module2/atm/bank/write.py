@@ -28,5 +28,5 @@ def log(name, level, data):
 
 
 def write_account(name, account):
-    with open("%s.log" % name, 'w', encoding="utf-8") as f:
+    with open("userdata/%s.log" % name, 'w', encoding="utf-8") as f:
         f.write(str(account))
