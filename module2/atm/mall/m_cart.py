@@ -53,9 +53,9 @@ def login(func):
     return wrapper
 
 
-def buy_list(name, data):  # 购物历史写入文件
+def buy_list(user, data):  # 购物历史写入文件
     print(data)
-    f = open("%s.txt" % name, 'w+', encoding="utf-8")
+    f = open("userdata/%s.txt" % user, 'w+', encoding="utf-8")
     f.write(str(data))
     f.close()
 
@@ -65,11 +65,11 @@ def cart():  # 购物操作
     price = 0
     li = []
     # 判断是否有历史购物记录
-    if os.path.exists("mall/%s.log" % name):
-        with open("%s.txt" % name, 'r', encoding="utf-8") as file:
+    if os.path.exists("userdata/%s.txt" % name):
+        with open("userdata/%s.txt" % name, 'r', encoding="utf-8") as file:
             data = eval(file.readline())
     else:
-        file = open("%s.txt" % name, 'w+', encoding="utf-8")
+        file = open("userdata/%s.txt" % name, 'w+', encoding="utf-8")
         data = []
         file.write(str(data))
         file.close()
@@ -89,7 +89,7 @@ def cart():  # 购物操作
             print("消费总额：消费\033[31;1m[%s]\033[0m" % price)
             # 调用信用卡接口,扣费成功后写文件，不成功则退出
             b_pay_status = b_pay.pay(name, price)
-            if b_pay_status:
+            if b_pay_status is True:
                 buy_list(name, data)
                 logger.info("用户%s购物花费%s成功！" % (name, price))
                 exit("购物成功！")
@@ -99,7 +99,7 @@ def cart():  # 购物操作
         elif ch == "q":
             exit()
         elif ch == "c":
-            with open("%s.txt" % name, 'r', encoding="utf-8") as f:
+            with open("userdata/%s.txt" % name, 'r', encoding="utf-8") as f:
                 data = eval(f.readline())
             price = 0
             li = []
