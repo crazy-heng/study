@@ -27,7 +27,7 @@ department:  %s
     print(info)
 
 
-# 修改用户信息
+# 修改用户信息ok
 def modify_user_info(account_dic, _user_name):
     user_dic = account_dic[_user_name]
     while True:
