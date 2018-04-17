@@ -38,11 +38,11 @@ def login(func):  # 银行用户登陆验证
 
 
 @login
-def main():
+def main():  # 用户中心入口，每次操作记录操作行为到日志。
     name = _username
     write.blog("login", "用户%s登陆了系统！" % name)
     while True:
-        ch = input("欢迎进入银行后台！请选择操作内容：1查询 2取现 3转账 4还款 q退出").strip()
+        ch = input("欢迎进入**银行用户中心！请选择操作内容：1查询 2取现 3转账 4还款 q退出").strip()
         if ch.isdigit() and ch == "1":
             b_view.view(name)
             write.blog("view", "用户%s执行了查询账户操作！" % name)
