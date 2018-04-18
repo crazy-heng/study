@@ -8,6 +8,7 @@ import b_transfer
 import b_view
 import write
 _username = None
+user_dir = "userdata"
 
 
 def login(func):  # 银行用户登陆验证
@@ -18,8 +19,8 @@ def login(func):  # 银行用户登陆验证
         _password = input("请输入银行密码:").strip()
         _password_md5.update(_password.encode(encoding="utf-8"))
         # 导入用户文件成为列表
-        if os.path.exists("../bank/userdata/%s.log" % _username):
-            with open("../bank/userdata/%s.log" % _username, "r", encoding="utf-8") as f:
+        if os.path.exists("%s/%s.log" % (user_dir, _username)):
+            with open("%s/%s.log" % (user_dir, _username), "r", encoding="utf-8") as f:
                 account = eval(f.readline())
             if account["lock"] == "locked":
                 print("账号被锁定！")

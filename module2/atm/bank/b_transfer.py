@@ -7,7 +7,7 @@ import write
 def transfer(_username, _username1, price):
     with open("userdata/%s.log" % _username, 'r', encoding="utf-8") as f:
         account = eval(f.readline())
-    if os.path.exists("userdata/%s.log" % _username1) and account["name"] != _username:
+    if os.path.exists("userdata/%s.log" % _username1) and account["name"] != _username1:
         with open("userdata/%s.log" % _username1, 'r', encoding="utf-8") as f:
             account1 = eval(f.readline())
         if account["balance"] > price:

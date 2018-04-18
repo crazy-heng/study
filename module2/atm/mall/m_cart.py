@@ -11,6 +11,7 @@ from bank import b_pay
 
 goods = [{"name": "电脑", "price": 1999}, {"name": "鼠标", "price": 10},
          {"name": "游艇", "price": 20}, {"name": "美女", "price": 998}]
+user_dir = "userdata/"
 name = None
 #  添加记录购物是否成功日志
 logger = logging.getLogger("cart")
@@ -54,8 +55,7 @@ def login(func):
 
 
 def buy_list(user, data):  # 购物历史写入文件
-    print(data)
-    f = open("userdata/%s.txt" % user, 'w+', encoding="utf-8")
+    f = open("%s%s.txt" % (user_dir, user), 'w+', encoding="utf-8")
     f.write(str(data))
     f.close()
 
@@ -65,11 +65,11 @@ def cart():  # 购物操作
     price = 0
     li = []
     # 判断是否有历史购物记录
-    if os.path.exists("userdata/%s.txt" % name):
-        with open("userdata/%s.txt" % name, 'r', encoding="utf-8") as file:
+    if os.path.exists("%s%s.txt" % (user_dir, name)):
+        with open("%s%s.txt" % (user_dir, name), 'r', encoding="utf-8") as file:
             data = eval(file.readline())
     else:
-        file = open("userdata/%s.txt" % name, 'w+', encoding="utf-8")
+        file = open("%s%s.txt" % (user_dir, name), 'w+', encoding="utf-8")
         data = []
         file.write(str(data))
         file.close()
@@ -82,7 +82,7 @@ def cart():  # 购物操作
             price += goods[int(ch)]["price"]
             print("%s已加入购物车,当前消费\033[31;1m%s\033[0m" % (goods[int(ch)]["name"], price))
             data.append(goods[int(ch)]["name"])
-        elif ch == "p":
+        elif ch == "p" and price > 0:
             print("----当前购物车----")
             for index, items in enumerate(goods):
                 print("物品[%s]已购数量[%s]" % (items["name"], li.count(str(index))))
@@ -99,7 +99,7 @@ def cart():  # 购物操作
         elif ch == "q":
             exit()
         elif ch == "c":
-            with open("userdata/%s.txt" % name, 'r', encoding="utf-8") as f:
+            with open("%s%s.txt" % (user_dir, name), 'r', encoding="utf-8") as f:
                 data = eval(f.readline())
             price = 0
             li = []

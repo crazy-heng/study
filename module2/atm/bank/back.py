@@ -6,6 +6,7 @@ import random
 import logging
 from logging import handlers
 import write
+user_dir = "userdata"
 
 #  添加记录购物是否成功日志
 logger = logging.getLogger("back")
@@ -38,8 +39,8 @@ if _username == user and _password == password:
         ch = input("请选择操作 1 修改用户 2 新增用户 q退出").strip()
         if ch.isdigit() and ch == '1':
             name = input("请输入用户名：")
-            if os.path.exists("%s.log" % name):
-                with open("%s.log" % name, "r", encoding="utf-8") as f:
+            if os.path.exists("%s/%s.log" % (user_dir, name)):
+                with open("%s/%s.log" % (user_dir, name), "r", encoding="utf-8") as f:
                     account = eval(f.readline())
                 view(account)
                 ch1 = input("1-1 修改balance 1-2 解锁或锁定用户").strip()
