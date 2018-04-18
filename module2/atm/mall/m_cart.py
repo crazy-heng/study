@@ -89,7 +89,7 @@ def cart():  # 购物操作
             print("消费总额：消费\033[31;1m[%s]\033[0m" % price)
             # 调用信用卡接口,扣费成功后写文件，不成功则退出
             b_pay_status = b_pay.pay(name, price)
-            if b_pay_status is True:
+            if b_pay_status:
                 buy_list(name, data)
                 logger.info("用户%s购物花费%s成功！" % (name, price))
                 exit("购物成功！")
