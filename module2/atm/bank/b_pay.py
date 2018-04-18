@@ -6,7 +6,6 @@ import hashlib
 
 def login(func):
     def wrapper(*args, **kwargs):
-        global _username
         _password_md5 = hashlib.md5()
         _username = input("请输入银行用户名：").strip()
         _password = input("请输入银行密码:").strip()
