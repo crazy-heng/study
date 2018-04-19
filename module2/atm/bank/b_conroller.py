@@ -7,7 +7,7 @@ import b_pay_back
 import b_transfer
 import b_view
 import write
-_username = None
+
 user_dir = "userdata"
 
 
