@@ -91,7 +91,3 @@ def cart():  # 购物操作
             li = []
         else:
             print("输入有误，请重新选择!")
-
-
-if __name__ == "__main__":
-    cart()
