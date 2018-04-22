@@ -3,29 +3,15 @@
 import os
 import sys
 import hashlib
-import logging
-from logging import handlers
+import logger
+import write
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 from bank import b_pay
 
 goods = [{"name": "电脑", "price": 1999}, {"name": "鼠标", "price": 10},
          {"name": "游艇", "price": 20}, {"name": "美女", "price": 998}]
-user_dir = "userdata/"
-
-
-def log(log_name, log_type, log_info):  # 添加记录购物是否成功日志
-    logger = logging.getLogger(log_name)
-    logger.setLevel(logging.DEBUG)
-    fh = handlers.TimedRotatingFileHandler("../logs/%s.log" % log_name, when="D", interval=1, backupCount=30,
-                                           encoding="utf-8")
-    file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    logger.addHandler(fh)
-    fh.setFormatter(file_formatter)
-    if log_type == "error":
-        logger.error(log_info)
-    elif log_type == "info":
-        logger.info(log_info)
+user_dir = "userdata"
 
 
 def login(func):
@@ -34,7 +20,7 @@ def login(func):
         _password_md5 = hashlib.md5()
         # 导入用户文件成为列表
         account = []
-        with open("user.txt", "r", encoding="utf-8") as f:
+        with open("%s/user.txt" % user_dir, "r", encoding="utf-8") as f:
             for line in f.readlines():
                 account.append(line.strip().split(","))
         i = 0
@@ -60,22 +46,16 @@ def login(func):
     return wrapper
 
 
-def buy_list(user, data):  # 购物历史写入文件
-    f = open("%s%s.txt" % (user_dir, user), 'w+', encoding="utf-8")
-    f.write(str(data))
-    f.close()
-
-
 @login
 def cart():  # 购物操作
     price = 0
     li = []
     # 判断是否有历史购物记录
-    if os.path.exists("%s%s.txt" % (user_dir, name)):
-        with open("%s%s.txt" % (user_dir, name), 'r', encoding="utf-8") as file:
+    if os.path.exists("%s/%s.txt" % (user_dir, name)):
+        with open("%s/%s.txt" % (user_dir, name), 'r', encoding="utf-8") as file:
             data = eval(file.readline())
     else:
-        file = open("%s%s.txt" % (user_dir, name), 'w+', encoding="utf-8")
+        file = open("%s/%s.txt" % (user_dir, name), 'w+', encoding="utf-8")
         data = []
         file.write(str(data))
         file.close()
@@ -96,11 +76,11 @@ def cart():  # 购物操作
             # 调用信用卡接口,扣费成功后写文件，不成功则退出
             b_pay_status = b_pay.pay(name, price)
             if b_pay_status:
-                buy_list(name, data)
-                log("cart", "info", "用户%s购物花费%s成功！" % (name, price))
+                write.buy_list(name, data)
+                logger.log("cart", "info", "用户%s购物花费%s成功！" % (name, price))
                 exit("购物成功！")
             else:
-                log("cart", "error", "用户%s购物花费%s,结算失败！" % (name, price))
+                logger.log("cart", "error", "用户%s购物花费%s,结算失败！" % (name, price))
                 print("信用卡消费失败！")
         elif ch == "q":
             exit()
