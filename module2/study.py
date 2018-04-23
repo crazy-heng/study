@@ -8,6 +8,7 @@ import random
 import string
 import logging
 from logging import handlers
+import hashlib
 
 # 函数1
 # def sum_nu(*args):
@@ -188,3 +189,11 @@ from logging import handlers
 # fh.setFormatter(log_format)
 # logger.debug("test")
 
+
+# with open("test.json", 'r', encoding="utf-8") as f:
+#     data = json.load(f)
+# md5 = hashlib.md5()
+# md5.update(data["password"].encode(encoding="utf-8"))
+# data["password"] = md5.hexdigest()
+# with open("test.json", 'w') as f:
+#     json.dump(data, f)
