@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import hashlib
+from bank import write
 
 user_dir = "../bank/userdata"  # 由于被mall/m_cart调用这里路径配置为
 
@@ -39,4 +40,5 @@ def pay(_username, price):  # 传入用户账户和消费金额扣款
         with open("%s/%s.log" % (user_dir, _username), 'w', encoding="utf-8") as f:
             f.write(str(account))
         print("消费成功")
+        write.log("pay", "info", "用户[%s]消费了[%s]" % (_username, price))
         return True

@@ -39,42 +39,21 @@ def login(func):  # 银行用户登陆验证
 
 
 @login
-def main():  # 用户中心入口，每次操作记录操作行为到日志。
+def control():  # 用户中心入口，每次操作记录操作行为到日志。
     name = _username
     write.blog("login", "用户%s登陆了系统！" % name)
     while True:
         ch = input("欢迎进入**银行用户中心！请选择操作内容：1查询 2取现 3转账 4还款 q退出").strip()
         if ch.isdigit() and ch == "1":
             b_view.view(name)
-            write.blog("view", "用户%s执行了查询账户操作！" % name)
         elif ch.isdigit() and ch == "2":
-            price = input("请输入取现金额：").strip()
-            if price.isdigit() and int(price) > 0:
-                b_draw.draw(name, int(price))
-                write.blog("draw", "用户%s执行了取现操作！" % name)
-            else:
-                print("输入有误！")
+            b_draw.draw(name)
         elif ch.isdigit() and ch == "3":
-            name1 = input("请输入想转入的账号：").strip()
-            price = input("请输入转账金额:").strip()
-            if price.isdigit() and int(price) > 0:
-                b_transfer.transfer(name, name1, int(price))
-                write.blog("transfer", "用户%s执行了转账操作！" % name)
-            else:
-                print("输入有误！")
+            b_transfer.transfer(name)
         elif ch.isdigit() and ch == "4":
-            price = input("请输入还款金额：").strip()
-            if price.isdigit() and int(price) > 0:
-                b_pay_back.pay_back(name, int(price))
-                write.blog("pay_back", "用户%s执行了还款操作!" % name)
-            else:
-                print("输入有误！")
+            b_pay_back.pay_back(name)
         elif ch == 'q':
             write.blog("exit", "用户%s退出登录！" % name)
             exit("欢迎下次登陆！")
         else:
             print("输入错误！")
-
-
-if __name__ == "__main__":
-    main()
