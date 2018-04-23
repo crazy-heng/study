@@ -9,6 +9,7 @@ import string
 import logging
 from logging import handlers
 import hashlib
+import sys
 
 # 函数1
 # def sum_nu(*args):
@@ -197,3 +198,6 @@ import hashlib
 # data["password"] = md5.hexdigest()
 # with open("test.json", 'w') as f:
 #     json.dump(data, f)
+
+
+# print(sys.argv[1])
