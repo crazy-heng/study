@@ -3,6 +3,11 @@
 import re
 import time
 import random
+import json
+import random
+import string
+import logging
+from logging import handlers
 
 # 函数1
 # def sum_nu(*args):
@@ -151,4 +156,35 @@ import random
 #
 # start_game()
 
+# a = '''<!DOCTYPE html>
+# <html lang="en">
+# <head>
+#    <meta charset="UTF-8">
+#    <title>luffycity.com</title>
+# </head>
+# <body>
+# </body>
+# </html>'''
+# # with open("test.xml", 'r', encoding="utf-8") as f:
+# #     data = f.read()
+# #     print(data)
+# print(re.findall("l\w+.com", a))
+
+# li = {"expire_date": "2021-01-01", "id": 1234, "status": 0, "pay_day": 22, "password": "abc"}
+# with open("test.json", 'w') as f:
+#     json.dump(li, f)
+# with open("test.json", 'r') as f:
+#     data = json.load(f)
+# print(data)
+#
+# res = random.sample(string.ascii_lowercase + string.ascii_uppercase + string.digits, 6)
+# print(''.join(res))
+
+# logger = logging.getLogger("test")
+# logger.setLevel(logging.DEBUG)
+# fh = handlers.RotatingFileHandler("web.log", maxBytes=1000, backupCount=3)
+# logger.addHandler(fh)
+# log_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+# fh.setFormatter(log_format)
+# logger.debug("test")
 
