@@ -10,6 +10,8 @@ import logging
 from logging import handlers
 import hashlib
 import sys
+import os
+import configparser
 
 # 函数1
 # def sum_nu(*args):
@@ -201,3 +203,51 @@ import sys
 
 
 # print(sys.argv[1])
+
+# 扑克列表
+# def cards():
+#     puk, num = [], []
+#     t = ["红心", "草花", "黑桃", "方块"]
+#     for i in range(2, 11):
+#         num.append(str(i))
+#     num.extend(["J", "Q", "K", "A"])
+#     for i in num:
+#         for j in t:
+#             puk.append(j + i)
+#     return puk
+#
+#
+# print(cards())
+
+
+# def min_max(*args):
+#     min_num = args[0]
+#     max_num = args[0]
+#     for i in args:
+#         if i > max_num:
+#             max_num = i
+#         elif i < min_num:
+#             min_num = i
+#     print("MAX %s MIN %s" % (max_num, min_num))
+#
+#
+# min_max(1, 8, 3, 999, 43, -1.6)
+
+# print(os.path.dirname(os.path.abspath("study.py")))
+# print(os.path.abspath("study.py"))
+
+# conf = configparser.ConfigParser()
+# conf.read("my.cnf")
+# conf.set("mysqld", "default-time-zone", "+00:00")
+# conf.set("client", "port", "3306")
+# # conf.remove_option("client", "port")
+# conf.write(open('my.cnf', "w"))
+# print(conf.sections())
+# print(conf["mysqld"]["default-time-zone"])
+
+# print(time.strftime("%Y-%m-%d"))
+# ex_time = time.mktime(time.strptime("2011-01-01", "%Y-%m-%d"))
+# if ex_time > time.time():
+#     print("没过期！")
+# else:
+#     print("已过期！")
