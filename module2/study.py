@@ -12,6 +12,7 @@ import hashlib
 import sys
 import os
 import configparser
+import xml.etree.ElementTree as ET
 
 # 函数1
 # def sum_nu(*args):
@@ -238,8 +239,9 @@ import configparser
 
 # conf = configparser.ConfigParser()
 # conf.read("my.cnf")
-# conf.set("mysqld", "default-time-zone", "+00:00")
-# conf.set("client", "port", "3306")
+# conf.set("DEFAULT", "character-set-server", "utf-8")
+# # conf.set("mysqld", "default-time-zone", "+00:00")
+# # conf.set("client", "port", "3306")
 # # conf.remove_option("client", "port")
 # conf.write(open('my.cnf', "w"))
 # print(conf.sections())
@@ -251,3 +253,7 @@ import configparser
 #     print("没过期！")
 # else:
 #     print("已过期！")
+
+# logger = logging.getLogger("access")
+# logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+# logger.error('account [1234] too many login attempts')
