@@ -27,21 +27,19 @@ class Hero:
         self.att = att
         self.blood = blood
 
-
-def hit(hero1, hero2):
-    hero2.blood -= hero1.att
-    print("%s攻击%s,%s被打%s剩余血量%s" % (hero1.nickname, hero2.nickname, hero2.nickname, hero1.att, hero2.blood))
-    if hero2.blood <= 0:
-        print("%s打败了%s！" % (hero1.name, hero2.name))
-        res = "deal"
-    else:
-        res = "alive"
-    return res
+    def hit(self, hero2):
+        hero2.blood -= self.att
+        print("%s攻击%s,%s被打%s剩余血量%s" % (self.nickname, hero2.nickname, hero2.nickname, self.att, hero2.blood))
+        if hero2.blood <= 0:
+            print("%s打败了%s！" % (self.name, hero2.name))
+            res = "deal"
+        else:
+            res = "alive"
+        return res
 
 
 h1 = Hero("张大炮", "炮", 800, 1000)
 h2 = Hero("李坦克", "坦", 200, 3000)
-print(h1.__dict__)
 while True:
-    if hit(h1, h2) == "deal" or hit(h2, h1) == "deal":
+    if h1.hit(h2) == "deal" or h2.hit(h1) == "deal":
         break
