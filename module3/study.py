@@ -20,26 +20,71 @@
 # print(s2.name)
 
 
-class Hero:
-    def __init__(self, name, nick_name, att, blood):
-        self.name = name
-        self.nickname = nick_name
-        self.att = att
-        self.blood = blood
+# class Hero:
+#     def __init__(self, name, nick_name, att, blood):
+#         self.name = name
+#         self.nickname = nick_name
+#         self.att = att
+#         self.blood = blood
+#
+#     def hit(self, hero2):
+#         hero2.blood -= self.att
+#         print("%s攻击%s,%s被打%s剩余血量%s" % (self.nickname, hero2.nickname, hero2.nickname, self.att, hero2.blood))
+#         if hero2.blood <= 0:
+#             print("%s打败了%s！" % (self.name, hero2.name))
+#             res = "deal"
+#         else:
+#             res = "alive"
+#         return res
+#
+#
+# h1 = Hero("张大炮", "炮", 800, 1000)
+# h2 = Hero("李坦克", "坦", 200, 3000)
+# while True:
+#     if h1.hit(h2) == "deal" or h2.hit(h1) == "deal":
+#         break
+import time
+import pickle
+import os
+import settings
 
-    def hit(self, hero2):
-        hero2.blood -= self.att
-        print("%s攻击%s,%s被打%s剩余血量%s" % (self.nickname, hero2.nickname, hero2.nickname, self.att, hero2.blood))
-        if hero2.blood <= 0:
-            print("%s打败了%s！" % (self.name, hero2.name))
-            res = "deal"
-        else:
-            res = "alive"
-        return res
+
+class Mysql:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self.id = self.create_id()
+
+    @staticmethod
+    def create_id():
+        # new_id = 1000000000000 + round(time.time())
+        new_id = 20000
+        return new_id
+
+    @staticmethod
+    def From_conf():
+        return Mysql(settings.HOST, settings.PORT)
+
+    @staticmethod
+    def Save_id(cls):
+        print(cls.__dict__)
+        with open("%s/%s" % (settings.DB_PATH, cls.id), 'wb') as f:
+            data = cls.__dict__
+            pickle.dump(data, f)
+
+    @staticmethod
+    def get_obj_by_id(cls):
+        if os.path.exists("%s/%s" % (settings.DB_PATH, cls.id)):
+            with open("%s/%s" % (settings.DB_PATH, cls.id), 'rb') as f:
+                data = pickle.load(f)
+            print(data)
 
 
-h1 = Hero("张大炮", "炮", 800, 1000)
-h2 = Hero("李坦克", "坦", 200, 3000)
-while True:
-    if h1.hit(h2) == "deal" or h2.hit(h1) == "deal":
-        break
+# m = Mysql('192.168.1.1', 3306)
+# time.sleep(1)
+n = Mysql.From_conf()
+# print(m.__dict__)
+# print(n.__dict__)
+# m.Save_id(m)
+n.Save_id(n)
+# n.get_obj_by_id(n)
