@@ -62,11 +62,11 @@ class Mysql:
         return new_id
 
     @staticmethod
-    def From_conf():
+    def from_conf():
         return Mysql(settings.HOST, settings.PORT)
 
     @staticmethod
-    def Save_id(cls):
+    def save_id(cls):
         print(cls.__dict__)
         with open("%s/%s" % (settings.DB_PATH, cls.id), 'wb') as f:
             data = cls.__dict__
@@ -82,9 +82,9 @@ class Mysql:
 
 # m = Mysql('192.168.1.1', 3306)
 # time.sleep(1)
-n = Mysql.From_conf()
+n = Mysql.from_conf()
 # print(m.__dict__)
 # print(n.__dict__)
 # m.Save_id(m)
-n.Save_id(n)
+n.save_id(n)
 # n.get_obj_by_id(n)
