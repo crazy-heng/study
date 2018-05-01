@@ -43,9 +43,11 @@
 # while True:
 #     if h1.hit(h2) == "deal" or h2.hit(h1) == "deal":
 #         break
-import time
+
 import pickle
 import os
+import time
+import hashlib
 import settings
 
 
@@ -58,12 +60,12 @@ class Mysql:
     @staticmethod
     def create_id():
         # new_id = 1000000000000 + round(time.time())
-        new_id = 20000
-        return new_id
+        m = hashlib.md5(str(time.time()).encode('utf-8'))
+        return m.hexdigest()
 
-    @staticmethod
-    def from_conf():
-        return Mysql(settings.HOST, settings.PORT)
+    @classmethod
+    def from_conf(cls):
+        return cls(settings.HOST, settings.PORT)
 
     @staticmethod
     def save_id(cls):

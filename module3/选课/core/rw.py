@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import pickle
+import sys
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+
+
+def read(name):
+    with open("%s/%s" % (BASE_DIR, name), 'rb') as f:
+        data = (pickle.load(f))
+        return data
+
+
+def write(name, data):
+    with open("%s/%s" % (BASE_DIR, name), 'wb') as f:
+        pickle.dump(data, f)
+
+
+# write("userinfo", "{'admin': ['admin', 'admin']}")
