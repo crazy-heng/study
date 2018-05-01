@@ -41,5 +41,12 @@ def main(who):
     通过角色对象去调用
     :return:
     '''
-    print(manager.Manager.menu)
+    if who == "admin":
+        print(manager.Manager.menu)
+    elif who == "teacher":
+        pass
+    elif who == "student":
+        pass
+    else:
+        print("还未分配！")
     print(who)
