@@ -1,0 +1,6 @@
+主程序运行bin里start.py
+根据用户登陆账号权限，返回可用功能
+建立了三个类manager、teacher、student
+数据都序列化存储在db目录里
+conf里存放了路径的配置
+用户账户都存在db里userinfo里
