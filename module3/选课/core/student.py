@@ -33,4 +33,4 @@ class Student:
             print('无此班级！')
 
     def pay(self):
-        pass
+        print('功能开发中')
