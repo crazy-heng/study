@@ -8,13 +8,13 @@ sys.path.append(BASE_DIR)
 
 
 def read(name):
-    with open("%s/%s" % (BASE_DIR, name), 'rb') as f:
+    with open(name, 'rb') as f:
         data = (pickle.load(f))
         return data
 
 
 def write(name, data):
-    with open("%s/%s" % (BASE_DIR, name), 'wb') as f:
+    with open(name, 'wb') as f:
         pickle.dump(data, f)
 
 
