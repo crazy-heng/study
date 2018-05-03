@@ -24,9 +24,7 @@ class Student:
         classes = input('请输入班级名：')
         student = rw.read('%s%s' % (config.student, self))
         if os.path.exists('%s%s' % (config.classes, classes)):
-            print(classes)
             student['classes'].append(classes)
-            print(student)
             rw.write('%s%s' % (config.student, self), student)
             c = rw.read('%s%s' % (config.classes, classes))
             c['student'].append(self)
@@ -35,4 +33,4 @@ class Student:
             print('无此班级！')
 
     def pay(self):
-        pass
+        print('功能开发中')

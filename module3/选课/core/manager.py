@@ -22,7 +22,6 @@ class Manager:
         name = input("输入讲师姓名：").strip()
         pwd = input("输入讲师密码：").strip()
         config.user_dic[name] = [pwd, 'teacher']
-        print(config.user_dic)
         rw.write(config.userinfo, config.user_dic)
         # 输入老师所在学校 用户名 身份 学校
         t = teacher.Teacher(name)
