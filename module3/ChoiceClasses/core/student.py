@@ -21,14 +21,19 @@ class Student:
         print('学生名:%s 所属班级%s 缴费情况%s' % (student['name'], student['classes'], student['pay']))
 
     def choice_classes(self):
-        classes = input('请输入班级名：')
-        student = rw.read('%s%s' % (config.student, self))
-        if os.path.exists('%s%s' % (config.classes, classes)):
-            student['classes'].append(classes)
-            rw.write('%s%s' % (config.student, self), student)
-            c = rw.read('%s%s' % (config.classes, classes))
-            c['student'].append(self)
-            rw.write('%s%s' % (config.classes, classes), c)
+        classes_name = input('请输入班级名：')
+        if os.path.exists('%s%s' % (config.classes, classes_name)):
+            # 班级写入学生信息
+            student = rw.read('%s%s' % (config.student, self))
+            if classes_name not in student['classes']:
+                student['classes'].append(classes_name)
+                rw.write('%s%s' % (config.student, self), student)
+                # 学生姓名写入班级
+                classes = rw.read('%s%s' % (config.classes, classes_name))
+                classes['student'].append(self)
+                rw.write('%s%s' % (config.classes, classes_name), classes)
+            else:
+                print('已经是%s班学生' % classes_name)
         else:
             print('无此班级！')
 

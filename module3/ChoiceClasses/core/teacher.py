@@ -39,15 +39,24 @@ class Teacher:
         print('讲师名:%s 所教班级%s' % (teacher['name'], teacher['classes']))
 
     def choice_classes(self):
-        classes = input('请输入班级名：')
-        teacher = rw.read('%s%s' % (config.teacher, self))
-        if os.path.exists('%s%s' % (config.classes, classes)):
-            teacher['classes'].append(classes)
-            rw.write('%s%s' % (config.teacher, self), teacher)
+        classes_name = input('请输入班级名：')
+        if os.path.exists('%s%s' % (config.classes, classes_name)):
+            # 老师信息写入班级
+            classes = rw.read('%s%s' % (config.classes, classes_name))
+            if not classes['teacher']:
+                classes['teacher'] = self
+                rw.write('%s%s' % (config.classes, classes_name), classes)
+                # 班级信息写入老师表
+                teacher = rw.read('%s%s' % (config.teacher, self))
+                teacher['classes'].append(classes_name)
+                rw.write('%s%s' % (config.teacher, self), teacher)
+            else:
+                print("班级已有老师！")
+
         else:
             print('无此班级！')
 
-    def show_stu(self):
+    def show_student(self):
         stu = []
         teacher = rw.read('%s%s' % (config.teacher, self))
         for i in teacher['classes']:

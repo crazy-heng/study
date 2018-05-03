@@ -8,7 +8,14 @@ from conf import config
 from core import rw, manager, teacher, student
 
 
+# 定义用户字典和功能字典
 user_dic = rw.read(config.userinfo)
+admin_actions = {'1': manager.Manager.create_teacher, '2': manager.Manager.create_student,
+                 '3': manager.Manager.create_course, '4': manager.Manager.create_classes,
+                 '5': manager.Manager.boundclass, '6': manager.Manager.show_teacher,
+                 '7': manager.Manager.show_student, '8': manager.Manager.show_course, '9': manager.Manager.show_classes}
+teacher_actions = {'1': teacher.Teacher.show, '2': teacher.Teacher.choice_classes, '3': teacher.Teacher.show_student}
+student_actions = {'1': student.Student.show, '2': student.Student.choice_classes, '3': student.Student.pay}
 print(user_dic)
 
 
@@ -34,39 +41,18 @@ def login(func):
 
 @login
 def main(name, who):
-    '''
-    打印欢迎信息
-    login得到返回值
-    打印对应功能菜单
-    通过角色对象去调用
-    :return:
-    '''
-    print(name)
+    # 打印欢迎信息login得到返回值打印对应功能菜单通过角色对象去调用
     if who == "admin":
         print('欢迎管理员登录,请选择操作！')
         while True:
             for key in manager.Manager.menu:
                 print('%s-->>[%s]' % (key[0], key[1]))
-            ch = input('请选择[]内的参数进行操作！(q退出）')
-            if ch == '1':
-                manager.Manager.creat_t(who)
-            elif ch == '2':
-                manager.Manager.creat_s(who)
-            elif ch == '3':
-                manager.Manager.creat_c(who)
-            elif ch == '4':
-                manager.Manager.create_classes(who)
-            elif ch == '5':
-                manager.Manager.boundclass(who)
-            elif ch == '6':
-                manager.Manager.show_t(who)
-            elif ch == '7':
-                manager.Manager.show_s(who)
-            elif ch == '8':
-                manager.Manager.show_c(who)
-            elif ch == '9':
-                manager.Manager.show_classes(who)
-            elif ch == 'q':
+            choice = input('请选择[]内的参数进行操作！(q退出）')
+            if choice.isdigit():
+                if choice in admin_actions.keys():
+                    func = admin_actions[choice]
+                    func(name)
+            elif choice == 'q':
                 exit('再见')
             else:
                 print('参数输入错误！')
@@ -75,14 +61,12 @@ def main(name, who):
         while True:
             for key in teacher.Teacher.menu:
                 print('%s-->>[%s]' % (key[0], key[1]))
-            ch = input('请选择[]内的参数进行操作！(q退出）')
-            if ch == '1':
-                teacher.Teacher.show(name)
-            elif ch == '2':
-                teacher.Teacher.choice_classes(name)
-            elif ch == '3':
-                teacher.Teacher.show_stu(name)
-            elif ch == 'q':
+            choice = input('请选择[]内的参数进行操作！(q退出）')
+            if choice.isdigit():
+                if choice in teacher_actions.keys():
+                    func = teacher_actions[choice]
+                    func(name)
+            elif choice == 'q':
                 exit('再见')
             else:
                 print("选择错误！")
@@ -92,14 +76,12 @@ def main(name, who):
         while True:
             for key in student.Student.menu:
                 print('%s-->>[%s]' % (key[0], key[1]))
-            ch = input('请选择[]内的参数进行操作！(q退出）')
-            if ch == '1':
-                student.Student.show(name)
-            elif ch == '2':
-                student.Student.choice_classes(name)
-            elif ch == '3':
-                student.Student.pay(name)
-            elif ch == 'q':
+            choice = input('请选择[]内的参数进行操作！(q退出）')
+            if choice.isdigit():
+                if choice in student_actions.keys():
+                    func = student_actions[choice]
+                    func(name)
+            elif choice == 'q':
                 exit('再见')
             else:
                 print("选择错误！")
