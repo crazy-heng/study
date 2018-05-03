@@ -67,17 +67,15 @@ class Mysql:
     def from_conf(cls):
         return cls(settings.HOST, settings.PORT)
 
-    @staticmethod
-    def save_id(cls):
-        print(cls.__dict__)
-        with open("%s/%s" % (settings.DB_PATH, cls.id), 'wb') as f:
-            data = cls.__dict__
+    def save_id(self):
+        print(self.__dict__)
+        with open("%s/%s" % (settings.DB_PATH, self.id), 'wb') as f:
+            data = self.__dict__
             pickle.dump(data, f)
 
-    @staticmethod
-    def get_obj_by_id(cls):
-        if os.path.exists("%s/%s" % (settings.DB_PATH, cls.id)):
-            with open("%s/%s" % (settings.DB_PATH, cls.id), 'rb') as f:
+    def get_obj_by_id(self):
+        if os.path.exists("%s/%s" % (settings.DB_PATH, self.id)):
+            with open("%s/%s" % (settings.DB_PATH, self.id), 'rb') as f:
                 data = pickle.load(f)
             print(data)
 
@@ -88,5 +86,5 @@ n = Mysql.from_conf()
 # print(m.__dict__)
 # print(n.__dict__)
 # m.Save_id(m)
-n.save_id(n)
-# n.get_obj_by_id(n)
+n.save_id()
+n.get_obj_by_id()
