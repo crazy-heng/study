@@ -10,8 +10,8 @@ from core import rw, teacher, student
 
 
 class Manager:
-    menu = [['创建讲师账号', '1'], ['创建学生账号', '2'], ['创建课程', '3'], ['创建班级', '4'], ['创建班级绑定', '5'],
-            ['查看讲师账号', '6'], ['查看学生账号', '7'], ['查看课程', '8'], ['查看班级', '9']]
+    menu = [['创建讲师', '1'], ['创建学生', '2'], ['创建课程', '3'], ['创建班级', '4'], ['创建绑定', '5'],
+            ['查看讲师', '6'], ['查看学生', '7'], ['查看课程', '8'], ['查看班级', '9']]
 
     def __init__(self, name):
         self.name = name
@@ -20,8 +20,8 @@ class Manager:
         # 输入老师用户名密码存入登陆信息到db
         print('---创建讲师---')
         name = input("输入讲师姓名：").strip()
-        pwd = input("输入讲师密码：").strip()
-        config.user_dic[name] = [pwd, 'teacher']
+        password = input("输入讲师密码：").strip()
+        config.user_dic[name] = [password, 'teacher']
         rw.write(config.userinfo, config.user_dic)
         # 输入老师所在学校 用户名 身份 学校
         t = teacher.Teacher(name)
@@ -81,8 +81,8 @@ class Manager:
         print('---创建学生---')
         # 输入学生用户名密码存入登陆信息到db
         name = input('输入学生姓名：').strip()
-        pwd = input('输入学生密码：').strip()
-        config.user_dic[name] = [pwd, 'student']
+        password = input('输入学生密码：').strip()
+        config.user_dic[name] = [password, 'student']
         rw.write(config.userinfo, config.user_dic)
         # 实例化一个学生对象（姓名 讲师空表）
         stu = student.Student(name)
@@ -92,8 +92,8 @@ class Manager:
         print('---查看学生---')
         name = input("输入查看学生名：").strip()
         if os.path.exists('%s%s' % (config.student, name)):
-            stu = rw.read('%s%s' % (config.student, name))
-            print('学生名:%s 班级%s 缴费信息%s' % (stu['name'], stu['classes'], stu['pay']))
+            student = rw.read('%s%s' % (config.student, name))
+            print('学生名:%s 班级%s 缴费信息%s' % (student['name'], student['classes'], student['pay']))
         else:
             print('姓名输入有误！')
 

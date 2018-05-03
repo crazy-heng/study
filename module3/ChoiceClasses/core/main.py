@@ -16,7 +16,7 @@ admin_actions = {'1': manager.Manager.create_teacher, '2': manager.Manager.creat
                  '7': manager.Manager.show_student, '8': manager.Manager.show_course, '9': manager.Manager.show_classes}
 teacher_actions = {'1': teacher.Teacher.show, '2': teacher.Teacher.choice_classes, '3': teacher.Teacher.show_student}
 student_actions = {'1': student.Student.show, '2': student.Student.choice_classes, '3': student.Student.pay}
-print(user_dic)
+print('用户参考：%s' % user_dic)
 
 
 def login(func):
@@ -46,7 +46,7 @@ def main(name, who):
         print('欢迎管理员登录,请选择操作！')
         while True:
             for key in manager.Manager.menu:
-                print('%s-->>[%s]' % (key[0], key[1]))
+                print('%-6s-->> [%s]' % (key[0], key[1]))
             choice = input('请选择[]内的参数进行操作！(q退出）')
             if choice.isdigit():
                 if choice in admin_actions.keys():
@@ -60,7 +60,7 @@ def main(name, who):
         print('欢迎讲师%s登录,请选择操作！' % name)
         while True:
             for key in teacher.Teacher.menu:
-                print('%s-->>[%s]' % (key[0], key[1]))
+                print('%-6s-->> [%s]' % (key[0], key[1]))
             choice = input('请选择[]内的参数进行操作！(q退出）')
             if choice.isdigit():
                 if choice in teacher_actions.keys():
@@ -75,7 +75,7 @@ def main(name, who):
         print('欢迎学生%s登录,请选择操作！' % name)
         while True:
             for key in student.Student.menu:
-                print('%s-->>[%s]' % (key[0], key[1]))
+                print('%-6s-->> [%s]' % (key[0], key[1]))
             choice = input('请选择[]内的参数进行操作！(q退出）')
             if choice.isdigit():
                 if choice in student_actions.keys():
