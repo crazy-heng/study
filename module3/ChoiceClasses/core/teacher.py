@@ -8,10 +8,16 @@ from conf import config
 from core import rw, student
 
 
-class Classes:
-    school = 'luffycity'
+class School:
+    school_name = 'luffycity'
 
+    def __init__(self, area):
+        self.area = area
+
+
+class Classes(School):
     def __init__(self, course, name, area):
+        super().__init__(area)
         self.name = name    # 班级名称
         self.area = area    # 城市
         self.course = course  # 科目
