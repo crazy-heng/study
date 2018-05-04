@@ -101,17 +101,19 @@ class Manager:
         print('---创建绑定---')
         # 指定老师还是学生
         kind = input('选择需要操作（1-老师，2-学生）：').strip()
-        if int(kind) == 1:
+        if kind.isdigit() and int(kind) == 1:
             # 老师添加班级并保存信息,班级增加讲师
             name = input('输入老师姓名：').strip()
             if os.path.exists('%s%s' % (config.teacher, name)):
                 teacher.Teacher.choice_classes(name)
             else:
                 print('老师姓名错误！')
-        elif int(kind) == 2:
+        elif kind.isdigit() and int(kind) == 2:
             # 学生添加班级并保存信息,班级增加学生姓名。
             name = input('输入学生姓名：').strip()
             if os.path.exists('%s%s' % (config.student, name)):
                 student.Student.choice_classes(name)
             else:
                 print('学生姓名错误！')
+        else:
+            print('选择错误！')
