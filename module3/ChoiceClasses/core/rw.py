@@ -16,6 +16,3 @@ def read(name):
 def write(name, data):
     with open(name, 'wb') as f:
         pickle.dump(data, f)
-
-
-# write("userinfo", "{'admin': ['admin', 'admin']}")
