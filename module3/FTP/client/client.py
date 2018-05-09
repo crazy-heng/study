@@ -24,6 +24,7 @@ class FTPClient:
         self.user_info = user_info
         self.socket = socket.socket(self.address_type, self.socket_type)
         self.user_dir = user_name
+        self.user_quota = 0
         if connect:
             try:
                 self.client_connect()
@@ -43,6 +44,8 @@ class FTPClient:
             cmds = input('-->').strip()
             if not cmds:
                 continue
+            self.socket.send(('%s /s' % self.user_name).encode('utf-8'))  # windows系统取配额
+            self.user_quota = self.get_quota(cmds)
             self.socket.send(('%s %s' % (self.user_dir, cmds)).encode('utf-8'))
             cmd = cmds.split()
             if cmd[0] == 'get':
@@ -50,30 +53,34 @@ class FTPClient:
             elif cmd[0] == 'put':
                 self.put(cmd)
             elif cmd[0] == 'dir':
-                self.show(cmd)
+                print(self.show(cmd))
             elif cmd[0] == 'cd':
                 self.cd(cmd)
-                # self.socket.send(('%s %s' % (self.user_dir, cmds)).encode('utf-8'))
-                # self.show(cmd)
+            else:
+                print('请输入正确指令(get\put\dir\cd)')
 
-            print('当前所在目录%s' % self.user_dir)
+            print('当前所在服务器目录%s' % self.user_dir)
         # self.client_close()
 
     def put(self, cmds):
         cmd = cmds[0]
         filename = cmds[1]
+        filesize = 0
+        md5 = None
         if not os.path.isfile('%s/%s' % (self.client_dir, filename)):
             print('file:%s/%s is not exists' % (self.client_dir, filename))
-            return
+            filename = None
         else:
             filesize = os.path.getsize('%s/%s' % (self.client_dir, filename))
+            with open('%s/%s' % (self.client_dir, filename), 'rb') as f:
+                md5 = tools.md5(f.read())
         # 判断上传文件是否超过剩余配额
-        if filesize > self.user_info[self.user_name][2]:
-            print('已超配额无法上传%s！当前剩余配额%s！' % (filesize, self.user_info[self.user_name][2]))
-            return
+        if filesize > self.user_info[self.user_name][1] - int(self.user_quota):
+            print('无法上传%s！当前剩余配额%s！' % (filesize, self.user_info[self.user_name][1] - int(self.user_quota)))
+            filename = None
 
-        head_dic = {'cmd': cmd, 'user_name': self.user_name, 'file_name': filename, 'file_size': filesize}
-        print(head_dic)
+        head_dic = {'cmd': cmd, 'md5': md5, 'file_name': filename, 'file_size': filesize}
+        # print(head_dic)
         head_json = json.dumps(head_dic)
         head_json_bytes = bytes(head_json, encoding=self.coding)
 
@@ -81,15 +88,14 @@ class FTPClient:
         self.socket.send(head_struct)
         self.socket.send(head_json_bytes)
         send_size = 0
-        with open('%s/%s' % (self.client_dir, filename), 'rb') as f:
-            for line in f:
-                self.socket.send(line)
-                send_size += len(line)
-                print(send_size)
-            else:
-                print('upload successful')
-                self.user_info[self.user_name][2] -= send_size
-                tools.write('userlist', self.user_info)
+        if filename:
+            with open('%s/%s' % (self.client_dir, filename), 'rb') as f:
+                for line in f:
+                    self.socket.send(line)
+                    send_size += len(line)
+                    print('已传送%s!' % send_size)
+                else:
+                    print('upload successful')
 
     def get(self, cmds):
         header = self.socket.recv(4)
@@ -102,15 +108,24 @@ class FTPClient:
         header_dic = json.loads(header_json)
         total_size = header_dic['file_size']
         file_name = header_dic['file_name']
-
-        # 第四步：接收真实的数据
-        with open('%s/%s' % (self.client_dir, file_name), 'wb') as f:
-            recv_size = 0
-            while recv_size < total_size:
-                line = self.socket.recv(1024)
-                f.write(line)
-                recv_size += len(line)
-                print('总大小%s,已下载%s' % (total_size, recv_size))
+        md5_server = header_dic['md5']
+        if file_name:
+            # 第四步：接收真实的数据
+            with open('%s/%s' % (self.client_dir, file_name), 'wb') as f:
+                recv_size = 0
+                while recv_size < total_size:
+                    line = self.socket.recv(1024)
+                    f.write(line)
+                    recv_size += len(line)
+                    print('总大小%s,已下载%s' % (total_size, recv_size))
+            with open('%s/%s' % (self.client_dir, file_name), 'rb') as f:
+                md5_local = tools.md5(f.read())
+            if md5_local == md5_server:
+                print('下载文件%s验证成功，下载完成！' % file_name)
+            else:
+                print('下载文件%s与服务器不一致，建议重新下载！' % file_name)
+        else:
+            print('%s无此文件！' % cmds[1])
 
     def show(self, cmds):
         header = self.socket.recv(4)
@@ -130,10 +145,10 @@ class FTPClient:
             res = self.socket.recv(1024)
             recv_data += res
             recv_size += len(res)
-        print(recv_data.decode('gbk'))  # linux用utf-8解码，windows用gbk解码
+        # print(recv_data.decode('gbk'))
+        return recv_data.decode('gbk')  # linux用utf-8解码，windows用gbk解码
 
     def cd(self, cmds):
-        print(cmds[1])
         if cmds[1] == '..' and self.user_dir != self.user_name:
             new_dir = self.user_dir.split('\\')
             new_dir.pop()
@@ -141,6 +156,14 @@ class FTPClient:
         elif cmds[1] and cmds[1] != '..':
             self.user_dir = self.user_dir + '\\' + cmds[1]
 
-
-# client = FTPClient(('127.0.0.1', 8090))
-# client.run()
+    def get_quota(self, cmds):  # 获取用户目录的使用量
+        with open('temp', 'w', encoding='utf-8') as f:
+            f.write(self.show(cmds))
+        with open('temp', 'r', encoding='utf-8') as f:
+            lines = len(f.readlines())
+        with open('temp', 'r', encoding='utf-8') as f:
+            i = 0
+            for line in f.readlines():
+                i += 1
+                if i == lines - 3:
+                    return line.strip().split(' ')[-2]

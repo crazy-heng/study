@@ -3,7 +3,7 @@
 import client
 import tools
 
-# 用户名密码列表存配额和已使用user_dic = {'fan': ['123', 100000, 0]}
+print('用户名密码列表存配额和剩余配额user_dic = {fan: [123, 100000, 0]}密码md5加密')
 user_dic = tools.read('userlist')
 # tools.write('userlist', user_dic)
 
@@ -15,7 +15,7 @@ def login(func):
             user_name = input("请输入用户名：").strip()
             user_pass = input("请输入密码：").strip()
             for user_item in user_dic.keys():
-                if user_name == user_item and user_pass == user_dic[user_item][0]:
+                if user_name == user_item and tools.md5(user_pass.encode('utf-8')) == user_dic[user_item][0]:
                     print("用户" + user_name + "登录成功！")
                     func(user_name, user_dic)
                     return
@@ -36,7 +36,8 @@ def main(user_name, user_info):
         client.FTPClient((address, int(port)), user_name, user_info).run()
     except Exception as e:
         print(e)
-        print('地址或端口错误！')
+        print('服务器地址或端口错误！')
 
 
-main()
+if __name__ == '__main__':
+    main()

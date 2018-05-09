@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import json
+import hashlib
 
 
 def read(name):
@@ -12,3 +13,9 @@ def read(name):
 def write(name, data):
     with open(name, 'w') as f:
         json.dump(data, f)
+
+
+def md5(file):
+    m = hashlib.md5()
+    m.update(file)
+    return m.hexdigest()
