@@ -56,31 +56,35 @@ class FTPServer:
             while True:
                 try:
                     # 1 接收命令
-                    res = conn.recv(self.max_packet_size)
-                    self.show(conn, [res.decode('utf-8')])
-                    res = conn.recv(self.max_packet_size)
-                    if not res:
+                    # res = conn.recv(self.max_packet_size)
+                    # self.show(conn, [res.decode('utf-8')])
+                    head_dic = self.receive(conn)
+                    # res = conn.recv(self.max_packet_size)
+                    if not head_dic:
                         break
-                    print('客户端数据', res)
-
+                    print('客户端数据', head_dic)
+                    cmd = head_dic['cmd']
+                    if hasattr(self, cmd):
+                        func = getattr(self, cmd)
+                        func(conn, head_dic)
                     # 2 解析命令，提取相应命令参数
-                    cmd = res.decode('utf-8').split()
-                    if cmd[1] == 'get':
-                        self.put(conn, cmd)
-                    elif cmd[1] == 'put':
-                        self.get(conn, cmd)
-                    elif cmd[1] == 'dir':
-                        self.show(conn, cmd)
-                    elif cmd[1] == 'cd':
-                        pass
+                    # cmd = res.decode('utf-8').split()
+                    # if cmd[1] == 'get':
+                    #     self.put(conn, cmd)
+                    # elif cmd[1] == 'put':
+                    #     self.get(conn, cmd)
+                    # elif cmd[1] == 'dir':
+                    #     self.show(conn, cmd)
+                    # elif cmd[1] == 'cd':
+                    #     pass
                 except ConnectionResetError:  # windows系统用try处理客户端断开报错退出
                     break
             conn.close()
 
     def put(self, conn, cmd):
-        user_name = cmd[0]
-        file_name = cmd[2]
-        file_dir = os.path.join(self.server_dir, user_name, file_name)
+        user_dir = cmd['user_dir']
+        file_name = cmd['file_name']
+        file_dir = os.path.join(self.server_dir, user_dir, file_name)
         # 判断下载文件是否存在
         if not os.path.isfile(file_dir):
             print('服务器上无此文件%s' % file_name)
@@ -100,34 +104,33 @@ class FTPServer:
                     conn.send(line)
 
     def get(self, conn, cmd):
-        username = cmd[0]
-        header_dic = self.receive(conn)
-        total_size = header_dic['file_size']
-        file_name = header_dic['file_name']
-        md5_upload = header_dic['md5']
+        user_dir = cmd['user_dir']
+        # header_dic = self.receive(conn)
+        total_size = cmd['file_size']
+        file_name = cmd['file_name']
+        md5_upload = cmd['md5']
         # 接收真实的数据
-        if header_dic['file_name']:
-            file_dir = os.path.join(self.server_dir, username, file_name)
-            with open(file_dir, 'wb') as f:
-                recv_size = 0
-                while recv_size < total_size:
-                    line = conn.recv(1024)
-                    f.write(line)
-                    recv_size += len(line)
-                    print('总大小%s,已下载%s' % (total_size, recv_size))
-            with open(file_dir, 'rb') as f:
-                md5_local = self.md5(f.read())
-            if md5_local == md5_upload:
-                print('上传传文件%s验证md5[%s]成功，上传完成！' % (file_name, md5_local))
-            else:
-                print('上传文件%s与服务器不一致，建议重新上传！' % file_name)
+        file_dir = os.path.join(self.server_dir, user_dir, file_name)
+        with open(file_dir, 'wb') as f:
+            recv_size = 0
+            while recv_size < total_size:
+                line = conn.recv(1024)
+                f.write(line)
+                recv_size += len(line)
+                print('总大小%s,已下载%s' % (total_size, recv_size))
+        with open(file_dir, 'rb') as f:
+            md5_local = self.md5(f.read())
+        if md5_local == md5_upload:
+            print('上传传文件%s验证md5[%s]成功，上传完成！' % (file_name, md5_local))
+        else:
+            print('上传文件%s与服务器不一致，建议重新上传！' % file_name)
 
-    def show(self, conn, cmd):
-        obj = subprocess.Popen('dir share\%s' % cmd[0], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    def dir(self, conn, cmd):
+        obj = subprocess.Popen('dir share\%s' % cmd['user_dir'], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout = obj.stdout.read()
         stderr = obj.stderr.read()
         # 制作报头,struct模块用i格式固定长度是4
-        header_dic = {'filename': 'a.txt', 'md5': 'xxxeddexxx', 'total_size': len(stdout) + len(stderr)}
+        header_dic = {'total_size': len(stdout) + len(stderr)}
         self.send(conn, header_dic)
         conn.send(stdout)
         conn.send(stderr)
@@ -139,6 +142,8 @@ class FTPServer:
 
     def receive(self, conn):  # 接收报头并返回数据
         header = conn.recv(4)
+        if not header:
+            return None
         header_size = struct.unpack('i', header)[0]
         header_bytes = conn.recv(header_size)
         header_json = header_bytes.decode('utf-8')

@@ -1,37 +1,39 @@
- 驱动器 C 中的卷没有标签。
- 卷的序列号是 C038-3181
+ 驱动器 E 中的卷是 新加卷
+ 卷的序列号是 38C0-2F03
 
- C:\Users\admin\PycharmProjects\s12\day1\module3\FTP\server\share\fan 的目录
+ E:\python\study\module3\FTP\server\share\fan 的目录
 
-2018/05/10  17:33    <DIR>          .
-2018/05/10  17:33    <DIR>          ..
-2018/05/08  18:23    <DIR>          doc
-2018/05/09  17:00    <DIR>          movies
-2018/05/09  17:00    <DIR>          pic
-2018/05/09  16:56                95 test.txt
+2018/05/11 周五  00:44    <DIR>          .
+2018/05/11 周五  00:44    <DIR>          ..
+2018/05/10 周四  22:06    <DIR>          doc
+2018/05/10 周四  22:06    <DIR>          movies
+2018/05/11 周五  00:56    <DIR>          pic
+2018/05/10 周四  22:06                95 test.txt
+2018/05/11 周五  00:44                53 test2.txt
+               2 个文件            148 字节
+
+ E:\python\study\module3\FTP\server\share\fan\doc 的目录
+
+2018/05/10 周四  22:06    <DIR>          .
+2018/05/10 周四  22:06    <DIR>          ..
+2018/05/10 周四  22:06                95 test.txt
                1 个文件             95 字节
 
- C:\Users\admin\PycharmProjects\s12\day1\module3\FTP\server\share\fan\doc 的目录
+ E:\python\study\module3\FTP\server\share\fan\movies 的目录
 
-2018/05/08  18:23    <DIR>          .
-2018/05/08  18:23    <DIR>          ..
-2018/05/08  18:25                95 test.txt
+2018/05/10 周四  22:06    <DIR>          .
+2018/05/10 周四  22:06    <DIR>          ..
+2018/05/10 周四  22:06                95 test.txt
                1 个文件             95 字节
 
- C:\Users\admin\PycharmProjects\s12\day1\module3\FTP\server\share\fan\movies 的目录
+ E:\python\study\module3\FTP\server\share\fan\pic 的目录
 
-2018/05/09  17:00    <DIR>          .
-2018/05/09  17:00    <DIR>          ..
-2018/05/09  10:23                95 test.txt
-               1 个文件             95 字节
-
- C:\Users\admin\PycharmProjects\s12\day1\module3\FTP\server\share\fan\pic 的目录
-
-2018/05/09  17:00    <DIR>          .
-2018/05/09  17:00    <DIR>          ..
-2018/05/09  09:19                53 test2.txt
-               1 个文件             53 字节
+2018/05/11 周五  00:56    <DIR>          .
+2018/05/11 周五  00:56    <DIR>          ..
+2018/05/11 周五  00:56                95 test.txt
+2018/05/10 周四  22:06                53 test2.txt
+               2 个文件            148 字节
 
      所列文件总数:
-               4 个文件            338 字节
-              11 个目录 23,625,867,264 可用字节
+               6 个文件            486 字节
+              11 个目录 80,607,084,544 可用字节
