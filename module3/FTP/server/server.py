@@ -56,10 +56,7 @@ class FTPServer:
             while True:
                 try:
                     # 1 接收命令
-                    # res = conn.recv(self.max_packet_size)
-                    # self.show(conn, [res.decode('utf-8')])
                     head_dic = self.receive(conn)
-                    # res = conn.recv(self.max_packet_size)
                     if not head_dic:
                         break
                     print('客户端数据', head_dic)
@@ -67,16 +64,6 @@ class FTPServer:
                     if hasattr(self, cmd):
                         func = getattr(self, cmd)
                         func(conn, head_dic)
-                    # 2 解析命令，提取相应命令参数
-                    # cmd = res.decode('utf-8').split()
-                    # if cmd[1] == 'get':
-                    #     self.put(conn, cmd)
-                    # elif cmd[1] == 'put':
-                    #     self.get(conn, cmd)
-                    # elif cmd[1] == 'dir':
-                    #     self.show(conn, cmd)
-                    # elif cmd[1] == 'cd':
-                    #     pass
                 except ConnectionResetError:  # windows系统用try处理客户端断开报错退出
                     break
             conn.close()
