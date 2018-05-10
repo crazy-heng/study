@@ -16,7 +16,7 @@ class FTPClient:
     max_packet_size = 8192
     coding = 'utf-8'
     request_queue_size = 5
-    client_dir = BASE_DIR + '/download'
+    client_dir = os.path.join(BASE_DIR, 'download')
 
     def __init__(self, server_address, user_name, user_info, connect=True):
         self.server_address = server_address
@@ -66,13 +66,14 @@ class FTPClient:
         cmd = cmds[0]
         filename = cmds[1]
         filesize = 0
+        file_dir = os.path.join(self.client_dir, filename)
         md5 = None
-        if not os.path.isfile('%s/%s' % (self.client_dir, filename)):
-            print('file:%s/%s is not exists' % (self.client_dir, filename))
+        if not os.path.isfile(file_dir):
+            print('file:%s is not exists' % file_dir)
             filename = None
         else:
-            filesize = os.path.getsize('%s/%s' % (self.client_dir, filename))
-            with open('%s/%s' % (self.client_dir, filename), 'rb') as f:
+            filesize = os.path.getsize(file_dir)
+            with open(file_dir, 'rb') as f:
                 md5 = tools.md5(f.read())
         # 判断上传文件是否超过剩余配额
         if filesize > self.user_info[self.user_name][1] - int(self.user_quota):
@@ -80,16 +81,17 @@ class FTPClient:
             filename = None
 
         head_dic = {'cmd': cmd, 'md5': md5, 'file_name': filename, 'file_size': filesize}
-        # print(head_dic)
-        head_json = json.dumps(head_dic)
-        head_json_bytes = bytes(head_json, encoding=self.coding)
-
-        head_struct = struct.pack('i', len(head_json_bytes))
-        self.socket.send(head_struct)
-        self.socket.send(head_json_bytes)
+        # # print(head_dic)
+        # head_json = json.dumps(head_dic)
+        # head_json_bytes = bytes(head_json, encoding=self.coding)
+        #
+        # head_struct = struct.pack('i', len(head_json_bytes))
+        # self.socket.send(head_struct)
+        # self.socket.send(head_json_bytes)
+        self.send(head_dic)
         send_size = 0
         if filename:
-            with open('%s/%s' % (self.client_dir, filename), 'rb') as f:
+            with open(file_dir, 'rb') as f:
                 for line in f:
                     self.socket.send(line)
                     send_size += len(line)
@@ -98,14 +100,7 @@ class FTPClient:
                     print('upload successful')
 
     def get(self, cmds):
-        header = self.socket.recv(4)
-        header_size = struct.unpack('i', header)[0]
-        # 第二步：收报头数据
-        header_bytes = self.socket.recv(header_size)
-
-        # 第三步：取报头信息
-        header_json = header_bytes.decode('utf-8')
-        header_dic = json.loads(header_json)
+        header_dic = self.receive()
         total_size = header_dic['file_size']
         file_name = header_dic['file_name']
         md5_server = header_dic['md5']
@@ -128,24 +123,15 @@ class FTPClient:
             print('%s无此文件！' % cmds[1])
 
     def show(self, cmds):
-        header = self.socket.recv(4)
-        header_size = struct.unpack('i', header)[0]
-        # 第二步：收报头数据
-        header_bytes = self.socket.recv(header_size)
-
-        # 第三步：取报头信息
-        header_json = header_bytes.decode('utf-8')
-        header_dic = json.loads(header_json)
+        header_dic = self.receive()
         total_size = header_dic['total_size']
-
-        # 第四步：接收真实的数据
+        # 接收真实的数据
         recv_size = 0
         recv_data = b''
         while recv_size < total_size:
             res = self.socket.recv(1024)
             recv_data += res
             recv_size += len(res)
-        # print(recv_data.decode('gbk'))
         return recv_data.decode('gbk')  # linux用utf-8解码，windows用gbk解码
 
     def cd(self, cmds):
@@ -167,3 +153,20 @@ class FTPClient:
                 i += 1
                 if i == lines - 3:
                     return line.strip().split(' ')[-2]
+
+    def receive(self):
+        header = self.socket.recv(4)
+        header_size = struct.unpack('i', header)[0]
+        # 第二步：收报头数据
+        header_bytes = self.socket.recv(header_size)
+        # 第三步：取报头信息
+        header_json = header_bytes.decode('utf-8')
+        header_dic = json.loads(header_json)
+        return header_dic
+
+    def send(self, head_dic):
+        head_json = json.dumps(head_dic)
+        head_json_bytes = bytes(head_json, encoding=self.coding)
+        head_struct = struct.pack('i', len(head_json_bytes))
+        self.socket.send(head_struct)
+        self.socket.send(head_json_bytes)
