@@ -80,14 +80,7 @@ class FTPClient:
             print('无法上传%s！当前剩余配额%s！' % (filesize, self.user_info[self.user_name][1] - int(self.user_quota)))
             filename = None
 
-        head_dic = {'cmd': cmd, 'md5': md5, 'file_name': filename, 'file_size': filesize}
-        # # print(head_dic)
-        # head_json = json.dumps(head_dic)
-        # head_json_bytes = bytes(head_json, encoding=self.coding)
-        #
-        # head_struct = struct.pack('i', len(head_json_bytes))
-        # self.socket.send(head_struct)
-        # self.socket.send(head_json_bytes)
+        head_dic = {'cmd': cmd[0], 'md5': md5, 'file_name': filename, 'file_size': filesize}
         self.send(head_dic)
         send_size = 0
         if filename:
