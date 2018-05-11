@@ -44,10 +44,14 @@ class FTPClient:
             cmds = input('-->').strip()
             if not cmds:
                 continue
-            cmd = cmds.split()[0]
-            if hasattr(self, cmd):
-                func = getattr(self, cmd)
-                func(cmds.split())
+            cmds = cmds.split()
+            cmd = cmds[0]
+            if cmd == 'dir' or len(cmds) >= 2:
+                if hasattr(self, cmd):
+                    func = getattr(self, cmd)
+                    func(cmds)
+            else:
+                print('命令参数错误!')
 
             print('当前所在服务器目录%s' % self.user_dir)
         # self.client_close()
@@ -55,8 +59,8 @@ class FTPClient:
     def put(self, cmds):
         filename = cmds[1]
         file_dir = os.path.join(self.client_dir, filename)
-        if not os.path.isfile(file_dir):
-            print('file:%s is not exists' % file_dir)
+        if not os.path.exists(file_dir):
+            print('file:%s is not exists' % filename)
             return
         else:
             filesize = os.path.getsize(file_dir)
