@@ -113,11 +113,15 @@ class FTPServer:
 
     def dir(self, conn, cmd):
         path = os.path.join(self.server_dir, cmd['user_dir'])
-        dirs = '\n'.join(os.listdir(path))
-        header_dic = {'total_size': len(dirs)}
-        self.send(conn, header_dic)
-        for file in dirs:
-            conn.send(file.encode(self.coding))
+        if os.path.exists(path):
+            dirs = '\n'.join(os.listdir(path))
+            header_dic = {'total_size': len(dirs)}
+            self.send(conn, header_dic)
+            for file in dirs:
+                conn.send(file.encode(self.coding))
+        else:
+            header_dic = {'total_size': 0}
+            self.send(conn, header_dic)
 
     def md5(self, file):
         m = hashlib.md5()

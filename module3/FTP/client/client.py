@@ -114,28 +114,29 @@ class FTPClient:
 
     def dir(self, cmds):
         head_dic = {'cmd': 'dir', 'user_dir': self.user_dir}
-        print(self.show(head_dic))
+        self.show(head_dic)
 
     def show(self, head_dic):
         self.send(head_dic)
         header_dic = self.receive()
         total_size = header_dic['total_size']
         # 接收真实的数据
-        recv_size = 0
-        recv_data = b''
-        while recv_size < total_size:
-            res = self.socket.recv(1024)
-            recv_data += res
-            recv_size += len(res)
-        return recv_data.decode('gbk')  # linux用utf-8解码，windows用gbk解码
+        if total_size != 0:
+            recv_size = 0
+            recv_data = b''
+            while recv_size < total_size:
+                res = self.socket.recv(1024)
+                recv_data += res
+                recv_size += len(res)
+            print(recv_data.decode('gbk'))  # linux用utf-8解码，windows用gbk解码
+        else:
+            print('服务器上无%s目录' % self.user_dir)
 
     def cd(self, cmds):
         if cmds[1] == '..' and self.user_dir != self.user_name:
-            new_dir = self.user_dir.split('\\')
-            new_dir.pop()
-            self.user_dir = '\\'.join(new_dir)
+            self.user_dir = os.path.dirname(self.user_dir)
         elif cmds[1] and cmds[1] != '..':
-            self.user_dir = self.user_dir + '\\' + cmds[1]
+            self.user_dir = self.user_dir + os.sep + cmds[1]
 
     def get_quota(self):  # 获取用户目录的使用量
         head_dic = {'cmd': 'quota', 'user_name': self.user_name}
