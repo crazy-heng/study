@@ -7,6 +7,9 @@ print('用户名密码列表存配额和剩余配额user_dic = {fan: [123, 10000
 user_dic = tools.read('userlist')
 # tools.write('userlist', user_dic)
 
+address = '127.0.0.1'
+port = 8091
+
 
 def login(func):
     def inner(*args, **kwargs):
@@ -31,8 +34,8 @@ def login(func):
 @login
 def main(user_name, user_info):
     try:
-        address = input('输入连接服务器地址：').strip()
-        port = input('输入服务器端口：').strip()
+        # address = input('输入连接服务器地址：').strip()
+        # port = input('输入服务器端口：').strip()
         client.FTPClient((address, int(port)), user_name, user_info).run()
     except Exception as e:
         print(e)

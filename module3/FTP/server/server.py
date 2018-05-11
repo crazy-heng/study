@@ -3,7 +3,6 @@
 import socket
 import json
 import struct
-import subprocess
 import os
 import hashlib
 
@@ -113,14 +112,12 @@ class FTPServer:
             print('上传文件%s与服务器不一致，建议重新上传！' % file_name)
 
     def dir(self, conn, cmd):
-        obj = subprocess.Popen('dir share\%s' % cmd['user_dir'], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout = obj.stdout.read()
-        stderr = obj.stderr.read()
-        # 制作报头,struct模块用i格式固定长度是4
-        header_dic = {'total_size': len(stdout) + len(stderr)}
+        path = os.path.join(self.server_dir, cmd['user_dir'])
+        dirs = '\n'.join(os.listdir(path))
+        header_dic = {'total_size': len(dirs)}
         self.send(conn, header_dic)
-        conn.send(stdout)
-        conn.send(stderr)
+        for file in dirs:
+            conn.send(file.encode(self.coding))
 
     def md5(self, file):
         m = hashlib.md5()
@@ -139,7 +136,16 @@ class FTPServer:
 
     def send(self, conn, header_dic):  # 发送报头
         header_json = json.dumps(header_dic)
-        header_bytes = header_json.encode('utf-8')
+        header_bytes = header_json.encode(self.coding)
         header = struct.pack('i', len(header_bytes))
         conn.send(header)
         conn.send(header_bytes)
+
+    def quota(self, conn, header_dic):
+        user_name = header_dic['user_name']
+        user_dir = os.path.join(self.server_dir, user_name)
+        size = 0
+        for root, dirs, files in os.walk(user_dir):
+            size += sum([os.path.getsize(os.path.join(root, name)) for name in files])
+        header_dic = {'quota': size}
+        self.send(conn, header_dic)

@@ -67,8 +67,7 @@ class FTPClient:
             with open(file_dir, 'rb') as f:
                 md5 = tools.md5(f.read())
         # 判断上传文件是否超过剩余配额
-        cmds.append('quota')
-        self.user_quota = self.get_quota(cmds)
+        self.get_quota()
         remain_quota = self.user_info[self.user_name][1] - int(self.user_quota)
         if filesize > remain_quota:
             print('无法上传%s！当前剩余配额%s！' % (filesize, remain_quota))
@@ -114,12 +113,8 @@ class FTPClient:
             print('%s无此文件！' % filename)
 
     def dir(self, cmds):
-        if cmds[-1] == 'quota':
-            head_dic = {'cmd': 'dir', 'user_dir': self.user_name + ' /s'}
-            return self.show(head_dic)
-        else:
-            head_dic = {'cmd': 'dir', 'user_dir': self.user_dir}
-            print(self.show(head_dic))
+        head_dic = {'cmd': 'dir', 'user_dir': self.user_dir}
+        print(self.show(head_dic))
 
     def show(self, head_dic):
         self.send(head_dic)
@@ -142,17 +137,11 @@ class FTPClient:
         elif cmds[1] and cmds[1] != '..':
             self.user_dir = self.user_dir + '\\' + cmds[1]
 
-    def get_quota(self, cmds):  # 获取用户目录的使用量
-        with open('temp', 'w', encoding='utf-8') as f:
-            f.write(self.dir(cmds))
-        with open('temp', 'r', encoding='utf-8') as f:
-            lines = len(f.readlines())
-        with open('temp', 'r', encoding='utf-8') as f:
-            i = 0
-            for line in f.readlines():
-                i += 1
-                if i == lines - 3:
-                    return line.strip().split(' ')[-2]
+    def get_quota(self):  # 获取用户目录的使用量
+        head_dic = {'cmd': 'quota', 'user_name': self.user_name}
+        self.send(head_dic)
+        header_dic = self.receive()
+        self.user_quota = header_dic['quota']
 
     def receive(self):
         header = self.socket.recv(4)
