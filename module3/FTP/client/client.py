@@ -5,6 +5,7 @@ import struct
 import json
 import os
 import tools
+import setting
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -64,8 +65,7 @@ class FTPClient:
             return
         else:
             filesize = os.path.getsize(file_dir)
-            with open(file_dir, 'rb') as f:
-                md5 = tools.md5(f.read())
+            md5 = tools.md5(file_dir)
         # 判断上传文件是否超过剩余配额
         self.get_quota()
         remain_quota = self.user_info[self.user_name][1] - int(self.user_quota)
@@ -77,7 +77,6 @@ class FTPClient:
         self.send(head_dic)
         header_dic = self.receive()
         send_size = header_dic['file_size']
-        print(header_dic)
         if header_dic['file_flag'] == 0:
             with open(file_dir, 'rb') as f:
                 f.seek(send_size)
@@ -144,7 +143,7 @@ class FTPClient:
                 res = self.socket.recv(1024)
                 recv_data += res
                 recv_size += len(res)
-            print(recv_data.decode('gbk'))  # linux用utf-8解码，windows用gbk解码
+            print(recv_data.decode(setting.coding))  # linux用utf-8解码，windows用gbk解码
         else:
             print('服务器上无%s目录' % self.user_dir)
 
@@ -166,7 +165,7 @@ class FTPClient:
         # 第二步：收报头数据
         header_bytes = self.socket.recv(header_size)
         # 第三步：取报头信息
-        header_json = header_bytes.decode('utf-8')
+        header_json = header_bytes.decode(self.coding)
         header_dic = json.loads(header_json)
         return header_dic
 

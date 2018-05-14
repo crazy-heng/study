@@ -148,7 +148,7 @@ class FTPServer:
             return None
         header_size = struct.unpack('i', header)[0]
         header_bytes = conn.recv(header_size)
-        header_json = header_bytes.decode('utf-8')
+        header_json = header_bytes.decode(self.coding)
         header_dic = json.loads(header_json)
         return header_dic
 
