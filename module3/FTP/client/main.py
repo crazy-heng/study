@@ -8,7 +8,7 @@ user_dic = tools.read('userlist')
 # tools.write('userlist', user_dic)
 
 address = '127.0.0.1'
-port = 8090
+port = 8092
 
 
 def login(func):
@@ -18,7 +18,7 @@ def login(func):
             user_name = input("请输入用户名：").strip()
             user_pass = input("请输入密码：").strip()
             for user_item in user_dic.keys():
-                if user_name == user_item and tools.md5(user_pass.encode('utf-8')) == user_dic[user_item][0]:
+                if user_name == user_item and tools.md5_user(user_pass.encode('utf-8')) == user_dic[user_item][0]:
                     print("用户" + user_name + "登录成功！")
                     func(user_name, user_dic)
                     return

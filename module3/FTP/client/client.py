@@ -75,40 +75,56 @@ class FTPClient:
 
         head_dic = {'cmd': 'get', 'md5': md5, 'file_name': filename, 'file_size': filesize, 'user_dir': self.user_dir}
         self.send(head_dic)
-        send_size = 0
-        if filename:
+        header_dic = self.receive()
+        send_size = header_dic['file_size']
+        print(header_dic)
+        if header_dic['file_flag'] == 0:
             with open(file_dir, 'rb') as f:
+                f.seek(send_size)
                 for line in f:
                     self.socket.send(line)
                     send_size += len(line)
                     print('已传送%s!' % send_size)
                 else:
                     print('upload successful')
+        else:
+            print('服务器上已有相同文件！')
 
     def get(self, cmds):
         filename = cmds[1]
+        download_dir = os.path.join(self.client_dir, filename)
         head_dic = {'cmd': 'put', 'file_name': filename, 'user_dir': self.user_dir}
         self.send(head_dic)
         header_dic = self.receive()
         total_size = header_dic['file_size']
         file_name = header_dic['file_name']
         md5_server = header_dic['md5']
-        if file_name:
-            download_dir = os.path.join(self.client_dir, file_name)
+        file_size = 0
+        file_flag = 0
+        if os.path.exists(download_dir):  # 判断本地是否已有接收完成的文件
+            file_size = os.path.getsize(download_dir)
+            if file_size == total_size and tools.md5(download_dir) == md5_server:  # 判断是否是续传
+                file_flag = 1
+            else:
+                file_flag = 0
+        head_dic = {'file_size': file_size, 'file_flag': file_flag}
+        self.send(head_dic)
+        if file_flag == 0 and file_name:
             # 第四步：接收真实的数据
-            with open(download_dir, 'wb') as f:
-                recv_size = 0
+            with open(download_dir, 'ab') as f:
+                recv_size = file_size
                 while recv_size < total_size:
                     line = self.socket.recv(1024)
                     f.write(line)
                     recv_size += len(line)
                     print('总大小%s,已下载%s' % (total_size, recv_size))
-            with open(download_dir, 'rb') as f:
-                md5_local = tools.md5(f.read())
+            md5_local = tools.md5(download_dir)
             if md5_local == md5_server:
                 print('下载文件%s验证成功，下载完成！' % file_name)
             else:
                 print('下载文件%s与服务器不一致，建议重新下载！' % file_name)
+        elif file_flag == 1:
+            print('已下载过相同文件！')
         else:
             print('%s无此文件！' % filename)
 

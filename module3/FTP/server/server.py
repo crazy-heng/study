@@ -71,6 +71,7 @@ class FTPServer:
         user_dir = cmd['user_dir']
         file_name = cmd['file_name']
         file_dir = os.path.join(self.server_dir, user_dir, file_name)
+        print(file_dir)
         # 判断下载文件是否存在
         if not os.path.isfile(file_dir):
             print('服务器上无此文件%s' % file_name)
@@ -79,13 +80,15 @@ class FTPServer:
             md5 = 0
         else:
             file_size = os.path.getsize(file_dir)
-            with open(file_dir, 'rb') as f:
-                md5 = self.md5(f.read())
+            md5 = self.md5(file_dir)
         # 第一步 制作报头,struct模块用i格式固定长度是4
         header_dic = {'file_name': file_name, 'md5': md5, 'file_size': file_size}
         self.send(conn, header_dic)
-        if file_name:
+        head_dic = self.receive(conn)
+        file_size = head_dic['file_size']
+        if head_dic['file_flag'] == 0 and file_name:
             with open(file_dir, 'rb') as f:
+                f.seek(file_size)
                 for line in f:
                     conn.send(line)
 
@@ -97,15 +100,25 @@ class FTPServer:
         md5_upload = cmd['md5']
         # 接收真实的数据
         file_dir = os.path.join(self.server_dir, user_dir, file_name)
-        with open(file_dir, 'wb') as f:
-            recv_size = 0
+        file_flag = 0
+        if os.path.exists(file_dir):  # 判断服务器上是否已有文件
+            file_size = os.path.getsize(file_dir)
+            if file_size == total_size and self.md5(file_dir) == md5_upload:  # 判断是否需要续传
+                file_flag = 1
+        else:
+            file_size = 0
+        header_dic = {'file_size': file_size, 'file_flag': file_flag}
+        self.send(conn, header_dic)
+        if file_flag == 1:  # 已有相同文件不再接收
+            return
+        with open(file_dir, 'ab') as f:
+            recv_size = file_size
             while recv_size < total_size:
                 line = conn.recv(1024)
                 f.write(line)
                 recv_size += len(line)
                 print('总大小%s,已下载%s' % (total_size, recv_size))
-        with open(file_dir, 'rb') as f:
-            md5_local = self.md5(f.read())
+        md5_local = self.md5(file_dir)
         if md5_local == md5_upload:
             print('上传传文件%s验证md5[%s]成功，上传完成！' % (file_name, md5_local))
         else:
@@ -124,9 +137,10 @@ class FTPServer:
             self.send(conn, header_dic)
 
     def md5(self, file):
-        m = hashlib.md5()
-        m.update(file)
-        return m.hexdigest()
+        with open(file, 'rb') as f:
+            m = hashlib.md5()
+            m.update(f.read())
+            return m.hexdigest()
 
     def receive(self, conn):  # 接收报头并返回数据
         header = conn.recv(4)
