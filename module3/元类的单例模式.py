@@ -40,15 +40,22 @@ class Mymeta(type):
     def __call__(self, *args, **kwargs):  # 用call控制实例化
         if not self.__instance:
             # 造一个空对象
-            obj = object.__new__(self)
+            self.__instance = object.__new__(self)
             # 初始化obj
-            self.__init__(obj, *args, **kwargs)
-            self.__instance = obj
+            self.__init__(self.__instance, *args, **kwargs)
         # 返回obj
-        return obj
+        return self.__instance
 
 
 class Mysql(object, metaclass=Mymeta):
+    '''
+    a
+    '''
     def __init__(self, host='127.0.0.1', port='3306'):
         self.host = host
         self.port = port
+
+
+obj1 = Mysql()
+obj2 = Mysql()
+print(obj1 is obj2)
