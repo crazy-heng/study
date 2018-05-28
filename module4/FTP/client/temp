@@ -1,0 +1,39 @@
+ 驱动器 E 中的卷是 新加卷
+ 卷的序列号是 38C0-2F03
+
+ E:\python\study\module3\FTP\server\share\fan 的目录
+
+2018/05/11 周五  00:44    <DIR>          .
+2018/05/11 周五  00:44    <DIR>          ..
+2018/05/10 周四  22:06    <DIR>          doc
+2018/05/10 周四  22:06    <DIR>          movies
+2018/05/11 周五  00:56    <DIR>          pic
+2018/05/10 周四  22:06                95 test.txt
+2018/05/11 周五  00:44                53 test2.txt
+               2 个文件            148 字节
+
+ E:\python\study\module3\FTP\server\share\fan\doc 的目录
+
+2018/05/10 周四  22:06    <DIR>          .
+2018/05/10 周四  22:06    <DIR>          ..
+2018/05/10 周四  22:06                95 test.txt
+               1 个文件             95 字节
+
+ E:\python\study\module3\FTP\server\share\fan\movies 的目录
+
+2018/05/10 周四  22:06    <DIR>          .
+2018/05/10 周四  22:06    <DIR>          ..
+2018/05/10 周四  22:06                95 test.txt
+               1 个文件             95 字节
+
+ E:\python\study\module3\FTP\server\share\fan\pic 的目录
+
+2018/05/11 周五  00:56    <DIR>          .
+2018/05/11 周五  00:56    <DIR>          ..
+2018/05/11 周五  00:56                95 test.txt
+2018/05/10 周四  22:06                53 test2.txt
+               2 个文件            148 字节
+
+     所列文件总数:
+               6 个文件            486 字节
+              11 个目录 80,607,084,544 可用字节
