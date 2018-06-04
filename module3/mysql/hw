@@ -1,0 +1,67 @@
+47.91.207.76
+2.
+SELECT COUNT(sid) from student
+3.
+SELECT
+student.sid,
+student.sname
+FROM
+student
+INNER JOIN score ON student.sid = score.student_id
+INNER JOIN course ON course.cid = score.coures_id
+WHERE
+score.score >= 60 AND
+course.cname in ('生物','物理')
+GROUP BY
+student.sname
+HAVING
+COUNT(student.sname) = 2
+4.
+SELECT class_grade.gname,count(class.grade_id)
+FROM class, class_grade
+WHERE class.grade_id = class_grade.gid
+GROUP BY class.grade_id
+ORDER BY count(class.grade_id) DESC
+LIMIT 3
+5.
+SELECT student.sname, avg(score.score)
+FROM student, score
+WHERE student.sid = score.student_id
+GROUP BY score.student_id
+ORDER BY avg(score.score)
+LIMIT 1
+6.
+SELECT class.grade_id, count(student.sid)
+FROM class,student
+where class.cid = student.class_id GROUP BY class.grade_id
+7.
+SELECT student.sid, student.sname, COUNT(course.cname), AVG(score.score)
+FROM
+score
+INNER JOIN student ON student.sid = score.student_id
+INNER JOIN course ON course.cid = score.coures_id
+GROUP BY student.sid
+8.
+SELECT student.sname, course.cname, score.score
+FROM
+score
+INNER JOIN student ON student.sid = score.student_id
+INNER JOIN course ON course.cid = score.coures_id
+where student.sid = 2
+ORDER BY score.score DESC
+LIMIT 1
+9.
+SELECT COUNT(tname), sum(a) from(
+SELECT teacher.tname, count(teacher2cls.cid) as a
+FROM
+teacher, teacher2cls
+where teacher.tid = teacher2cls.tid and teacher.tname like '张%'
+GROUP BY teacher.tname) as b
+10.
+SELECT class_grade.gid, class_grade.gname
+from class_grade, class
+WHERE class_grade.gid = class.grade_id
+GROUP BY class.grade_id
+HAVING COUNT(class.cid) < 5
+11.
+
