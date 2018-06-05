@@ -1,7 +1,7 @@
 47.91.207.76
-2.
+2.---------------------------------------------------------------
 SELECT COUNT(sid) from student
-3.
+3.---------------------------------------------------------------
 SELECT
 student.sid,
 student.sname
@@ -16,32 +16,32 @@ GROUP BY
 student.sname
 HAVING
 COUNT(student.sname) = 2
-4.
+4.---------------------------------------------------------------
 SELECT class_grade.gname,count(class.grade_id)
 FROM class, class_grade
 WHERE class.grade_id = class_grade.gid
 GROUP BY class.grade_id
 ORDER BY count(class.grade_id) DESC
 LIMIT 3
-5.
+5.---------------------------------------------------------------
 SELECT student.sname, avg(score.score)
 FROM student, score
 WHERE student.sid = score.student_id
 GROUP BY score.student_id
 ORDER BY avg(score.score)
 LIMIT 1
-6.
+6.---------------------------------------------------------------
 SELECT class.grade_id, count(student.sid)
 FROM class,student
 where class.cid = student.class_id GROUP BY class.grade_id
-7.
+7.---------------------------------------------------------------
 SELECT student.sid, student.sname, COUNT(course.cname), AVG(score.score)
 FROM
 score
 INNER JOIN student ON student.sid = score.student_id
 INNER JOIN course ON course.cid = score.coures_id
 GROUP BY student.sid
-8.
+8.---------------------------------------------------------------
 SELECT student.sname, course.cname, score.score
 FROM
 score
@@ -50,18 +50,293 @@ INNER JOIN course ON course.cid = score.coures_id
 where student.sid = 2
 ORDER BY score.score DESC
 LIMIT 1
-9.
+9.---------------------------------------------------------------
 SELECT COUNT(tname), sum(a) from(
 SELECT teacher.tname, count(teacher2cls.cid) as a
 FROM
 teacher, teacher2cls
 where teacher.tid = teacher2cls.tid and teacher.tname like '张%'
 GROUP BY teacher.tname) as b
-10.
+10.---------------------------------------------------------------
 SELECT class_grade.gid, class_grade.gname
 from class_grade, class
 WHERE class_grade.gid = class.grade_id
 GROUP BY class.grade_id
 HAVING COUNT(class.cid) < 5
-11.
+11.---------------------------------------------------------------
+SELECT cid, caption, gname, '年级级别'
+FROM class_grade INNER JOIN class where 1=2
+UNION
+SELECT cid, caption, gname, '低年级'
+FROM class_grade
+INNER JOIN class
+WHERE gid = grade_id
+GROUP BY cid
+HAVING gname in ('一年级', '二年级')
+UNION ALL
+SELECT cid, caption, gname, '中年级'
+FROM class_grade
+INNER JOIN class
+WHERE gid = grade_id
+GROUP BY cid
+HAVING gname in ('三年级', '四年级')
+UNION ALL
+SELECT cid, caption, gname, '高年级'
+FROM class_grade
+INNER JOIN class
+WHERE gid = grade_id
+GROUP BY cid
+HAVING gname in ('五年级', '六年级')
+12.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid in
+	(SELECT student_id
+	FROM score
+	WHERE coures_id in
+		(SELECT cid
+		FROM course WHERE teacher_id in
+			(SELECT tid
+			FROM teacher
+			WHERE tname = '张三')
+		)
+	GROUP BY student_id
+	HAVING COUNT(student_id) >= 2
+	)
+13.---------------------------------------------------------------
+SELECT tid, tname
+FROM teacher WHERE tid in
+	(SELECT teacher_id
+	FROM course
+	GROUP BY teacher_id
+	HAVING COUNT(teacher_id) >=2)
+14.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid in
+	(SELECT student_id
+	FROM score
+	WHERE coures_id in (1,2)
+	GROUP BY student_id
+	HAVING COUNT(student_id) = 2)
+15.---------------------------------------------------------------
+SELECT tid, tname
+FROM teacher WHERE tid IN
+	(SELECT DISTINCT tid
+	FROM teacher2cls WHERE cid NOT IN
+		(SELECT cid
+		FROM class WHERE grade_id > 4))
+16.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid in
+	(SELECT student_id
+	FROM score
+	WHERE coures_id in
+		(SELECT cid
+		FROM course WHERE teacher_id in
+			(SELECT tid
+			FROM teacher
+			WHERE tname = '张三')
+		)
+	GROUP BY student_id
+	HAVING COUNT(student_id) = (
+		SELECT COUNT(cid)
+		FROM course WHERE teacher_id in
+			(SELECT tid
+			FROM teacher
+			WHERE tname = '张三'))
+	)
+17.---------------------------------------------------------------
+SELECT tid, tname
+FROM teacher WHERE tid in
+	(SELECT tid
+	FROM teacher2cls
+	GROUP BY tid
+	HAVING COUNT(tid) >=2)
+18.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid in
+(SELECT a.student_id
+	FROM
+		(SELECT student_id, coures_id, score
+		FROM score
+		WHERE coures_id = 1
+		GROUP BY student_id) as a
+	INNER JOIN
+		(SELECT student_id, coures_id, score
+		FROM score
+		WHERE coures_id = 2
+		GROUP BY student_id) as b
+	on a.student_id = b.student_id and b.score > a.score)
+19.---------------------------------------------------------------
+SELECT teacher.tid, teacher.tname
+FROM teacher2cls INNER JOIN teacher
+ON teacher2cls.tid = teacher.tid
+GROUP BY teacher.tid
+ORDER BY COUNT(teacher.tid) DESC
+LIMIT 1
+20.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid IN
+	(SELECT student_id
+	FROM score
+	GROUP BY student_id
+	HAVING AVG(score) < 60)
+21.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid NOT IN
+	(SELECT student_id
+	FROM score
+	GROUP BY student_id
+	HAVING COUNT(student_id) = (SELECT COUNT(cid) FROM course))
+22.---------------------------------------------------------------
+SELECT DISTINCT student.sid, student.sname
+FROM student INNER JOIN score
+ON student.sid = score.student_id
+WHERE score.coures_id IN
+	(SELECT coures_id
+	FROM score
+	WHERE student_id = 1)
+AND student_id != 1
+23.---------------------------------------------------------------
+SELECT DISTINCT student.sid, student.sname
+FROM student INNER JOIN score
+ON student.sid = score.student_id
+WHERE score.coures_id IN
+	(SELECT coures_id
+	FROM score
+	WHERE student_id = 1)
+AND student_id != 1
+24.---------------------------------------------------------------
+SELECT sid, sname
+FROM student WHERE sid in
+	(SELECT a.student_id
+	FROM score as a INNER JOIN
+		(SELECT coures_id
+		FROM score
+		WHERE student_id = 2
+		) as b
+	ON a.coures_id = b.coures_id
+	WHERE student_id != 2
+	GROUP BY student_id
+	HAVING COUNT(student_id) = (SELECT COUNT(coures_id) FROM score WHERE student_id = 2))
+25.---------------------------------------------------------------
+DELETE
+FROM score
+WHERE coures_id in
+	(SELECT cid
+	FROM course
+	WHERE teacher_id in
+		(SELECT tid
+		FROM teacher
+		WHERE tname = '张三'))
+26.---------------------------------------------------------------
+INSERT INTO score (student_id, coures_id, score)
+SELECT sid, a.coures_id, b
+FROM student INNER JOIN
+(SELECT coures_id, AVG(score) as b FROM score WHERE coures_id = 2) as a
+WHERE sid NOT IN
+	(SELECT student_id
+	FROM score
+	WHERE coures_id = 2)
+27.---------------------------------------------------------------
+SELECT sid, sname, b.score, c.score, d.score, f, g
+FROM student AS a
+LEFT JOIN (SELECT student_id, score
+	FROM score
+	WHERE coures_id = 1) AS b ON a.sid = b.student_id
+LEFT JOIN (SELECT student_id, score
+	FROM score
+	WHERE coures_id = 2) AS c ON a.sid = c.student_id
+LEFT JOIN (SELECT student_id, score
+	FROM score
+	WHERE coures_id = 3) AS d ON a.sid = d.student_id
+INNER JOIN
+	(SELECT student_id, COUNT(sid) as f, AVG(score) as g
+	FROM score
+	GROUP BY student_id) AS e ON a.sid = e.student_id
+28.---------------------------------------------------------------
+SELECT a.coures_id, a.a1, b.b1
+FROM
+(SELECT coures_id,MAX(score) as a1
+FROM score
+GROUP BY coures_id) as a
+INNER JOIN
+(SELECT coures_id,MIN(score) as b1
+FROM score
+GROUP BY coures_id) as b
+ON a.coures_id = b.coures_id
+29.---------------------------------------------------------------
+SELECT a.coures_id, a1, b1/c1
+FROM
+(SELECT coures_id, AVG(score) as a1
+FROM score
+GROUP BY coures_id) AS a
+INNER JOIN
+(SELECT coures_id, COUNT(coures_id) as b1
+FROM score
+WHERE score > 60
+GROUP BY coures_id) AS b ON a.coures_id = b.coures_id
+INNER JOIN
+(SELECT coures_id, COUNT(coures_id) as c1
+FROM score
+GROUP BY coures_id) AS c on a.coures_id = c.coures_id
+ORDER BY a1, b1/c1 DESC
+30.---------------------------------------------------------------
+
+31.---------------------------------------------------------------
+32.---------------------------------------------------------------
+33.---------------------------------------------------------------
+34.---------------------------------------------------------------
+35.---------------------------------------------------------------
+36.---------------------------------------------------------------
+37.---------------------------------------------------------------
+38.---------------------------------------------------------------
+39.---------------------------------------------------------------
+40.---------------------------------------------------------------
+41.---------------------------------------------------------------
+42.---------------------------------------------------------------
+43.---------------------------------------------------------------
+44.---------------------------------------------------------------
+45.---------------------------------------------------------------
+46.---------------------------------------------------------------
+47.---------------------------------------------------------------
+48.---------------------------------------------------------------
+49.---------------------------------------------------------------
+50.---------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
