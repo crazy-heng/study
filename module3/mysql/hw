@@ -281,8 +281,14 @@ FROM score
 GROUP BY coures_id) AS c on a.coures_id = c.coures_id
 ORDER BY a1, b1/c1 DESC
 30.---------------------------------------------------------------
-
+SELECT coures_id, teacher.tname, AVG(score)
+FROM score
+INNER JOIN course ON score.coures_id = course.cid
+INNER JOIN teacher ON course.teacher_id = teacher.tid
+GROUP BY coures_id
+ORDER BY AVG(score) DESC
 31.---------------------------------------------------------------
+
 32.---------------------------------------------------------------
 33.---------------------------------------------------------------
 34.---------------------------------------------------------------
