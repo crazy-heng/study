@@ -8,7 +8,7 @@ student.sname
 FROM
 student
 INNER JOIN score ON student.sid = score.student_id
-INNER JOIN course ON course.cid = score.coures_id
+INNER JOIN course ON course.cid = score.course_id
 WHERE
 score.score >= 60 AND
 course.cname in ('生物','物理')
@@ -39,14 +39,14 @@ SELECT student.sid, student.sname, COUNT(course.cname), AVG(score.score)
 FROM
 score
 INNER JOIN student ON student.sid = score.student_id
-INNER JOIN course ON course.cid = score.coures_id
+INNER JOIN course ON course.cid = score.course_id
 GROUP BY student.sid
 8.---------------------------------------------------------------
 SELECT student.sname, course.cname, score.score
 FROM
 score
 INNER JOIN student ON student.sid = score.student_id
-INNER JOIN course ON course.cid = score.coures_id
+INNER JOIN course ON course.cid = score.course_id
 where student.sid = 2
 ORDER BY score.score DESC
 LIMIT 1
@@ -92,7 +92,7 @@ SELECT sid, sname
 FROM student WHERE sid in
 	(SELECT student_id
 	FROM score
-	WHERE coures_id in
+	WHERE course_id in
 		(SELECT cid
 		FROM course WHERE teacher_id in
 			(SELECT tid
@@ -114,7 +114,7 @@ SELECT sid, sname
 FROM student WHERE sid in
 	(SELECT student_id
 	FROM score
-	WHERE coures_id in (1,2)
+	WHERE course_id in (1,2)
 	GROUP BY student_id
 	HAVING COUNT(student_id) = 2)
 15.---------------------------------------------------------------
@@ -129,7 +129,7 @@ SELECT sid, sname
 FROM student WHERE sid in
 	(SELECT student_id
 	FROM score
-	WHERE coures_id in
+	WHERE course_id in
 		(SELECT cid
 		FROM course WHERE teacher_id in
 			(SELECT tid
@@ -156,14 +156,14 @@ SELECT sid, sname
 FROM student WHERE sid in
 (SELECT a.student_id
 	FROM
-		(SELECT student_id, coures_id, score
+		(SELECT student_id, course_id, score
 		FROM score
-		WHERE coures_id = 1
+		WHERE course_id = 1
 		GROUP BY student_id) as a
 	INNER JOIN
-		(SELECT student_id, coures_id, score
+		(SELECT student_id, course_id, score
 		FROM score
-		WHERE coures_id = 2
+		WHERE course_id = 2
 		GROUP BY student_id) as b
 	on a.student_id = b.student_id and b.score > a.score)
 19.---------------------------------------------------------------
@@ -191,8 +191,8 @@ FROM student WHERE sid NOT IN
 SELECT DISTINCT student.sid, student.sname
 FROM student INNER JOIN score
 ON student.sid = score.student_id
-WHERE score.coures_id IN
-	(SELECT coures_id
+WHERE score.course_id IN
+	(SELECT course_id
 	FROM score
 	WHERE student_id = 1)
 AND student_id != 1
@@ -200,8 +200,8 @@ AND student_id != 1
 SELECT DISTINCT student.sid, student.sname
 FROM student INNER JOIN score
 ON student.sid = score.student_id
-WHERE score.coures_id IN
-	(SELECT coures_id
+WHERE score.course_id IN
+	(SELECT course_id
 	FROM score
 	WHERE student_id = 1)
 AND student_id != 1
@@ -210,18 +210,18 @@ SELECT sid, sname
 FROM student WHERE sid in
 	(SELECT a.student_id
 	FROM score as a INNER JOIN
-		(SELECT coures_id
+		(SELECT course_id
 		FROM score
 		WHERE student_id = 2
 		) as b
-	ON a.coures_id = b.coures_id
+	ON a.course_id = b.course_id
 	WHERE student_id != 2
 	GROUP BY student_id
-	HAVING COUNT(student_id) = (SELECT COUNT(coures_id) FROM score WHERE student_id = 2))
+	HAVING COUNT(student_id) = (SELECT COUNT(course_id) FROM score WHERE student_id = 2))
 25.---------------------------------------------------------------
 DELETE
 FROM score
-WHERE coures_id in
+WHERE course_id in
 	(SELECT cid
 	FROM course
 	WHERE teacher_id in
@@ -229,79 +229,157 @@ WHERE coures_id in
 		FROM teacher
 		WHERE tname = '张三'))
 26.---------------------------------------------------------------
-INSERT INTO score (student_id, coures_id, score)
-SELECT sid, a.coures_id, b
+INSERT INTO score (student_id, course_id, score)
+SELECT sid, a.course_id, b
 FROM student INNER JOIN
-(SELECT coures_id, AVG(score) as b FROM score WHERE coures_id = 2) as a
+(SELECT course_id, AVG(score) as b FROM score WHERE course_id = 2) as a
 WHERE sid NOT IN
 	(SELECT student_id
 	FROM score
-	WHERE coures_id = 2)
+	WHERE course_id = 2)
 27.---------------------------------------------------------------
 SELECT sid, sname, b.score, c.score, d.score, f, g
 FROM student AS a
 LEFT JOIN (SELECT student_id, score
 	FROM score
-	WHERE coures_id = 1) AS b ON a.sid = b.student_id
+	WHERE course_id = 1) AS b ON a.sid = b.student_id
 LEFT JOIN (SELECT student_id, score
 	FROM score
-	WHERE coures_id = 2) AS c ON a.sid = c.student_id
+	WHERE course_id = 2) AS c ON a.sid = c.student_id
 LEFT JOIN (SELECT student_id, score
 	FROM score
-	WHERE coures_id = 3) AS d ON a.sid = d.student_id
+	WHERE course_id = 3) AS d ON a.sid = d.student_id
 INNER JOIN
 	(SELECT student_id, COUNT(sid) as f, AVG(score) as g
 	FROM score
 	GROUP BY student_id) AS e ON a.sid = e.student_id
 28.---------------------------------------------------------------
-SELECT a.coures_id, a.a1, b.b1
+SELECT a.course_id, a.a1, b.b1
 FROM
-(SELECT coures_id,MAX(score) as a1
+(SELECT course_id,MAX(score) as a1
 FROM score
-GROUP BY coures_id) as a
+GROUP BY course_id) as a
 INNER JOIN
-(SELECT coures_id,MIN(score) as b1
+(SELECT course_id,MIN(score) as b1
 FROM score
-GROUP BY coures_id) as b
-ON a.coures_id = b.coures_id
+GROUP BY course_id) as b
+ON a.course_id = b.course_id
 29.---------------------------------------------------------------
-SELECT a.coures_id, a1, b1/c1
+SELECT a.course_id, a1, b1/c1
 FROM
-(SELECT coures_id, AVG(score) as a1
+(SELECT course_id, AVG(score) as a1
 FROM score
-GROUP BY coures_id) AS a
+GROUP BY course_id) AS a
 INNER JOIN
-(SELECT coures_id, COUNT(coures_id) as b1
+(SELECT course_id, COUNT(course_id) as b1
 FROM score
 WHERE score > 60
-GROUP BY coures_id) AS b ON a.coures_id = b.coures_id
+GROUP BY course_id) AS b ON a.course_id = b.course_id
 INNER JOIN
-(SELECT coures_id, COUNT(coures_id) as c1
+(SELECT course_id, COUNT(course_id) as c1
 FROM score
-GROUP BY coures_id) AS c on a.coures_id = c.coures_id
+GROUP BY course_id) AS c on a.course_id = c.course_id
 ORDER BY a1, b1/c1 DESC
 30.---------------------------------------------------------------
-SELECT coures_id, teacher.tname, AVG(score)
+SELECT course_id, teacher.tname, AVG(score)
 FROM score
-INNER JOIN course ON score.coures_id = course.cid
+INNER JOIN course ON score.course_id = course.cid
 INNER JOIN teacher ON course.teacher_id = teacher.tid
-GROUP BY coures_id
+GROUP BY course_id
 ORDER BY AVG(score) DESC
 31.---------------------------------------------------------------
-
+SELECT
+	a.course_id,
+	score
+FROM
+	score a
+WHERE
+	(
+		SELECT
+			COUNT(course_id)
+		FROM
+			score
+		WHERE
+			a.course_id = course_id
+		AND a.score < score
+	) < 3
+ORDER BY
+	a.course_id,
+	score DESC
 32.---------------------------------------------------------------
+SELECT course_id, COUNT(student_id)
+FROM score
+GROUP BY course_id
 33.---------------------------------------------------------------
+SELECT sid,sname
+FROM student
+WHERE sid IN
+	(SELECT student_id
+	FROM score
+	GROUP BY student_id
+	HAVING COUNT(course_id) >= 2)
 34.---------------------------------------------------------------
+SELECT gender, COUNT(gender)
+FROM student
+GROUP BY gender
+ORDER BY COUNT(gender)
 35.---------------------------------------------------------------
+SELECT *
+FROM student
+WHERE sname like '张%'
 36.---------------------------------------------------------------
+SELECT sname, COUNT(sname)
+FROM student
+GROUP BY sname
+HAVING COUNT(sname) > 1
 37.---------------------------------------------------------------
+SELECT course_id, AVG(score)
+FROM score
+GROUP BY course_id
+ORDER BY AVG(score), course_id DESC
 38.---------------------------------------------------------------
+SELECT sname, score
+FROM student INNER JOIN score ON student.sid = score.student_id
+WHERE course_id = (select cid from course where cname = '数学')  and score < 60
 39.---------------------------------------------------------------
+SELECT student.sid, sname, score
+FROM student INNER JOIN score ON student.sid = score.student_id
+WHERE course_id = 3 and score > 80
 40.---------------------------------------------------------------
+SELECT COUNT(DISTINCT student_id)
+FROM score
 41.---------------------------------------------------------------
+(SELECT sname, score
+FROM score INNER JOIN student ON student.sid = score.student_id
+WHERE course_id IN
+	(SELECT cid
+	FROM course
+	WHERE teacher_id =
+		(SELECT tid
+		FROM teacher WHERE tname = '王五'))
+ORDER BY score LIMIT 1)
+UNION ALL
+(SELECT sname, score
+FROM score INNER JOIN student ON student.sid = score.student_id
+WHERE course_id IN
+	(SELECT cid
+	FROM course
+	WHERE teacher_id =
+		(SELECT tid
+		FROM teacher WHERE tname = '王五'))
+ORDER BY score DESC LIMIT 1)
 42.---------------------------------------------------------------
+SELECT course_id, COUNT(student_id)
+FROM score
+GROUP BY course_id
 43.---------------------------------------------------------------
+SELECT b.student_id, b.course_id, b.score
+FROM (SELECT *
+	FROM score
+	GROUP BY course_id, student_id) as a INNER JOIN score as b
+ON a.student_id != b.student_id and a.score = b.score
 44.---------------------------------------------------------------
+
 45.---------------------------------------------------------------
 46.---------------------------------------------------------------
 47.---------------------------------------------------------------
