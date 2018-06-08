@@ -267,18 +267,18 @@ ON a.course_id = b.course_id
 29.---------------------------------------------------------------
 SELECT a.course_id, a1, b1/c1
 FROM
-(SELECT course_id, AVG(score) as a1
-FROM score
-GROUP BY course_id) AS a
+    (SELECT course_id, AVG(score) as a1
+    FROM score
+    GROUP BY course_id) AS a
 INNER JOIN
-(SELECT course_id, COUNT(course_id) as b1
-FROM score
-WHERE score > 60
-GROUP BY course_id) AS b ON a.course_id = b.course_id
+    (SELECT course_id, COUNT(course_id) as b1
+    FROM score
+    WHERE score > 60
+    GROUP BY course_id) AS b ON a.course_id = b.course_id
 INNER JOIN
-(SELECT course_id, COUNT(course_id) as c1
-FROM score
-GROUP BY course_id) AS c on a.course_id = c.course_id
+    (SELECT course_id, COUNT(course_id) as c1
+    FROM score
+    GROUP BY course_id) AS c on a.course_id = c.course_id
 ORDER BY a1, b1/c1 DESC
 30.---------------------------------------------------------------
 SELECT course_id, teacher.tname, AVG(score)
@@ -288,24 +288,10 @@ INNER JOIN teacher ON course.teacher_id = teacher.tid
 GROUP BY course_id
 ORDER BY AVG(score) DESC
 31.---------------------------------------------------------------
-SELECT
-	a.course_id,
-	score
-FROM
-	score a
-WHERE
-	(
-		SELECT
-			COUNT(course_id)
-		FROM
-			score
-		WHERE
-			a.course_id = course_id
-		AND a.score < score
-	) < 3
-ORDER BY
-	a.course_id,
-	score DESC
+SELECT a.course_id, a.score
+FROM score a
+WHERE (select count(*) from score where course_id=a.course_id and score>a.score) < 3
+ORDER BY a.course_id,a.score DESC
 32.---------------------------------------------------------------
 SELECT course_id, COUNT(student_id)
 FROM score
@@ -379,13 +365,63 @@ FROM (SELECT *
 	GROUP BY course_id, student_id) as a INNER JOIN score as b
 ON a.student_id != b.student_id and a.score = b.score
 44.---------------------------------------------------------------
-
+SELECT student.sid, student.sname, b.course_id, b.score
+FROM
+	(select *
+	from score a
+	where (select count(*) from score where course_id=a.course_id and score>a.score) <2
+	order by a.course_id,a.score desc) as b INNER JOIN student
+ON b.student_id = student.sid
 45.---------------------------------------------------------------
+SELECT student_id
+FROM score
+GROUP BY student_id
+HAVING COUNT(score) >= 2
 46.---------------------------------------------------------------
+SELECT cid, cname
+FROM course
+WHERE cid NOT IN
+	(SELECT course_id
+	FROM score
+	GROUP BY course_id)
 47.---------------------------------------------------------------
+SELECT tid, tname
+FROM teacher
+WHERE tid NOT IN
+	(SELECT tid
+	FROM teacher2cls
+	GROUP BY tid)
 48.---------------------------------------------------------------
+SELECT student_id, AVG(score)
+FROM score
+WHERE student_id IN (
+	SELECT student_id
+	FROM score
+	WHERE score > 80
+	GROUP BY student_id
+	HAVING COUNT(score) >=2)
+GROUP BY student_id
 49.---------------------------------------------------------------
+SELECT student_id
+FROM score
+WHERE course_id = 3 and score < 60
+ORDER BY student_id DESC
 50.---------------------------------------------------------------
+DELETE
+FROM score
+WHERE course_id = 1 and student_id = 2
+51.---------------------------------------------------------------
+SELECT sid, sname
+FROM student
+WHERE sid IN
+	(SELECT student_id
+	FROM score
+	WHERE course_id IN
+		(SELECT cid
+		FROM course
+		WHERE cname = '物理' OR cname = '生物')
+	GROUP BY student_id
+	HAVING COUNT(student_id) = 2)
 
 
 
