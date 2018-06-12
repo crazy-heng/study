@@ -24,20 +24,46 @@ GROUP BY class.grade_id
 ORDER BY count(class.grade_id) DESC
 LIMIT 3
 5.---------------------------------------------------------------
-SELECT t1.sname, t1.a as '最低', t2.sname, t2.b as '最高'
+SELECT
+	t1.sid,
+	t1.sname,
+	t1.a AS '平均最低',
+	t2.sid,
+	t2.sname,
+	t2.b AS '平均最高'
 FROM
-(SELECT student.sname, avg(score.score) a
-FROM student, score
-WHERE student.sid = score.student_id
-GROUP BY score.student_id
-ORDER BY avg(score.score)
-LIMIT 1) t1,
-(SELECT student.sname, avg(score.score) b
-FROM student, score
-WHERE student.sid = score.student_id
-GROUP BY score.student_id
-ORDER BY avg(score.score) DESC
-LIMIT 1) t2
+	(
+		SELECT
+			student.sid,
+			student.sname,
+			avg(score.score) a
+		FROM
+			student,
+			score
+		WHERE
+			student.sid = score.student_id
+		GROUP BY
+			score.student_id
+		ORDER BY
+			avg(score.score)
+		LIMIT 1
+	) t1,
+	(
+		SELECT
+			student.sid,
+			student.sname,
+			avg(score.score) b
+		FROM
+			student,
+			score
+		WHERE
+			student.sid = score.student_id
+		GROUP BY
+			score.student_id
+		ORDER BY
+			avg(score.score) DESC
+		LIMIT 1
+	) t2
 6.---------------------------------------------------------------
 SELECT class.grade_id, count(student.sid)
 FROM class,student
@@ -50,24 +76,24 @@ INNER JOIN student ON student.sid = score.student_id
 INNER JOIN course ON course.cid = score.course_id
 GROUP BY student.sid
 8.---------------------------------------------------------------
-SELECT t1.sname, t1.cname, t1.score, t2.cname, t2.score
+SELECT t1.sname, t1.cname as '成绩最低课程', t1.score, t2.cname as '成绩最高课程', t2.score
 FROM
-(SELECT student.sname, course.cname, score.score
-FROM
-score
-INNER JOIN student ON student.sid = score.student_id
-INNER JOIN course ON course.cid = score.course_id
-where student.sid = 2
-ORDER BY score.score
-LIMIT 1) t1,
-(SELECT student.sname, course.cname, score.score
-FROM
-score
-INNER JOIN student ON student.sid = score.student_id
-INNER JOIN course ON course.cid = score.course_id
-where student.sid = 2
-ORDER BY score.score DESC
-LIMIT 1) t2
+	(SELECT student.sname, course.cname, score.score
+		FROM
+		score
+		INNER JOIN student ON student.sid = score.student_id
+		INNER JOIN course ON course.cid = score.course_id
+		where student.sid = 2
+		ORDER BY score.score
+		LIMIT 1) t1,
+	(SELECT student.sname, course.cname, score.score
+		FROM
+		score
+		INNER JOIN student ON student.sid = score.student_id
+		INNER JOIN course ON course.cid = score.course_id
+		where student.sid = 2
+		ORDER BY score.score DESC
+		LIMIT 1) t2
 
 9.---------------------------------------------------------------
 SELECT COUNT(tname), sum(a) from(
@@ -107,7 +133,7 @@ WHERE gid = grade_id
 GROUP BY cid
 HAVING gname in ('五年级', '六年级')
 *****************************************************
-SELECT cid, caption, gname as '年级名',
+SELECT cid as '班级ID', caption as '班级名', gname as '年级名',
 	CASE
 	WHEN class_grade.gid = 1 THEN "低年级"
 	WHEN class_grade.gid = 2 THEN "低年级"
