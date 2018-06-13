@@ -12,8 +12,9 @@ def task(name):
 if __name__ == '__main__':
     # pool = ProcessPoolExecutor(4)
     pool = ThreadPoolExecutor(5)
-    for i in range(10):
-        pool.submit(task, 'egon%s' % i)
+    # for i in range(10):
+    #     pool.submit(task, 'egon%s' % i)
+    pool.map(task, range(1, 10))
 
     pool.shutdown()
 
