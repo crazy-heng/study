@@ -14,13 +14,13 @@ def get(url):
 
 def parse(res):
     res = res.result()
-    print('parse res is %s' % len(res['content']))
+    print('%s parse res is %s' % (res['url'], len(res['content'])))
 
 
 if __name__ == '__main__':
     urls = [
         'http://www.baidu.com',
-        'http://wwwpython.org',
+        'http://www.python.org',
         'http://www.openstack.org'
     ]
 
