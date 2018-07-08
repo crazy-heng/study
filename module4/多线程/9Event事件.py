@@ -39,14 +39,14 @@ def conn_mysql():
         if count > 3:
             return
         print('<%s>第%s次尝试链接' % (threading.current_thread().getName(), count))
-        event.wait(0.5)
+        event.wait(1)  # 每秒重连一次，event为true时链接成功
         count += 1
     print('<%s>链接成功' % threading.current_thread().getName())
 
 
 def check_mysql():
     print('\033[45m[%s]正在检查mysql\033[0m' % threading.current_thread().getName())
-    time.sleep(random.randint(1, 3))
+    time.sleep(random.randint(1, 3))  # 1-3秒检测后event为true
     event.set()
 
 
