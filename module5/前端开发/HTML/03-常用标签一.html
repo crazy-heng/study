@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常用标签一</title>
+</head>
+<body>
+    <div class="p1">
+        <p style="height:1000px" id="p1">顶部</p>
+    </div>
+
+    <div class="header">
+      <!--body相关标签-->
+        <!--heading：标题h1~h6-->
+        路飞学城
+        <!--块级元素独占一行，写在同一行也会换行，可以设置宽高-->
+        <h1>路飞学城</h1>
+        <h2>路飞学城</h2>
+        <h3>路飞学城</h3>
+        <h4>路飞学城</h4>
+        <h5>路飞学城</h5>
+        <h6>路飞学城</h6>
+    </div>
+
+    <div class="p1">
+        <!--p标签块级标签-->
+        <p><strong>路飞学城</strong>立志帮助<sub>有志向</sub>的年轻人通过努力学习获得体面的工作和生活!路飞学员通过学习Python ,金融分析,人工智能等互联网最前沿技术,开启职业生涯新可能</p>
+        <p>路飞学城立志帮助有志向的年轻人<br>通过努力学习获得体面的工作和生活!路飞学员通过学习Python ,金融分析,人工智能等互联网最前沿技术,开启职业生涯新可能</p>
+        <hr>
+    </div>
+
+    <div class="archol">
+        <!--a标签属于行内标签,设置高宽不起作用-->
+        <!--a标签超链接,_blank新网站打开资源，_self当前网页打开资源-->
+        <a href="https://www.luffycity.com" target="_blank" title="luffy">luffycity</a>
+        <a href="fav.ico">下载ico</a>
+        <a href="mailto:51442999@qq.com">联系我</a>
+        <a href="#">跳转顶部</a>
+        <!--返回某个id-->
+        <a href="#p1">跳转#p1</a>
+        <!-- javascript:是表示在触发<a>默认动作时，执行一段JavaScript代码，而 javascript:; 表示什么都不执行，这样点击<a>时就没有任何反应。 -->
+        <a href="javascript:alert(1)">内容</a>
+        <a href="javascript:;">内容</a>
+    </div>
+
+    <div class="lists">
+        <!--无序列表-->
+        <ul type="none">
+            <li>我的账户&nbsp;&gt</li>
+            <li>我的订单》</li>
+            <li>我的优惠》</li>
+            <li>我的收藏》</li>
+        </ul>
+        <!--有序列表-->
+        <ol type="a">
+            <li>我的账户》</li>
+            <li>我的订单》</li>
+            <li>我的优惠》</li>
+            <li>我的收藏》</li>
+        </ol>
+    </div>
+    <!--盒子标签-->
+    <div class="image">
+        <!--图片标签img，可设置宽高一行内显示，行内块标签-->
+        <img src="fav.ico" alt="图片" style="width: 200px;height: 200px">
+        <img src="fav.ico" alt="图片2">
+    </div>
+
+    <!--三种：
+    1、块级元素 独占一行，可设置宽高，不设置浏览器默认
+    2、行内元素 在一行内展示 不能设置宽高 根据内容填充
+    3、行内块 在一行内展示可设置宽高-->
+
+</body>
+</html>
