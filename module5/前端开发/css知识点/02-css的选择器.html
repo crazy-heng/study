@@ -9,6 +9,19 @@
             color: brown;
             font-size: 20px;
         }
+        #s1{
+            color: brown;
+        }
+        #s2{
+            font-size: 20px;
+        }
+        .tt{
+            color: blue;
+            font-size: 12px;
+        }
+        .alex{
+            color:red;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +32,17 @@
             选中的是所有的，而不是某一个
             所以说是“共性”，不是“特性”
         2 id选择器
-        3 类选择器-->
+            #选中id
+            同一个页面中id不能重复
+            任何标签都可以设置id
+            id命名规范 字母 数字 大小写严格区分
+        3 类选择器
+            所谓类就是class .表示任何标签都可以加类
+            可以重复,
+            同一标签里可以有多个类，空格分隔,后面的层叠前面样式
+            类的使用决定前端工程师的css水平
+       -->
+
     <div>
         <p>我是一个段落</p>
     </div>
@@ -31,6 +54,17 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <span id="s1">123</span>
+        <span id="s2">234</span>
+    </div>
+    <div>
+        <h3 id="h" class="tt alex ttt">3级标题</h3>
+        <h3>3级标题</h3>
+        <h3>3级标题</h3>
+        <h3 class="tt">3级标题</h3>
+        <h3>3级标题</h3>
     </div>
 </body>
 </html>
