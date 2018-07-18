@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性选择器</title>
+    <style type="text/css">
+        label[for]{
+            color: red;
+            font-size: 20px;
+        }
+        label[for='pwd']{
+            color:yellow;
+        }
+        /*以什么开头*/
+        label[for^='vip']{
+            color: green;
+        }
+        /*以什么结尾*/
+        label[for$='2']{
+            font-size: 20px;
+        }
+        label[for*='ser']{
+            color: salmon;
+        }
+        input[type='text']{
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <form>
+            <label for="user">用户名</label>
+            <input type="text" name="" id="user">
+            <label for="pwd">密码</label>
+            <label for="vip1">vip1</label>
+            <label for="vip2">vip2</label>
+            <label for="ser">用户名1</label>
+            <label for="ser2">用户名2</label>
+        </form>
+    </div>
+</body>
+</html>
