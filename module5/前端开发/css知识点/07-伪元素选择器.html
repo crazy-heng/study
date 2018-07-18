@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪元素选择器</title>
+    <style type="text/css">
+        /*设置第一个字母样式*/
+        p:first-letter{
+            color:red;
+            font-size: 30px;
+        }
+        /*在。。。之前添加内容*/
+        p:before{
+            content: 'alex';
+        }
+        /*在。。。之后使用非常频繁 通常和布局有关（清除浮动）*/
+        p:after{
+            content: '&';
+            color:red;
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        我是一个段落
+    </p>
+</body>
+</html>

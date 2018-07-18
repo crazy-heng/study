@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高级选择器</title>
+    <style type="text/css">
+        /*<!--后台选择器-->
+        div p{
+            color:red;
+        }
+        div div p{
+            color:yellow;
+        }
+        .container div p{
+            color: green;
+        }*/
+        /*子代选择器*/
+        .container>p{
+            color:yellowgreen;
+        }
+        /*交集选择器*/
+        h2{
+            width: 200px;
+            color:red;
+        }
+        .active{
+            font-size: 30px;
+        }
+        h2.active{
+            background-color: yellow;
+        }
+        /*并集选择器*/
+        a,h4{
+            color: #666;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        /**通配符选择器*/
+        /*性能有点差*/
+        *{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>另一个段落</p>
+        <div>
+            <p>一个段落</p>
+            <a href="#">luffy</a>
+        </div>
+        <ul>
+            <li>
+                <h2 class="active">又一个段落</h2>
+                <h4>我是一个h4</h4>
+            </li>
+            <li>
+                <h4>
+                    我是一个h4
+                </h4>
+                <a href="#">BAT</a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
