@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box1{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            float: left;
+        }
+        .box2{
+            width: 300px;
+            height: 300px;
+            background-color: green;
+        }
+        span{
+            background-color: purple;
+            float: left;
+            width: 300px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!--脱标：脱离了标准文档流
+        小红盒子浮动了，脱离了标准流，此时小绿变成了标准文档流中的第一个盒子，
+        所以渲染到了上方
+    -->
+    <div class="box1">小红</div>
+    <div class="box2">小绿</div>
+    <!--
+        span标签不需要转换块级元素，也能够设置宽高了
+        所有元素一旦浮动，能够并排就不区分行内或块状元素了
+    -->
+    <span>标签</span>
+    <span>标签</span>
+
+</body>
+</html>

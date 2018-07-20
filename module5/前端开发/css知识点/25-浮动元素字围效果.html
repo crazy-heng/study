@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字围</title>
+    <style type="text/css">
+        div{
+            float: left;
+        }
+        p{
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <!--所谓字围效果：
+        当div浮动，p不浮动
+        div挡住了p，div的层级提高，但是p中的文字不会被遮盖，形成字围
+        永远不是一个盒子单独浮动，要浮动就一起浮动-->
+    <div>
+        <img src="images/fav.ico">
+    </div>
+    <p>
+        文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字
+    </p>
+</body>
+</html>

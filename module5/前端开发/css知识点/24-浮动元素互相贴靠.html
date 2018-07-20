@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        span{
+            background-color: red;
+            float: left;
+        }
+        .box1{
+            width: 100px;
+            height: 400px;
+            background-color: red;
+            float: left;
+        }
+        .box2{
+            width: 150px;
+            height: 200px;
+            background-color: green;
+            float: left;
+        }
+        .box3{
+            width: 300px;
+            height: 300px;
+            background-color: yellow;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <!--<span>文字</span>-->
+    <!--<span>文字</span>-->
+
+    <!--
+        如果父元素有足够空间，那么3紧靠2，2紧靠1，1靠边
+        如果没有足够的空间，那么就会靠1，如果1没有空间，那就靠边
+    -->
+    <div class="box1">1</div>
+    <div class="box2">2</div>
+    <div class="box3">3</div>
+</body>
+</html>
