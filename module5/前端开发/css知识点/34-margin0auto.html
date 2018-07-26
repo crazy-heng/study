@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>margin</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            width: 700px;
+            height: 50px;
+            background-color: red;
+            /*水平居中盒子*/
+            margin: 0 auto;
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!--
+     1 使用margin 0 auto;水平居中盒子必须要有width，文字水平居中用text-align center
+     2 只有标准流下盒子才能使用margin 0 auto
+     当盒子浮动了，固定定位，绝对定位，就不起作用了
+     3 margin:0 auto；居中盒子，不是剧中内容-->
+    <div>
+        文字
+    </div>
+</body>
+</html>

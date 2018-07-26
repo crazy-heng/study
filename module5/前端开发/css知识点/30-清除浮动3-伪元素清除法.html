@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪元素清除常用</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        div{
+            width: 400px;
+        }
+
+        div ul li{
+            float: left;
+            width: 100px;
+            height: 40px;
+            background-color: red;
+        }
+        .box{
+            width: 200px;
+            height: 100px;
+            background-color: yellow;
+        }
+        .clearfix:after{
+            /*必须要写下面三句*/
+            content: '';
+            clear: both;
+            display: block;
+            /*
+            新浪清除方法
+            content: '.';
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+            */
+        }
+    </style>
+</head>
+<body>
+    <div class="clearfix">
+        <ul>
+            <li>python</li>
+            <li>web</li>
+            <li>linux</li>
+        </ul>
+    </div>
+    <div class="box"></div>
+</body>
+</html>

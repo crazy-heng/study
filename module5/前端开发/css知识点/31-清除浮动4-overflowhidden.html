@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>overflow</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        div{
+            width: 400px;
+        }
+
+        div ul li{
+            float: left;
+            width: 100px;
+            height: 40px;
+            background-color: red;
+        }
+        .box{
+            width: 400px;
+            overflow: hidden;
+        }
+        .box2{
+            width: 200px;
+            height: 100px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>python</li>
+            <li>web</li>
+            <li>linux</li>
+        </ul>
+    </div>
+    <div class="box2"></div>
+</body>
+</html>
