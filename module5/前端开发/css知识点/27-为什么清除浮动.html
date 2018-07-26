@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .father{
+            width: 1226px;
+            /*子元素浮动 父盒子不设置高度*/
+            /*出现这种问题，我们要清除浮动带来的影响*/
+        }
+        .box1{
+            width: 200px;
+            height: 300px;
+            float: left;
+            background-color: #fc4b38;
+        }
+        .box2{
+            width: 200px;
+            height: 300px;
+            float: left;
+            background-color: #1971fe;
+        }
+        .box3{
+            width: 400px;
+            height: 100px;
+            float: left;
+            background-color: yellow;
+        }
+        .father2{
+            width: 1226px;
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+    </div>
+    <div class="father2">
+        啊
+    </div>
+</body>
+</html>
