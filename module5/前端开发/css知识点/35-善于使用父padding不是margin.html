@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        .father{
+            width: 270px;
+            height: 270px;
+            padding-top: 30px;
+            padding-left: 30px;
+            background-color: #1971fe;
+        }
+        .xiongda{
+            width: 100px;
+            height: 100px;
+            /*margin-left: 50px;*/
+            /*margin-top: 50px;*/
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!--因为父亲没有border,那么儿子margin实际上踹的是流
+        所以父亲掉下来了，用父亲的padding来实现-->
+    <div class="father">
+        <div class="xiongda">
+
+        </div>
+    </div>
+</body>
+</html>
