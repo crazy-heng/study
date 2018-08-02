@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>56</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 5px solid red;
+            margin: 100px;
+            padding: 50px;
+            /*父设置相对定位*/
+            position: absolute;
+        }
+        .box p{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /*子元素设置绝对定位*/
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!--不仅仅是父相子绝，父绝子绝，父固子绝，都是以父辈元素为参考点
+        注意：父绝子绝，没有实战意义，因为绝对定位脱标影响布局
+        父相子绝常用方案，因为父不脱离标准流，子元素仅仅在父的范围内移动。-->
+    <div class="box">
+        <div class="box2">
+            <p></p>
+        </div>
+    </div>
+
+</body>
+</html>

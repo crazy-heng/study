@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>53</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+        }
+        .box1{
+            background-color: red;
+            /*绝对定位：1脱离标准流 2做遮盖效果提升层级
+            3设置后不区分行内行外都能设置宽高*/
+            position: absolute;
+        }
+        .box2{
+            background-color: blue;
+            position: relative;
+        }
+        .box3{
+            background-color: green;
+        }
+        span{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <span>文字</span>
+</body>
+</html>
