@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>63</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            height: 0;
+        }
+        .box1{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+            top: 30px;
+            left: 20px;
+            z-index: 3;
+        }
+        .box2{
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+        .box3{
+            width: 200px;
+            height: 200px;
+            background-color: green;
+            float: left;
+            margin-left: 20px;
+            margin-top: -20px;
+        }
+    </style>
+</head>
+<body>
+    <!--z-index
+    1 z-index值表示谁压着谁，数值大的压盖住数值小的
+    2 只有定位了的元素，才能有z-index
+    3 z-index值没有单位，默认值为0
+    4 如果都没有z-index值或相同，谁在后面压着前面，定位元素永远压住没定位元素
+    5 从父现象，父亲怂了，儿子牛逼也没用-->
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+</body>
+</html>

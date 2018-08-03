@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>59</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        p{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            /*固定定位：固定当前元素不会随着页面而滚动
+            特性：1脱标 2提升层级 3固定不变
+            参考点:用top以浏览器左上角
+            用bottom 以浏览器左下角
+            作用：1返回顶部栏 2固定导航栏 3小广告*/
+            position: fixed;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p></p>
+        <img src="images/banner.jpg" alt="">
+        <img src="images/fav.ico" alt="">
+        <img src="images/fav.ico" alt="">
+        <img src="images/banner.jpg" alt="">
+        <img src="images/fav.ico" alt="">
+        <img src="images/fav.ico" alt="">
+        <img src="images/banner.jpg" alt="">
+        <img src="images/fav.ico" alt="">
+    </div>
+</body>
+</html>
