@@ -12,10 +12,14 @@
         ul{
             list-style: none;
         }
+        .topimg{
+            width: 100%;
+            height: 120px;
+        }
         .topbar{
             width: 100%;
             height: 40px;
-            background-color: black;
+            background-color: darkgray;
         }
         .container1{
             width: 1226px;
@@ -28,20 +32,70 @@
             float: left;
             width: 375px;
             height: 40px;
-            background-color: red;
+        }
+        .topbar-nav ul li{
+            float: left;
+            width: 60px;
+            height: 40px;
+        }
+        .topbar-nav ul li a{
+            display: block;
+            width: 60px;
+            height: 40px;
+            font-size: 10px;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            text-decoration: none;
+        }
+        .topbar-nav ul li a:hover{
+            color: pink;
+            font-size: 11px;
         }
         .user-info{
             float: right;
-            width: 140px;
+            width: 180px;
             height: 40px;
-            background-color: #fc4b38;
+            background-color: darkgray;
             margin-right: 15px;
+        }
+        .user-info ul li{
+            float: left;
+            width: 60px;
+            height: 40px;
+        }
+        .user-info ul li a{
+            display: block;
+            width: 60px;
+            height: 40px;
+            font-size: 10px;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            text-decoration: none;
+        }
+        .user-info ul li a:hover {
+            color: pink;
+            font-size: 11px;
         }
         .topbar-cart{
             float: right;
             width: 120px;
             height: 40px;
-            background-color: green;
+            /*background-color: green;*/
+        }
+        .topbar-cart a{
+            display: block;
+            width: 120px;
+            height: 40px;
+            font-size: 13px;
+            line-height: 40px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+        .topbar-cart a:hover{
+            background-color: #fc4b38;
         }
 
         .header{
@@ -56,22 +110,65 @@
         .logo{
             margin-top: 22px;
             float: left;
-            width: 62px;
+            width: 55px;
             height: 55px;
             background-color: #e766ea;
         }
+        .logo img{
+            position: relative;
+            top: 3px;
+            left: 3px;
+        }
         .nav{
             float: left;
-            width: 580px;
+            margin-left: 5px;
+            width: 800px;
             height: 110px;
-            background-color: yellow;
+            /*background-color: yellow;*/
+        }
+        .nav ul li.nav-item{
+            float: left;
+            position: relative;
+            top: 20px;
+        }
+        .nav ul li.nav-list{
+            float: left;
+            /*width: 70px;*/
+            margin-left: 10px;
+            margin-right: 10px;
+            height: 110px;
+        }
+        .nav ul li.nav-list a{
+            display: block;
+            height: 40px;
+            font-size: 15px;
+            text-align: center;
+            line-height: 110px;
+            color: black;
+            text-decoration: none;
+        }
+        .nav ul li.nav-list a:hover{
+            color: #e766ea;
         }
         .search{
             margin-top: 25px;
             float: right;
-            width: 296px;
+            width: 320px;
             height: 50px;
-            background-color: purple;
+        }
+        .search a.search-text{
+            display: block;
+            width: 200px;
+            position: relative;
+            left: 1px;
+        }
+        .search a{
+            display: block;
+            float: right;
+            width: 100px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid black;
         }
         .content{
             width: 1226px;
@@ -156,20 +253,99 @@
     </style>
 </head>
 <body>
-
+    <div class="topimg">
+        <img src="images/top.jpg">
+    </div>
     <div class="topbar">
         <div class="container1">
-            <div class="topbar-nav">导航栏</div>
-            <div class="topbar-cart">购物车</div>
-            <div class="user-info">用户登录</div>
+            <div class="topbar-nav">
+                <ul>
+                    <li>
+                        <a href="">小米商城</a>
+                    </li>
+                    <li>
+                        <a href="">MIUI</a>
+                    </li>
+                    <li>
+                        <a href="">云服务</a>
+                    </li>
+                    <li>
+                        <a href="">金融</a>
+                    </li>
+                    <li>
+                        <a href="">有品</a>
+                    </li>
+                    <li>
+                        <a href="">政企服务</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="topbar-cart">
+                <a href="">购物车</a>
+            </div>
+            <div class="user-info">
+                <ul>
+                    <li>
+                        <a href="">用户登录</a>
+                    </li>
+                    <li>
+                        <a href="">注册</a>
+                    </li>
+                    <li>
+                        <a href="">消息通知</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="header">
         <div class="container2">
-            <div class="logo">logo</div>
-            <div class="nav">导航</div>
-            <div class="search">搜索</div>
+            <div class="logo">
+                <img src="images/mi-logo.png">
+            </div>
+            <div class="nav">
+                <ul>
+                    <li class="nav-item">
+                        <a>
+                            <img src="images/hearder-nav.gif">
+                        </a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">小米手机</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">红米</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">电视</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">笔记本</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">盒子</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">新品</a>
+                    </li>
+                   <li class="nav-list">
+                        <a href="">路由器</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">服务</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="">社区</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search">
+                <a>
+                    搜索
+                </a>
+                <a class="search-text">1</a>
+            </div>
         </div>
     </div>
 
