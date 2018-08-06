@@ -182,23 +182,61 @@
             height: 460px;
             background-color: #1971fe;
         }
+        .content-list ul{
+            height: 420px;
+            position: relative;
+            top: 20px;
+        }
+        .content-list ul li{
+            width: 204px;
+            height: 42px;
+            padding-left: 30px;
+            line-height: 42px;
+            color: white;
+        }
+        .content-list ul li:hover{
+            background-color: #fc4b38;
+        }
+        .content-list ul li a{
+            float: right;
+            font-size: 20px;
+            margin-right: 15px;
+        }
         .lunbo{
             float: left;
             width: 992px;
             height: 460px;
-            background-color: salmon;
+            background-image: url("images/lunbo.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            /*background-color: salmon;*/
         }
         .shop{
             width: 1226px;
             height: 170px;
             margin: 0 auto 30px;
-            background-color: green;
+            /*background-color: green;*/
         }
         .shop .channel{
             width: 234px;
             height: 170px;
             float: left;
-            background-color: #996633;
+            background-color: darkgray;
+        }
+        .shop .channel ul li{
+            float: left;
+            margin-right: 1px;
+            margin-bottom: 1px;
+            width: 77px;
+            height: 84px;
+            text-align: center;
+            line-height: 85px;
+            color: blanchedalmond;
+            font-size: 12px;
+            background-color: #666666;
+        }
+        .shop .channel ul li:hover{
+            color: white;
         }
         .shop .advertising{
             width: 992px;
@@ -206,7 +244,7 @@
             /*background-color: red;*/
             float: left;
         }
-        .advertising ul li{
+        .advertising ul li img{
             float: right;
             width: 316px;
             height: 170px;
@@ -217,31 +255,81 @@
             width: 1226px;
             height: 40px;
             margin: 0 auto;
-            background-color: #e766ea;
+            /*background-color: #e766ea;*/
         }
         .buy .buy-title{
             float: left;
             height: 20px;
             margin-top: 10px;
+            font-size: 20px;
         }
         .buy .page{
             float: right;
-            width: 70px;
+            width: 72px;
             height: 25px;
             margin-top: 15px;
-            background-color: yellow;
+            /*background-color: yellow;*/
+        }
+        .buy .page a{
+            float: left;
+            width: 24px;
+            height: 16px;
+            padding: 3px 5px;
+            border: 1px solid #e0e0e0;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
         }
         .buy-list{
             width: 1226px;
             height: 340px;
-            background-color: darkred;
             margin: 0 auto;
         }
         .buy-list .buy-channel{
             float: left;
             width: 234px;
             height: 340px;
-            background-color: #666666;
+            background-color: darkgray;
+        }
+        .buy-list ul li{
+            border-top-style: solid;
+        }
+        .buy-list .buy-channel ul li{
+            padding-top: 25px;
+            border-top-color: red;
+        }
+        .buy-list .buy-channel ul li img{
+            display: block;
+            margin: 25px auto;
+            /*text-align: center;*/
+        }
+        div.num{
+            margin-top: 25px;
+            font-size: 21px;
+            color: red;
+            text-align: center;
+        }
+        div.start{
+            text-align: center;
+        }
+        div.time{
+            width: 168px;
+            margin: 28px auto 0;
+        }
+        div.box{
+            float: left;
+            width: 46px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
+            background-color: #1971fe;
+        }
+        div.dot{
+            float: left;
+            width: 15px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
         }
         .buy-list .buy-product ul li{
             float: right;
@@ -249,6 +337,10 @@
             width: 234px;
             height: 340px;
             background-color: #fc4b38;
+        }
+        .buy-list .buy-product img{
+            width: 160px;
+            height: 160px;
         }
     </style>
 </head>
@@ -350,36 +442,90 @@
     </div>
 
     <div class="content">
-        <div class="content-list"></div>
+        <div class="content-list">
+            <ul>
+                <li class="content-item">手机 电话卡<a>></a></li>
+                <li class="content-item">电视 盒子<a>></a></li>
+                <li class="content-item">笔记本 平板<a>></a></li>
+                <li class="content-item">家电 插线板<a>></a></li>
+                <li class="content-item">出行 穿戴<a>></a></li>
+                <li class="content-item">智能 路由器<a>></a></li>
+                <li class="content-item">电源 配件<a>></a></li>
+                <li class="content-item">个护 儿童<a>></a></li>
+                <li class="content-item">耳机 音响<a>></a></li>
+                <li class="content-item">生活 箱包<a>></a></li>
+            </ul>
+        </div>
         <div class="lunbo"></div>
     </div>
 
     <div class="shop">
         <!--选购引导-->
-        <div class="channel"></div>
+        <div class="channel">
+            <ul>
+                <li>选购手机</li>
+                <li>企业团购</li>
+                <li>F码通道</li>
+                <li>不限量卡</li>
+                <li>依旧换新</li>
+                <li>话费充值</li>
+            </ul>
+        </div>
         <div class="advertising">
             <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
+                <li>
+                    <img src="images/shop3.jpg">
+                </li>
+                <li>
+                    <img src="images/shop2.jpg">
+                </li>
+                <li>
+                    <img src="images/shop1.jpg">
+                </li>
             </ul>
         </div>
     </div>
 
     <div class="buy">
-        <div class="buy-title">开始闪购</div>
-        <div class="page"></div>
+        <div class="buy-title">小米闪购</div>
+        <div class="page">
+            <a> < </a>
+            <a> > </a>
+        </div>
     </div>
 
     <div class="buy-list">
         <!--购买-->
-        <div class="buy-channel"></div>
+        <div class="buy-channel">
+            <ul>
+                <li>
+                    <div class="num">18:00 场</div>
+                    <img src="images/start.png">
+                    <div class="start">距离开始还有</div>
+                    <div class="time">
+                        <div class="box">00</div>
+                        <div class="dot">:</div>
+                        <div class="box">11</div>
+                        <div class="dot">:</div>
+                        <div class="box">45</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <div class="buy-product">
             <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
+                <li class="p1">
+                    <img src="images/product4.jpg">
+                </li>
+                <li class="p2">
+                    <img src="images/product3.jpg">
+                </li>
+                <li class="p3">
+                    <img src="images/product2.jpg">
+                </li>
+                <li class="p4">
+                    <img src="images/product1.jpg">
+                </li>
             </ul>
         </div>
     </div>
