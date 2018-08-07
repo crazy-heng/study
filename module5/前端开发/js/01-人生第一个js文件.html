@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+    <!--外链式-->
+    <script src="./1.js"></script>
+</head>
+<body>
+    <!--dom == document object model 行内式引入-->
+    <p id="p1" onclick="clickhandler()">123</p>
+
+
+<!--内部式 建议引入时候要在body之后，左右dom加载完之后执行相应js-->
+<script type="text/javascript">
+    document.write('<span class="span1">234</span>')
+
+    console.log('今天很漂亮')
+    console.error('错了')
+    console.dir(window)
+    function  clickhandler() {
+        //弹出警告框
+        // 这是一个方法
+        alert(1);
+    }
+</script>
+</body>
+</html>
