@@ -15,6 +15,8 @@
         .topimg{
             width: 100%;
             height: 120px;
+            background-image: url("images/top.jpg");
+            background-position: center;
         }
         .topbar{
             width: 100%;
@@ -170,6 +172,59 @@
             text-align: center;
             border: 1px solid black;
         }
+
+        .right-bar{
+            right: 50%;
+            position: fixed;
+            bottom: 70px;
+            margin-right: -640px;
+        }
+        .bars{
+            width: 27px;
+            height: 176px;
+        }
+        .bars ul{
+            width: 27px;
+            height: 40px;
+        }
+        .bars ul li.box1{
+            position: relative;
+            left: 3px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background-image: url("images/b1.png");
+            background-size: 100% 100%;
+        }
+        .bars ul li.box2{
+            position: relative;
+            left: 3px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background-image: url("images/b2.png");
+            background-size: 100% 100%;
+        }
+        .bars ul li.box3{
+            position: relative;
+            left: 3px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background-image: url("images/b3.png");
+            background-size: 100% 100%;
+        }
+        .bars ul li a{
+            display: block;
+            position: relative;
+            left: 3px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background-image: url("images/b4.png");
+            background-size: 100% 100%;
+        }
+
         .content{
             width: 1226px;
             height: 460px;
@@ -211,6 +266,7 @@
             background-position: center;
             /*background-color: salmon;*/
         }
+
         .shop{
             width: 1226px;
             height: 170px;
@@ -251,6 +307,7 @@
             margin-left: 14px;
             background-color: #1971fe;
         }
+
         .buy{
             width: 1226px;
             height: 40px;
@@ -366,6 +423,7 @@
             text-align: center;
             color: #e766ea;
         }
+
         .footer-service{
             width: 1226px;
             height: 25px;
@@ -435,8 +493,9 @@
             background-color: gold;
             color: white;
         }
+
         .site-info{
-            width: 1903px;
+            width: 100%;
             height: 106px;
             padding: 30px 0;
             background-color: whitesmoke;
@@ -458,6 +517,14 @@
             width: 688.11px;
             height: 57px;
         }
+        .info-text p{
+            font-size: 12px;
+            color: gray;
+        }
+        .info-text p a{
+            font-size: 16px;
+            color: black;
+        }
         .info-link{
             float: left;
             width: 450px;
@@ -478,9 +545,7 @@
     </style>
 </head>
 <body>
-    <div class="topimg">
-        <img src="images/top.jpg">
-    </div>
+    <div class="topimg"></div>
     <div class="topbar">
         <div class="container1">
             <div class="topbar-nav">
@@ -521,6 +586,25 @@
                     </li>
                 </ul>
             </div>
+        </div>
+    </div>
+
+    <div class="right-bar">
+        <div class="bars">
+            <ul>
+                <li class="box1"></li>
+            </ul>
+            <ul>
+                <li class="box2"></li>
+            </ul>
+            <ul>
+                <li class="box3"></li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#"></a>
+                </li>
+            </ul>
         </div>
     </div>
 
