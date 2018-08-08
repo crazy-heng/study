@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>if</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        //if语句 如果（）。。。。
+        var ji = 15;
+        if(ji>=20){
+            console.log("恭喜你，成功")
+        }else {
+            console.log("继续努力")
+        }
+
+        //考试系统录入
+        var math = 90;
+        var english = 85;
+        var sum = 485;
+        //1 模拟 总分>400并且数学>89
+        //逻辑与&& 两个条件都成立
+        if(sum > 400 && math > 89){
+            console.log("录取成功")
+        }else {
+            alert('高考失利')
+        }
+
+        //2模拟总分>400或英语>85
+        if(sum>500 || english>85){
+            alert('被录取')
+        }else {
+            alert('高考失利')
+        }
+    </script>
+</body>
+</html>

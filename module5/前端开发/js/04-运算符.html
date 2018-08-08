@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>运算符</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        //1 赋值运算符
+        // var money = prompt('请输入金额。。。');
+        // var saveMoney = money*(1+0.02);
+        // console.log(saveMoney);
+
+        //2 算术运算
+        var a = 10;
+        var b = 4;
+        var sum = a + b;
+        var min = a - b;
+        //+ - * / %
+        var div = a/b;
+        var lef = a%b;
+        console.log(lef);
+
+        //3 复合运算符
+        var c =7 , d = 8;
+        d += c;
+        console.log(d);
+
+        //自增 自减
+        //d++先赋值后++
+        var c1 = d++;
+        console.log(c1);
+        console.log(d);
+
+        var c2 = ++d;
+        console.log(c2);
+
+        //4 比较运算符
+        //>,<,>=,<=,==,===
+        console.log(5>6);
+        //隐式转换字符串和数值转换，===类型和值都比较
+        console.log("5"==5);
+        console.log("5"===5);
+
+        //5 逻辑运算符
+        //&& and || or
+        console.log(true && false)
+
+        console.log(true || false)
+    </script>
+</body>
+</html>
