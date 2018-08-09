@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //列表 js 数组 容器
+        //创建数组
+        //1 字面量方式创建（推荐使用这种方式）
+        var colors = ['red','color','yellow'];
+        console.log(colors)
+
+        //空数组
+        var emptyArray =[];
+
+        //2 使用构造函数的方式创建,使用new关键词
+        var colors = new Array();
+        var colors = new Array('white','red','orange')
+
+        //数组赋值
+        var arr = [];
+        arr[0] = 123;
+        arr[1] ='hah'
+        //通过下标取值
+        console.log(arr.length)
+        console.log(arr[1])
+        //数组遍历
+        for(var i=0;i<arr.length;i++){
+            console.log(arr[i])
+        }
+    </script>
+</body>
+</html>

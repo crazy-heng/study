@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //1 数组的合并 concat（）
+        var north = ['北京','山东','天津'];
+        var south = ['上海','深证','杭州'];
+
+        var newArr = north.concat(south);
+        console.log(newArr)
+        //2 将数组转换成字符串
+        var score = [98,88,78,100,78,0];
+        //toString()直接转换为字符串 每个元素用，隔开
+        var str = score.toString();
+        console.log(str)
+
+        //join()方法 将数组中的元素使用制定的字符串连接起来
+        var str2 = score.join('/')
+        console.log(str2)
+
+        //3 查找下标
+        //indexOf()
+        //如果查找值不在数组中则返回-1
+
+        var index = score.indexOf(78)
+        console.log(index)
+
+        //反向查找
+        var lastIndex = score.lastIndexOf(78)
+        console.log(lastIndex)
+
+        //数组的排序，对原数组也修改
+        var names=['alex','xiaoma','tanhuang','agon']
+        //反转数组
+        var reverseNames = names.reverse()
+        console.log(reverseNames)
+
+        //sort()按26个字母排序
+        var ename = names.sort()
+        console.log(ename);
+
+        //5 移除元素和添加元素
+        //移除数组第一个元素,返回结果数组的第一个元素
+        var firstName = names.shift()
+        console.log(firstName)
+        console.log(names)
+        //unshift()向数组开头添加一个或多个元素，返回新数组
+        var newLength = names.unshift('shan');
+        console.log(newLength)
+        console.log(names)
+
+        //push() pop()
+        //push() 向数组末尾添加一个或多个元素，返回数组长度
+        var newNames = names.push('old')
+        console.log(newNames)
+        console.log(names)
+        //pop() 删除数组的最后一个元素
+        var a = names.pop()
+        console.log(a)
+        console.log(names)
+        //反转字符串
+        var str = "hello world"
+        console.log(str.split('').reverse().join(''))
+    </script>
+</body>
+</html>
