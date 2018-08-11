@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>22</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //1.单个字符和数字
+        //. 匹配除换行符以外的任意字符
+        var str = "luffyCity 2018";
+        var reg = /./g;
+        console.log(reg.exec(str));//1
+
+        //如果不想让字符有其它意义 转义\
+        str = "www.baidu.com";
+        var reg = /www\......\.com/g;
+        console.log(reg.exec(str));//www.baidu.com
+
+        //2.[]匹配p[]里的任意一个字符
+        var str1 = "hello";
+        var reg1 = /[a-zA-Z0-9]/g;
+        console.log(reg1.exec(str1));//h
+
+        var str2 = 'a123';
+        var reg2 = /[0-9][0-9][0-9]/g
+        console.log(reg2.exec(str2));//123
+
+        //3.[^] 所有不在这个范围内的字符
+        var str3 = 'abc123';
+        var reg3 = /[^a-z][^A-Z]/g;
+        console.log(reg3.exec(str3));
+
+        //4. \d:匹配数字 \D:匹配非数字
+        var str4 = 'web';
+        var reg4 = /\d/g;
+        var reg5 = /\D/g;
+        console.log(reg4.exec(str4));//null
+        console.log(reg5.exec(str4));//w
+
+        //5 \w:匹配数字、字母、下划线 \W：匹配除数字、字母、下划线外任意字符
+        var reg6 = /\w/g;
+        var reg7 = /\W/g;
+        console.log(reg6.exec(str4));//w
+        console.log(reg7.exec(str4));//null
+
+        //6 \s:匹配空格trim()
+        var str5 = ' luffy';
+        var reg8 = /\s/g;
+        var reg9 = /\S/g;
+        console.log(reg8.exec(str5));//" "
+        console.log(reg9.exec(str5));//l
+
+        //7.^:以什么开头  $:以什么结尾
+        var str6 = 'www.luffy.com';
+        var reg10 = /^www/g;
+        var reg11 = /^www\......\.com$/g;
+        console.log(reg10.exec(str6));//www
+        console.log(reg11.exec(str6));//www.luffy.com
+
+        //重复字符
+        //8. ?:匹配前面的字符0个或一个
+        var str7 = '123wwdefdjsk4344efejk';
+        var reg12 = /[0-9]?/g
+        console.log(reg12.exec(str7));//1
+
+        //9. *:匹配0个或任意多个字符 尽可能多的匹配
+        var reg13 = /[a-z]*/g
+        console.log(reg13.exec(str7));//""没有匹配就是空
+
+        //10.+：至少匹配一次
+        var reg14 = /\d+/g;
+        console.log(reg14.exec(str7));//123
+
+        //11.{10}:匹配连续的10个数字
+        var stra = '81234567890';
+        //以1开头后面连续匹配10个数字结尾
+        var rega =/^8\d{10}$/g;
+        console.log(rega.exec(stra));
+
+        //12.{min,max} 最少min个最多max个
+        var strb = 'edg';
+        var regb = /^[a-zA-Z]{2,3}$/g;
+        console.log(regb.exec(strb));
+
+        //13. |:或者
+        var strc = 'www.google';
+        var regc =/www.baidu|google|luffy/g;
+        console.log(regc.exec(strc));
+
+        //14.() 分组
+        var regc1=/(baidu)|(google)|(luffy)/g;
+        console.log(regc1.exec(strc));
+        //获取匹配的字符串
+        console.log(RegExp.$1);
+        console.log(RegExp.$2);
+        console.log(RegExp.$3);
+
+        var str = 'helloworld';
+        var reg = /(hello)(world)/g;
+        console.log(reg.exec(str));
+        console.log(RegExp.$1);
+        console.log(str.replace(reg,"$2 $1"));
+    </script>
+</body>
+</html>

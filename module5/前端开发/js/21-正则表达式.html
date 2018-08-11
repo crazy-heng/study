@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        //1.1 构造函数创建 new RegExp("检测的文本","修饰符"）i不区分大小写 g全局匹配
+        var str = 'luffy 2018';
+        var reg = new RegExp('l','ig');
+
+        //1.2 字面量方式创建
+        var reg1 = /y/ig;
+
+        //检索方法
+        //2.1 test() 检测字符串中是否包含
+        // console.log(reg1.test(str))
+
+        //2.2 exec()
+        //匹配到返回一个存放结果的数组
+        console.log(reg1.lastIndex);//0 检索下标
+        console.log(reg1.exec(str));//["y", index: 4, input: "luffy 2018", groups: undefined]
+        console.log(reg1.lastIndex);//5
+
+        //3 常用方法
+        //3.1 match 字符串.match(正则)
+        var str = "hello world";
+        var reg = /o/g;
+        console.log(str.match(reg));//["o", "o"]
+        //3.2 replace 替换 str.replace
+        console.log(str.replace(reg,'*'));//hell* w*rld
+        //3.3 search()
+        console.log(str.search(reg));//4
+        //3.4split 以匹配规则分割
+        console.log(str.split(reg));//["hell", " w", "rld"]
+
+    </script>
+</body>
+</html>

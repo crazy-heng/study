@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>object</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        //一.对象的创建
+        //1.字面量方式创建 推荐使用这种
+        var stu = {
+            name:'alex',
+            age:22,
+            fav:'鸡汤'
+        }
+        console.log(stu)
+        //点语法 包括get方法和set方法
+        var n = stu.name;
+        console.log(n)
+
+        stu.age = 34
+        console.log(stu.age)
+
+        //2.使用object()创建对象
+        //Object()构造函数 1.首字母大写
+        var obj = new Object();
+        obj.name = 'xiaomin'
+        console.log(obj)
+
+        //......构造函数.........
+        //1.函数名首字母要大写
+        //2.构造函数不需要return
+        //3.为对象添加成员变量：this.name = ‘***’
+        var Stu = function () {
+            this.name = 'xiao';
+            this.age = 18;
+            this.fav = function () {
+                alert('泡妞')
+            }
+        }
+        //创建对象
+        var s = new Stu();
+        console.log(s)
+        var s1 = new Stu();
+        console.log(s1)
+
+        //弊端：每次new一个对象 里面的成员变量和方法都一样
+
+        //推荐使用的构造函数的方式
+
+        function Animal() {
+            this.name = 'jing';
+            this.age = 12;
+            // this.fav = function () {
+            //     console.log(this.age)
+            // }
+        }
+
+        Animal.prototype.showname = function () {
+            alert(this.name)
+        }
+
+        var a = new Animal()
+
+        a.showname()
+    </script>
+</body>
+</html>

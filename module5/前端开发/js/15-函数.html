@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>15</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        //函数的创建
+        /* py
+        def add();
+            pass
+         */
+        //1 js中的函数的声明 记得：有函数的声明 就一定有调用
+        function add() {
+            alert("函数被调用了")
+        }
+        //2 函数的执行
+        add()
+
+        //二 声明函数的时候带参数
+        function add2(a,b) {
+            alert(a+b)
+        }
+
+        add2(3,4)
+
+        //三 声明函数时带有参数，并有返回值
+        function add3(x,y) {
+            return x+y;
+        }
+
+        var sum=add3(5,6)
+        alert(sum)
+    </script>
+</body>
+</html>
