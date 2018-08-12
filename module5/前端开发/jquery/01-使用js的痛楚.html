@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01</title>
+    <style type="text/css">
+        div{
+            width: 100%;
+            height: 100px;
+            margin: 10px 0 0 0;
+            display: none;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">展示</button>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+    //书写繁琐 代码量大 代码复杂
+    //动画 开定时器 清除定时器
+    //用jquery解决
+
+
+    // window.onload = function () {
+    //     var oBtn = document.getElementsByTagName('button')[0]
+    //     var oDivs = document.getElementsByTagName('div')
+    //
+    //     oBtn.onclick = function () {
+    //         for(var i=0;i<oDivs.length;i++){
+    //             oDivs[i].style.display = 'block'
+    //         }
+    //     }
+    // }
+
+    $(function () {
+        $('#btn').click(function () {
+            $('div').css('display','block')
+            $('div').html('div展示了')
+        })
+    })
+
+</script>
+</html>
