@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #search{
+            position: relative;
+        }
+        input{
+            outline: none;
+            display: block;
+            width: 400px;
+            height: 40px;
+            font-size: 20px;
+            margin-top: 10px;
+            border: 2px solid orange;
+            border-radius: 10px;
+        }
+        label{
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            font-size: 10px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="search">
+        <input type="text" id="text">
+        <label for="text" id="msg">luffy city</label>
+    </div>
+</body>
+<script type="text/javascript">
+    var txt = document.getElementById('text');
+    var msg = document.getElementById('msg');
+
+    //检测用户表单输入方法
+    txt.oninput = function () {
+        if(this.value == ''){
+            msg.style.display = 'block'
+        }else{
+            msg.style.display = 'none'
+        }
+    }
+</script>
+</html>
