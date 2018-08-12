@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{list-style: none;}
+        .box{
+            width:440px;
+            height: 220px;
+            margin: 50px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        ul li{
+            float: left;
+        }
+        .box ul{
+            width: 400%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li><img src="image/p1.jpg"></li>
+            <li><img src="image/p2.jpg"></li>
+            <li><img src="image/p3.jpg"></li>
+            <li><img src="image/p2.jpg"></li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    var box = document.getElementsByClassName('box')[0]
+    var ul = box.children[0]
+    var num = 0
+    var time = null
+    function autoPlay() {
+        num--
+        num <= -440 ? num=0 : num--
+
+        ul.style.left = num + 'px'
+    }
+    time = setInterval(autoPlay,30)
+    //鼠标移动上去
+    box.onmousemove = function () {
+        clearInterval(time)
+    }
+    box.onmouseout = function () {
+        time = setInterval(autoPlay,30)
+    }
+</script>
+</html>

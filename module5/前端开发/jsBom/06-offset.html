@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>offset</title>
+</head>
+<body>
+    <div id="box" style="width: 200px;height: 200px;border: 1px solid red;padding: 10px;
+        margin: 10px;position: absolute;top: 20px;left: 10px">
+
+    </div>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var box = document.getElementById('box')
+        //占位高 top left
+        /*
+        offsettop 如果盒子没有设置定位 到浏览器的顶部的距离,如果设置定位 以父盒为基准
+        offsetleft 如果盒子没有设置定位 到浏览器的左边的距离,如果设置定位 以父盒为基准
+        offsetwidth 内容+padding+border
+         */
+        console.log(box.offsetTop)
+        console.log(box.offsetLeft)
+        console.log(box.offsetWidth)
+        console.log(box.offsetHeight)
+    }
+</script>
+</html>
