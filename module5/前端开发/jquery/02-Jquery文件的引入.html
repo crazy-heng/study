@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02</title>
+    <script type="text/javascript">
+        //如果不写window.onload() 代码的执行顺序是从上到下 还取不到Div
+        window.onload = function () {
+            var oDiv = document.getElementById('box')
+            console.log(oDiv)
+        }
+
+    </script>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    //jqurey是js的一个库文件，需要一个构造函数或者对象
+    //需要先引入jQuery才能使用$
+    console.log($)
+
+    //书写方式 入口函数
+    // $(document).ready(function () {
+    //     alert(11)
+    // })
+    //简便写法
+    $(function () {
+        alert(222)
+    })
+</script>
+</html>

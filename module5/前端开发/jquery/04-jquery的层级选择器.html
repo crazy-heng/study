@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04</title>
+</head>
+<body>
+    <ul>
+        <li id="borther">路飞学成1</li>
+        <li><a href="http://www.baidu.com">路飞学成2</a> </li>
+        <li class="li3">路飞学成3</li>
+        <li>路飞学成4</li>
+        <li>路飞学成5</li>
+    </ul>
+    <div id="box">
+        <p id="father">天王盖地虎</p>
+        <p>宝塔整合要</p>
+        <p>蘑菇方向角</p>
+        <div id="box2">
+            <p>小鸡炖蘑菇</p>
+        </div>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //层级选择器
+        //1.后代选择器 div p
+        $('#box p').css('color','red')
+        //2.子代选择器 div > p
+        $('#box2>p').css('color','yellow')
+        //3.毗邻选择器 匹配所有紧接着选中元素的兄弟
+        $('#father+p').css('font-size','20px')
+        //4.兄弟选择器
+        $('#father~p').css('background','green')
+        //5.取第一个元素
+        $('li:first').css('font-size','40px')
+        //6.取最后一个元素
+        $('li:last').css('font-size','30px')
+        //7.取指定元素
+        $('li:eq(2)').css('font-size','40px')
+    })
+</script>
+</html>

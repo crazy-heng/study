@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05</title>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li id="father">天王盖地虎</li>
+            <li>宝塔整合要</li>
+            <li>蘑菇方向角</li>
+            <li>小鸡炖蘑菇</li>
+        </ul>
+
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //取第一个元素
+        $('li:first').css('font-size','40px')
+        //取最后一个元素
+        $('li:last').css('font-size','30px')
+        //取指定索引元素
+        $('li:eq(2)').css('font-size','40px')
+        //奇数
+        $('li:odd').css('color','red')
+        //偶数
+        $('li:even').css('color','yellow')
+        //大于索引值
+        $('li:gt(1)').css('background','green')
+        //小于索引值
+        $('li:lt(1)').css('background','gray')
+    })
+</script>
+</html>

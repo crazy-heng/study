@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="box">
+            <h2 class="title">属性元素器</h2>
+            <p class="p1">我是一个段落</p>
+            <ul>
+                <li id="li1">分手应该体面</li>
+                <li id="li2" class="what">分手应该体面</li>
+                <li class="what">分手应该体面</li>
+                <li class="heihei">分手应该体面</li>
+
+            </ul>
+
+            <form action="" method="post">
+
+                <input name="username" type='text' value="1" checked="checked"></input>
+                <input name="username1111" type='text' value="1"></input>
+                <input name="username2222" type='text' value="1"></input>
+                <input name="username3333" type='text' value="1"></input>
+                <button class="btn-default">按钮1</button>
+                <button class="btn-info">按钮1</button>
+                <button class="btn-success">按钮1</button>
+                <button class="btn-danger">按钮1</button>
+
+
+            </form>
+        </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //标签名+[属性名]
+        $('li[id]').css('color','red')
+        //匹配给定属性值为what
+        $('li[class=what]').css('font-size','20px')
+        $('li[class!=what]').css('font-size','10px')
+        //匹配以某些开头或结尾的属性值
+        $('input[name^=user]').css('background','gray')
+        $('input[name$=222]').css('background','red')
+        //匹配属性包含某些值得元素
+        $('button[class*=danger]').css('background','green')
+    })
+
+</script>
+</html>
