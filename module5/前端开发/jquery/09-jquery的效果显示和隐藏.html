@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09</title>
+    <style type="text/css">
+        #box{
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <button id="btn">显示</button>
+
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    // $('#btn').click(function () {
+    //     $('#box').css('display','block')
+    // })
+
+    // var isShow = true
+    // $('#btn').click(function () {
+    //     if(isShow){
+    //         $('#box').show('slow',function () {
+    //             $(this).text('盒子出来了')
+    //             isShow = false
+    //             $('#btn').text('隐藏')
+    //         })
+    //     }else{
+    //         $('#box').hide(2000,function () {
+    //             $(this).text('')
+    //             isShow = true
+    //             $('#btn').text('显示')
+    //         })
+    //     }
+    // })
+
+    //toggle 开关 如果元素显示则隐藏，反之亦然
+    $('#btn').click(function () {
+        $('#box').toggle(3000,function () {
+            alert(111)
+        })
+    })
+</script>
+</html>

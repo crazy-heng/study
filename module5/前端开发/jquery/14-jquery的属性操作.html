@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>14</title>
+</head>
+<body>
+    <div id="box">
+        <p>luffy</p>
+    </div>
+    <button>获取</button>
+
+    <ul>
+        <li class="luffy">luffy</li>
+        <li class="luffy2">luffy</li>
+        <li class="luffy3">luffy</li>
+        <li class="luffy4">luffy</li>
+    </ul>
+
+    <span class="span1">
+        路飞吧!!!
+    </span>
+
+    <div id="box2">
+        who am i
+        <p>haha</p>
+        <a href="">baidu</a>
+        <input type="text" value="aa" name="">
+        <button id="btn">get</button>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('button').click(function () {
+            //属性操作 html属性操作
+            //attr()如果一个参数 表示获取值
+            $('#box p').text($('#box').attr('id'))
+        })
+
+        //attr()如果是指两个值 表示设置属性
+        $('#box').attr('class','fop')
+        //设置多个值 使用对象存储 如果设置多个类名 不能使用attr 会覆盖先前
+        $('#box').attr({class:'fop2',name:'luffy'})
+        //删除一个属性
+        $('#box').removeAttr('name')
+        //删除多个
+        // $('#box').removeAttr('name class')
+
+        //DOM属性操作
+        //获取的是第一个元素的class值
+        console.log($('li').prop('class'))
+
+        //设置值
+        $('li').first().prop({'name':'app',name2:'app2'})
+        console.log($('li').first())
+
+        //删除dom对象的name属性
+        $('li').first().removeProp('name')
+
+
+        //addClass() removeClass()
+        $('span').addClass('span2 span3')
+        $('span').removeClass('span2')
+        var isBig = true
+        $('span').click(function () {
+            if(isBig){
+                $(this).addClass('active')
+                isBig = false
+            }else{
+                $(this).removeClass('active')
+                isBig = true
+            }
+        })
+
+
+        //4 值属性操作 text() html() val()
+        //获取文本
+        console.log($('#box2').text())
+        //获取所有
+        console.log($('#box2').html())
+
+        // $('#box2').text("<a>luffy</a>>")
+        // $('#box2').html("<a href='#'>luffy</a>")
+
+        //获取值
+        console.log($('input').val())
+        $('input').val('bbbbb')
+        $('#btn').click(function () {
+            var val = $('input').val()
+            $('#box2').text(val)
+        })
+
+        //表单控件使用的一个方法
+        $('input').change(function () {
+            console.log($(this).val())
+        })
+    })
+</script>
+</html>

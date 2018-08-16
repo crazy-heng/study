@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08</title>
+    <style type="text/css">
+        #box{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        天王盖地虎
+    </div>
+    <button>隐藏</button>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    var oDiv = document.getElementById('box')
+    console.log($(oDiv))
+
+    $(oDiv).click(function () {
+        alert(111)
+    })
+
+    //第一种方式 jquery==>DOM
+    console.log($('button')[0])
+
+    //第二种方式
+    console.log($('button').get(0))
+    var isShow = true
+
+    $('button').get(0).onclick = function () {
+            // alert(222)
+        if(isShow) {
+            $('#box').hide()
+            $(this).text('显示')
+            isShow = false
+        }else{
+            $('#box').show()
+            $(this).text('隐藏')
+            isShow = true
+        }
+    }
+</script>
+</html>
