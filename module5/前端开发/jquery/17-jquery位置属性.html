@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fade</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #box{
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            padding: 10px 5px;
+        }
+        p{
+            position: absolute;
+            left: 30px;
+            top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p>段落</p>
+    </div>
+    <button id="btn">显示</button>
+    <div style="width: 200px;height: 200px;margin: 100px auto;border: 1px solid purple"></div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //获取匹配元素的相对父元素的偏移
+        console.log($('p').position().left)
+        console.log($('p').position().top)
+
+        var offsetTop = $('p').position().top+ 50 +'px'
+        $('#btn').click(function () {
+            $('p').animate({top:offsetTop},1000)
+        })
+
+        //获取匹配元素相对滚动条卷起的位置信息scrollTop
+        $(document).scroll(function () {
+            console.log($(document).scrollLeft())
+            console.log($(document).scrollTop())
+        })
+
+        //offset 获取匹配元素在当前的相对偏移 相对于浏览器
+        console.log($('#box').offset())
+        console.log($('p').offset().top)
+        console.log($('p').offset().left)
+
+        //获取元素的宽高
+        console.log("宽"+$('#box').width())
+        console.log("高"+$('#box').height())
+
+        //设置宽高
+        $('#box').width(400)
+
+        //获取 width+2*padding
+        console.log($('#box').innerWidth())
+
+        //width + 2*padding +2*border
+        console.log($('#box').outerWidth())
+
+
+    })
+</script>
+</html>

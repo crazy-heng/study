@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>21</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;}
+        ul{list-style: none;}
+        #box{width:220px;height: 220px;margin: 100px auto;overflow: hidden;position: relative;}
+        ul{
+            width: 660px;
+            position: absolute;
+        }
+        ul li{
+            float: left;
+        }
+        p{
+            position: absolute;
+            left: 80px;
+            bottom: 30px;
+        }
+        p span{
+            color: red;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        p span.active{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+
+        </ul>
+        <p>
+
+        </p>
+    </div>
+    <button id="play">轮播</button>
+    <button id="stop">暂停</button>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //获取本地图片数据 以后会从后端服务器获取
+        var imgArr = ['p1.jpg','p2.jpg','p3.jpg']
+        console.log(imgArr[0])
+        //生成动态图片
+        for(var i=0;i<imgArr.length;i++){
+            $('ul').append("<li><img src="+imgArr[i]+"></li>")
+        }
+        //生成索引
+        var str = ''
+        $('li').each(function (i,ele) {
+            str+="<span>"+(i+1)+"</span>"
+        })
+        console.log(str)
+        $('p').html(str)
+        //设置默认第一个索引
+        $('span:first').addClass('active')
+        //点击索引
+        var index = 0
+        $('span').click(function () {
+            $(this).addClass('active').siblings('span').removeClass('active')
+            //获取当前点击的索引
+            index = $(this).index()
+            // $('ul').css("left",-220*index)
+
+            $('ul').animate({
+                left:-220*index
+            },1000)
+        })
+
+        var timer = null
+        $('#play').click(function () {
+            //开启定时器 索引跟着走 图片跟着走
+            timer = setInterval(next,1000)
+            function next() {
+                if(index == $('li').length-1){
+                    index=0
+                    $('p span').eq(index).addClass('active').siblings('span').removeClass('active')
+                    $('ul').css('left',0)
+                }else{
+                    index++
+                    console.log(index)
+                    $('p span').eq(index).addClass('active').siblings('span').removeClass('active')
+                    $('ul').css('left',-220*index)
+                }
+            }
+        })
+
+        $('#stop').click(function () {
+            clearInterval(timer)
+        })
+
+    })
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>21</title>
+    <style type="text/css">
+        *{margin: 0px;
+            padding: 0px;}
+        ul,ol{list-style: none;}
+        #wrap{width:220px;height: 220px;margin: 100px auto 0;background: red;overflow: hidden;position: relative;}
+        #wrap ul{height: 220px;position: relative;z-index: 1;}
+        #wrap ol{height: 30px;position: absolute;z-index: 2;bottom: 0;right: 0;}
+
+        #wrap>ul>li{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #wrap>ol>li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            border: 1px solid white;
+            background: gray;
+            margin-right: 5px;
+        }
+
+        #wrap>ol>li:hover{
+            cursor: pointer;
+        }
+
+        #wrap li.active{
+            padding: 2px;
+            color: orange;
+            margin-top: -4px;
+            border: 1px solid orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <ul>
+            <!--设置z-index把第一张图片放在最上面-->
+            <li style="z-index: 1;"><a><img src="p1.jpg"> </a></li>
+            <li><a><img src="p2.jpg"> </a></li>
+            <li><a><img src="p2.jpg"> </a></li>
+            <li><a><img src="p3.jpg"> </a></li>
+            <li><a><img src="p3.jpg"> </a></li>
+        </ul>
+        <ol>
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ol>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    
+    $(function () {
+        //控制层级
+        var index = 0
+        $('#wrap>ol>li').mouseenter(function () {
+            index++
+            //修改下表的class
+            $(this).addClass('active').siblings('li').removeClass('active')
+            //修改图片
+            $('#wrap>ul>li').eq($(this).index()).css({left:220,'z-index':index}).animate({
+                left:0
+            },1000)
+        })
+    })
+</script>
+</html>

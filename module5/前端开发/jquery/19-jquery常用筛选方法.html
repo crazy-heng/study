@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>19</title>
+    <style type="text/css">
+        li.active{
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="danger">1</li>
+        <li><a>luffy</a>2</li>
+        <li class="danger">3</li>
+        <li>4</li>
+    </ul>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('li')
+
+        //jquery的遍历方法.each()
+        $('li').each(function (index,ele){
+            console.log(ele)
+            console.log(index)
+
+            var isDanger = $(this).hasClass('danger')
+            if(isDanger){
+                $(this).css('color','red')
+            }else{
+                $(this).css('color','green')
+            }
+        })
+
+        console.log($('ul').children('.danger'))
+        console.log($('li'))
+        console.log($('a').parent())
+        //前一个和前面所有
+        console.log($('li').last().prev())
+        console.log($('li').last().prevAll())
+        //siblings
+        console.log($('li').siblings('li'))
+        $('li').hover(function () {
+            $(this).addClass('active').siblings('li').removeClass('active')
+        })
+    })
+
+</script>
+</html>

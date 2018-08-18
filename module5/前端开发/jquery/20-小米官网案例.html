@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{list-style: none;}
+        .wrap{width: 980px;height: 612px;
+            margin: 20px auto 0;
+            background: gray;
+            border: 1px solid red;
+        }
+        ul li{float: left;margin-left: 10px;position: relative;overflow: hidden;width: 233px;height: 300px;}
+        ul li p{
+            width: 233px;
+            height: 100px;
+            background: #fc4b38;
+            position: absolute;
+            bottom:-100px;
+            text-align: center;
+            color: white;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+            <li><a><img src="p1.jpg"> </a><p>百度一下</p></li>
+        </ul>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //mouseenter mouseleave
+        $('.wrap li').hover(function () {
+            $(this).children('p').stop(true).animate({bottom:0},300)
+        },function () {
+            $(this).children('p').stop(true).animate({bottom:-100},300)
+        })
+    })
+</script>
+</html>

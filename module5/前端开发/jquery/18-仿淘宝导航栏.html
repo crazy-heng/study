@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>18</title>
+    <style type="text/css">
+        *{padding: 0;margin: 0;}
+        div{width: 100%;}
+        div.top{height: 200px;}
+        div img{width: 100%;}
+        .nav{
+            width: 440px;
+            height: 440px;
+            display: none;}
+    </style>
+</head>
+<body>
+    <div class="top">
+        <img src="p1.jpg" alt="">
+    </div>
+    <div class="nav">
+        <img src="p1.jpg">
+    </div>
+    <div class="taobao">
+        <img src="p1.jpg">
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var h = $('.top').height()
+        $(document).scroll(function () {
+            var scollTop = $(document).scrollTop()
+            if(h<scollTop){
+                 $('.nav').css({display:'block',position:'fixed',top:0})
+            }else{
+                $('.nav').css({display:'none',position:'static',top:0})
+            }
+        })
+
+    })
+</script>
+</html>
