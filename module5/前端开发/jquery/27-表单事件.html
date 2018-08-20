@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .show{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form action="http://www.baidu.com">
+        <select name="sweet" id="" multiple="">
+            <option value="">巧克力</option>
+            <option value="" selected="">糖果</option>
+            <option value="">曲奇</option>
+            <option value="" selected="">糖果2</option>
+            <option value="">烧饼</option>
+            <option value="">大饼</option>
+            <option value="">油条</option>
+        </select>
+        <input type="text" value="hello" id="target">
+        <!--submit会默认出发form的action操作-->
+        <input type="submit" value="123">
+    </form>
+
+    <div id="other">
+        Trigger the handle
+    </div>
+    <div class="show"></div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //change()s事件
+        //此事件仅限于input元素 textarea select
+        $('select').change(function () {
+            console.log($('select option:selected').text())
+            $('.show').text($('select option:selected').text())
+        })
+
+        //select 仅限于用在input元素 textarea
+        $('#target').select(function () {
+            console.log($(this).val())
+        })
+
+        $('form').submit(function (ev) {
+            //用阻止默认事件来不让form默认action执行
+            ev.preventDefault()
+            alert('成功阻止跳转百度')
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="box">
+        <button>点击</button>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //点击button冒泡会触发div也执行了
+        $('button').click(function () {
+            alert("111")
+        })
+        $('#box').click(function () {
+            alert("222")
+        })
+    })
+</script>
+</html>

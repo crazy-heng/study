@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li class="luffy">luffy</li>
+        <li>luffy</li>
+        <li>luffy</li>
+    </ul>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // $('ul>li').bind('click',function () {
+        //     console.log(this)
+        // })
+
+        //事件代理 自己完成不了当前的点击时间 交给父级元素来做
+        //on('事件名字','点击当前的标签元素'，fn)
+
+        $('ul').on('click','#city,.luffy',function () {
+            console.log(this)
+        })
+
+        //后来
+        $('ul').append('<li id="city">city</li>')
+    })
+</script>
+</html>
