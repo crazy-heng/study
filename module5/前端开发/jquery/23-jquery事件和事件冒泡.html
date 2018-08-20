@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        p{
+            width: 100px;
+            height: 100px;
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p class="p1"></p>
+        <a href="http://www.baidu.com">baidu</a>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('.p1').click(function (ev) {
+            //事件类型 事件属性
+            console.log(ev.type)
+            console.log(ev.target)
+
+            console.log(ev.pageX)
+            console.log(ev.pageY)
+
+            //常用事件方法 1 阻止事件冒泡  2 阻止默认事件
+            //阻止时间冒泡
+            ev.stopPropagation()
+
+            //阻止默认事件
+
+        })
+
+        $('#box').click(function () {
+            alert("盒子事件触发了")
+        })
+
+        $('a').click(function (ev) {
+            //阻止a标签的默认事件
+            // ev.preventDefault()
+            // ev.stopPropagation()
+            alert("哈哈，不跳转百度了")
+            //简单写法
+            return false
+        })
+    })
+</script>
+</html>
