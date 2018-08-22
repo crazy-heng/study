@@ -1,0 +1,16 @@
+{
+  "arr":[
+    {
+      "name":"xiaoma",
+      "age":18
+    },
+    {
+      "name":"xiaozhao",
+      "age":19
+    },
+    {
+      "name":"xiaozhang",
+      "age":20
+    }
+  ]
+}

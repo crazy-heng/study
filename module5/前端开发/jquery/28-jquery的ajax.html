@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>28</title>
+</head>
+<body>
+    <button id="btn">点击</button>
+    <div id="box">
+
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // $('#btn').click(function () {
+        //     //本地无法演示要服务器响应
+        //     $('#box').load('./test.html'),{name:'zhangsan'}
+        // })
+
+        //get 请求
+        $.ajax({
+            url:'./data.json',
+            type:'get',
+            // dataType: 'json',
+            success:function (data) {
+                console.log(data)
+            },
+            error:function () {
+
+            }
+        })
+
+        //post请求无法演示
+        $.ajax({
+            url:"/course",
+            type:'post',
+            date:{
+                username:'zhangsan',
+                password:'123'
+            },
+            success:function (data) {
+                if(data.state == 'ok' && data.status == '200'){
+                    //登陆成功
+                }
+            },
+            error:function (err) {
+                console.log(err)
+            }
+        })
+
+    })
+</script>
+</html>
