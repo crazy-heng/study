@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <!--以最高的ie浏览器渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--视口设置 移动设备优先 支持移动端 在多个设备上适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>luffyCity</title>
+
+    <!-- Bootstrap 必须引入-->
+    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        [class^='col']{
+            border: 1px solid gray;
+        }
+    </style>
+  </head>
+  <body>
+    <!--固定宽度容器 .container-->
+    <div class="container">
+        <h1>全局样式</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <h1>h1. Bootstrap heading <small>Secondary text</small></h1>
+                <h2>h2. Bootstrap heading <small>Secondary text</small></h2>
+                <h3>h3. Bootstrap heading <small>Secondary text</small></h3>
+                <h4>h4. Bootstrap heading <small>Secondary text</small></h4>
+                <h5>h5. Bootstrap heading <small>Secondary text</small></h5>
+                <h6>h6. Bootstrap heading <small>Secondary text</small></h6>
+                <p>wo<span class="lead">haha</span>shi</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-left">Left aligned text.</p>
+                <p class="text-center">Center aligned text.</p>
+                <p class="text-right">Right aligned text.</p>
+                <p class="text-justify">Justified text.</p>
+                <p class="text-nowrap">No wrap text.</p>
+            </div>
+        </div>
+        <div class="row">
+            <form class="form-inline">
+              <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" class="form-control" id="username" placeholder="用户名">
+              </div>
+              <div class="form-group">
+                <label for="pwd">密码</label>
+                <input type="password" class="form-control" id="pwd" placeholder="密码">
+              </div>
+              <button type="submit" class="btn btn-success">登陆</button>
+              <button type="submit" class="btn btn-info">注册</button>
+            </form>
+        </div>
+    </div>
+  </body>
+</html>
