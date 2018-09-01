@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.head-band{
+    height: 44px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #2459a2;
+    z-index: 1000;
+}
+.head-content{
+    width: 1016px;
+    margin: 0 auto;
+    line-height: 44px;
+    height: 44px;
+    background-color: #2459a2;
+    position: relative;
+}
+.logo{
+    width: 121px;
+    height: 23px;
+    background: url(../images/logo.png) no-repeat 0 0;
+    float: left;
+    margin-top: 11px;
+}
+.head-menu{
+    float: left;
+    line-height: 43px\9;
+    margin-left: 20px;
+    font-size: 12px;
+}
+.key-sera {
+    float: right;
+    margin-top: 6px;
+}
+.key-sera a.i {
+    width: 30px;
+    height: 29px;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    border-left: 0;
+    background-color: #f4f4f4;
+    margin-top: 2px;
+    margin-left: 1px;
+    float: left;
+}
+.key-sera a.i span {
+    background-position: 0 -197px;
+    display: block;
+    height: 12px;
+    margin-left: 11px;
+    margin-top: 9px;
+    width: 11px;
+    _overflow: hidden;
+}
+.ico {
+    background: url(../images/icon.png) no-repeat 0 0;
+}
+.search-text{
+    width: 100px;
+    float: left;
+}
+.head-nav {
+    position: absolute;
+    right: 132px;
+    font-size: 12px;
+    line-height: 43px\9;
+}
+.main-content-band {
+    clear: both;
+    _zoom: 1;
+    background-color: #ededed;
+    _height: 100%;
+    padding-top: 44px;
+}
+.main-content {
+    width: 1016px;
+    margin: 0 auto;
+    overflow: hidden;
+    height: auto !important;
+    min-height: 713px;
+    padding: 6px 28px 60px;
+    background-color: #fff;
+}
+.content-L {
+    width: 630px;
+    overflow: hidden;
+    margin-top: 3px;
+    float: left;
+}
+.content-R {
+    width: 300px;
+    padding-top: 4px;
+    float: right;
+}
