@@ -96,3 +96,13 @@
     padding-top: 4px;
     float: right;
 }
+.gotop{
+    background: url(../images/Back-to-the-top.png) 0 0 no-repeat;
+    bottom: 30px;
+    left: 86%;
+    cursor: pointer;
+    display: block;
+    height: 38px;
+    width: 38px;
+    position: fixed;
+}
