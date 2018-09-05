@@ -11,3 +11,17 @@ $(function () {
         })
 
     })
+//登录
+$(function () {
+    $('.login').click(function () {
+        console.log("login")
+    })
+
+})
+//注册
+$(function () {
+    $('.reg').click(function () {
+        console.log("reg")
+    })
+
+})
