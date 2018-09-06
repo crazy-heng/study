@@ -117,11 +117,10 @@
 }
 .login-container{
     height: 250px;
-    width: 30%;
-    position: absolute;
-    left: 35%;
-    top: 50%;
-    margin: -188px auto;
+    width: 500px;
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
     border: 1px solid blue;
     background-color: white;
 }
@@ -136,20 +135,18 @@
 }
 .reg-container{
     height: 400px;
-    width: 30%;
-    position: absolute;
-    left: 35%;
-    top: 50%;
-    margin: -188px auto;
+    width: 500px;
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
     border: 1px solid blue;
     background-color: white;
 }
 .btn-close{
     width: 20px;
     height: 20px;
-    display: block;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 540px;
-
+    margin-left: 470px;
 }
+

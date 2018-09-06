@@ -14,14 +14,23 @@ $(function () {
 //登录
 $(function () {
     $('.login').click(function () {
-        console.log("login")
+        $('.login-m').css({display:'block'})
     })
 
 })
 //注册
 $(function () {
     $('.reg').click(function () {
-        console.log("reg")
+        $('.reg-m').css({display:'block'})
     })
-
+})
+$(function () {
+    $('.login-close').click(function () {
+        $('.login-m').css({display:'none'})
+    })
+})
+$(function () {
+    $('.reg-close').click(function () {
+        $('.reg-m').css({display:'none'})
+    })
 })
