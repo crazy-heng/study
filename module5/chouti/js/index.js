@@ -34,3 +34,18 @@ $(function () {
         $('.reg-m').css({display:'none'})
     })
 })
+
+//标题栏切换
+var tabli = document.getElementsByTagName('li')
+var tabContent = document.getElementsByClassName('content-list')
+console.log(tabContent)
+for(var i=0;i<tabli.length;i++) {
+    //保存点击值存入index变量
+    tabli[i].index = i;
+    tabli[i].onclick = function () {
+        for(var j=0;j<tabli.length;j++){
+                tabContent[j].className = 'content-list'
+            }
+        tabContent[this.index].className = "content-list show"
+    }
+}

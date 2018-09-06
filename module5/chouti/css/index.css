@@ -170,3 +170,34 @@
     float: right;
     font-size: 14px;
 }
+.nav-top-area {
+    overflow: hidden;
+    clear: both;
+    border-bottom: 1px solid #ccdcef;
+}
+.content-list {
+    position: relative;
+    display: none;
+}
+.content-list .media {
+    clear: both;
+    padding-top: 10px;
+    border-bottom: 1px solid #dce7f4;
+    overflow: hidden;
+    position: relative;
+}
+
+.foot-nav {
+    padding-top: 15px;
+    text-align: center;
+    border-top: 1px solid #ccdcef;
+    position: relative;
+}
+.foot-nav2 {
+    margin-top: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.content-L .show{
+    display: block;
+}
