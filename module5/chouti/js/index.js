@@ -24,6 +24,13 @@ $(function () {
         $('.reg-m').css({display:'block'})
     })
 })
+//发布
+$(function () {
+    $('.publish-btn').click(function () {
+        $('.publish').css({display:'block'})
+    })
+})
+
 $(function () {
     $('.login-close').click(function () {
         $('.login-m').css({display:'none'})
@@ -32,6 +39,11 @@ $(function () {
 $(function () {
     $('.reg-close').click(function () {
         $('.reg-m').css({display:'none'})
+    })
+})
+$(function () {
+    $('.pub-close').click(function () {
+        $('.publish').css({display:'none'})
     })
 })
 
@@ -49,3 +61,46 @@ for(var i=0;i<tabli.length;i++) {
         tabContent[this.index].className = "content-list show"
     }
 }
+
+//确认发布
+$(function () {
+    $('.pub-confirm').click(function () {
+        var todolist = document.getElementById("content-list")
+        var stringOld = todolist.innerHTML
+        var title = $('#title').val()
+        var content = $('#inputContent').val()
+        var url = $('#url').val()
+        console.log(title)
+        console.log(content)
+        console.log(url)
+        if(title == undefined || content == undefined || url == undefined){ // "",null,undefined
+            alert("输入有误！");
+        }else {
+            var stringNew = "<div class=\"media\">\n" +
+                "                          <div class=\"media-body\">\n" +
+                "                              <h4 class=\"media-heading\">" + title + "</h4>\n" +
+                "                              <p class=\"content\">" + content + "</p>\n" +
+                "                          </div>\n" +
+                "                          <div class=\"media-right\">\n" +
+                "                              <a href=\"#\">\n" +
+                "                              <img class=\"media-object\" src=\"" + url + "\" alt=\"...\">\n" +
+                "                              </a>\n" +
+                "                          </div>\n" +
+                "                          <div class=\"media-bottom\">\n" +
+                "                              <a href=\"#\">点赞 <span class=\"badge\">0</span></a>\n" +
+                "                              <a href=\"#\">评论 <span class=\"badge\">0</span></a>\n" +
+                "                          </div>\n" +
+                "                      </div>"
+            var todoString = stringNew + stringOld
+            todolist.innerHTML = todoString
+            console.log(todolist)
+            console.log(todoString)
+            document.getElementById("title").value=""
+            document.getElementById("inputContent").value=""
+            document.getElementById("url").value=""
+        }
+        $('.publish').css({display:'none'})
+    })
+})
+
+//点赞

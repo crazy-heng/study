@@ -106,7 +106,7 @@
     width: 38px;
     position: fixed;
 }
-.login-m{
+.login-m,.publish{
     position: fixed;
     left: 0;
     top: 0;
@@ -119,7 +119,7 @@
     height: 250px;
     width: 500px;
     position: relative;
-    top: 30%;
+    top: 20%;
     margin: 0 auto;
     border: 1px solid blue;
     background-color: white;
@@ -133,11 +133,11 @@
     background: rgba(0,0,0,0.5);
     z-index: 999;
 }
-.reg-container{
+.reg-container,.publish-container{
     height: 400px;
     width: 500px;
     position: relative;
-    top: 30%;
+    top: 20%;
     margin: 0 auto;
     border: 1px solid blue;
     background-color: white;
@@ -200,4 +200,16 @@
 }
 .content-L .show{
     display: block;
+}
+.content{
+    height: 60px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.media-object{
+    width: 64px;
+    height: 64px;
 }

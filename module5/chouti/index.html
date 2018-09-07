@@ -62,17 +62,19 @@
                         <a href="/all/hot/24hr/1" hidefocus="false" class="newbtn" id="sort24-nav-btn">24小时</a>
                         <a href="/all/hot/72hr/1" hidefocus="false" class="newbtn" id="sort3-nav-btn">3天</a>
                     </div>
-
-                    <a href="javascript:;" class="publish-btn" id="publishBtn" lang="all">
+                    <button class="publish-btn" id="publishBtn" lang="all">
                         <span class="ico n1"></span><span class="n2">发布</span>
-                    </a>
+                    </button>
                   </div>
 
                   <div class="content-list show" id="content-list">
                       <div class="media">
                           <div class="media-body">
                               <h4 class="media-heading">标题</h4>
-                              新闻内容
+                              <p class="content">新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容
+                              新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容
+                              新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容
+                                  新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容</p>
                           </div>
                           <div class="media-right">
                               <a href="#">
@@ -104,7 +106,7 @@
 
 
       <div>
-          <a href="#" class="gotop" id="gotop" style="left: 1479px;display: none"></a>
+          <a href="#" class="gotop" id="gotop" style="right: 300px;display: none"></a>
       </div>
 
       <div class="foot-nav">
@@ -135,6 +137,41 @@
             <div style="margin-top:6px;">版权所有：北京格致璞科技有限公司</div>
       </div>
 
+      <div class="publish" style="display: none">
+          <div class="publish-container">
+              <div class="btn-close icons dialog-btn-close pub-close">
+                  <button class="glyphicon glyphicon-remove" aria-hidden="true"></button>
+              </div>
+              <form class="form-horizontal">
+                  <div class="form-group" style="margin: 10px auto">
+                      <a style="display:inline-block; width:100%; text-align:center">发布</a>
+                  </div>
+                  <div class="form-group" style="margin: 10px 10px">
+                    <label for="title" class="col-sm-2 control-label">标题</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id=title placeholder="请输入标题">
+                    </div>
+                  </div>
+                  <div class="form-group" style="margin: 10px 10px">
+                    <label for="inputContent" class="col-sm-2 control-label">内容</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5" id="inputContent" placeholder="请输入文章内容"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group" style="margin: 10px 10px">
+                    <label for="url" class="col-sm-2 control-label">链接</label>
+                    <div class="col-sm-10">
+                      <input type="url" class="form-control" id="url" placeholder="请输入图片链接">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default pub-confirm">确认发布</button>
+                    </div>
+                  </div>
+              </form>
+          </div>
+      </div>
       <div class="login-m" style="display: none">
           <div class="login-container">
               <div class="btn-close icons dialog-btn-close login-close">
