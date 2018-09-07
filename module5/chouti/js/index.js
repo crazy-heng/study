@@ -5,9 +5,9 @@ $(function () {
         $(document).scroll(function () {
             var scollTop = $(document).scrollTop()
             if(h<scollTop){
-                 $('.gotop').css({display:'block'})
+                 $('.gotop').show()
             }else{
-                $('.gotop').css({display:'none'})
+                $('.gotop').hide()
             }
         })
 
@@ -15,36 +15,37 @@ $(function () {
 //登录
 $(function () {
     $('.login').click(function () {
-        $('.login-m').css({display:'block'})
+        // $('.login-m').css({display:'block'})
+        $('.login-m').show()
     })
 
 })
 //注册
 $(function () {
     $('.reg').click(function () {
-        $('.reg-m').css({display:'block'})
+        $('.reg-m').show()
     })
 })
 //发布
 $(function () {
     $('.publish-btn').click(function () {
-        $('.publish').css({display:'block'})
+        $('.publish').show()
     })
 })
 
 $(function () {
     $('.login-close').click(function () {
-        $('.login-m').css({display:'none'})
+        $('.login-m').hide()
     })
 })
 $(function () {
     $('.reg-close').click(function () {
-        $('.reg-m').css({display:'none'})
+        $('.reg-m').hide()
     })
 })
 $(function () {
     $('.pub-close').click(function () {
-        $('.publish').css({display:'none'})
+        $('.publish').hide()
     })
 })
 
@@ -99,7 +100,7 @@ $(function () {
             document.getElementById("inputContent").value=""
             document.getElementById("url").value=""
         }
-        $('.publish').css({display:'none'})
+        $('.publish').hide()
         zan()
     })
 })
