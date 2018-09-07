@@ -1,3 +1,4 @@
+zan()
 //置顶按钮显现
 $(function () {
         var h = $('.head-band').height()
@@ -50,7 +51,6 @@ $(function () {
 //标题栏切换
 var tabli = document.getElementsByTagName('li')
 var tabContent = document.getElementsByClassName('content-list')
-console.log(tabContent)
 for(var i=0;i<tabli.length;i++) {
     //保存点击值存入index变量
     tabli[i].index = i;
@@ -73,8 +73,8 @@ $(function () {
         console.log(title)
         console.log(content)
         console.log(url)
-        if(title == undefined || content == undefined || url == undefined){ // "",null,undefined
-            alert("输入有误！");
+        if(title == "" || content == "" || url == ""){ // "",null,undefined
+            alert("输入有误,发布不能为空！");
         }else {
             var stringNew = "<div class=\"media\">\n" +
                 "                          <div class=\"media-body\">\n" +
@@ -87,8 +87,8 @@ $(function () {
                 "                              </a>\n" +
                 "                          </div>\n" +
                 "                          <div class=\"media-bottom\">\n" +
-                "                              <a href=\"#\">点赞 <span class=\"badge\">0</span></a>\n" +
-                "                              <a href=\"#\">评论 <span class=\"badge\">0</span></a>\n" +
+                "                              <a href=\"#\" class=\"likes\">点赞 <span class=\"badge likeNums\">0</span></a>&emsp;\n" +
+                "                              <a href=\"#\" class=\"comment\">评论 <span class=\"badge commentNums\">0</span></a>\n" +
                 "                          </div>\n" +
                 "                      </div>"
             var todoString = stringNew + stringOld
@@ -100,7 +100,24 @@ $(function () {
             document.getElementById("url").value=""
         }
         $('.publish').css({display:'none'})
+        zan()
     })
 })
 
 //点赞
+function zan() {
+    var like = document.getElementsByClassName('likes')
+    var comment = document.getElementsByClassName('likeNums')
+    console.log(like)
+    console.log(comment)
+    for (var i = 0; i < like.length; i++) {
+        //保存点击值存入index变量
+        like[i].index = i;
+        like[i].onclick = function () {
+            var y = comment[this.index].innerHTML
+            var z = parseInt(y)
+            z += 1
+            comment[this.index].innerHTML = z
+        }
+    }
+}
