@@ -82,7 +82,8 @@ $(function () {
 })
 
 //标题栏切换
-var tabli = document.getElementsByTagName('li')
+var tabli = document.getElementsByClassName('list')
+console.log(tabli)
 var tabContent = document.getElementsByClassName('content-list')
 for(var i=0;i<tabli.length;i++) {
     //保存点击值存入index变量
