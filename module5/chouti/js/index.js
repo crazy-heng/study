@@ -49,6 +49,38 @@ $(function () {
     })
 })
 
+//评论收起
+$(function () {
+    $('.comment-close').click(function () {
+        $('.new-comment').hide()
+    })
+})
+//评论点开
+$(function () {
+    $('.comment').click(function () {
+        $('.new-comment').show()
+    })
+})
+//提交评论
+$(function () {
+    $('.comment-sub').click(function () {
+        var todo = document.getElementById("10001")
+        console.log(todo)
+        var stringOld = todo.innerHTML
+        console.log(stringOld)
+        var comment = $('#form-10001').val()
+        if(comment == ""){ // "",null,undefined
+            alert("输入有误,发布不能为空！");
+        }else {
+            var stringNew = "<li>" + comment + "</li>"
+            console.log(1)
+            var todoString = stringNew + stringOld
+            todo.innerHTML = todoString
+            document.getElementById('form-10001').value =""
+            }
+    })
+})
+
 //标题栏切换
 var tabli = document.getElementsByTagName('li')
 var tabContent = document.getElementsByClassName('content-list')
@@ -102,7 +134,6 @@ $(function () {
         }
         $('.publish').hide()
         zan()
-        fan()
     })
 })
 
