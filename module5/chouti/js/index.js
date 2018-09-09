@@ -102,13 +102,15 @@ $(function () {
         }
         $('.publish').hide()
         zan()
+        fan()
     })
 })
 
-//点赞
+//点赞和取消点赞
 function zan() {
     var like = document.getElementsByClassName('likes')
     var comment = document.getElementsByClassName('likeNums')
+    var x = 0
     console.log(like)
     console.log(comment)
     for (var i = 0; i < like.length; i++) {
@@ -117,8 +119,47 @@ function zan() {
         like[i].onclick = function () {
             var y = comment[this.index].innerHTML
             var z = parseInt(y)
-            z += 1
-            comment[this.index].innerHTML = z
+            if (z !== x + 1) {
+                z += 1
+                comment[this.index].innerHTML = z
+                x = z-1
+            }else{
+                comment[this.index].innerHTML = x
+            }
         }
     }
 }
+
+//翻页
+var obj = document.getElementById("content-list");  //获取内容层
+var pages = document.getElementById("pages");         //获取翻页层
+var pgindex = 1;                                      //当前页
+window.onload = function()                             //重写窗体加载的事件
+{
+    var allpages = Math.ceil(parseInt(obj.scrollHeight)/parseInt(obj.offsetHeight));
+    console.log(obj.scrollHeight)
+    console.log(obj.offsetHeight)
+    console.log(obj)
+    console.log(allpages)//获取页面数量
+    pages.innerHTML = "<b>共"+allpages+"页</b> ";     //输出页面数量
+    for (var i=1;i<=allpages;i++){
+        pages.innerHTML += "<a href=\"javascript:showPage('"+i+"');\">第"+i+"页</a> ";
+//循环输出第几页
+    }
+    pages.innerHTML += " <a href=\"javascript:gotopage('-1');\">上一页</a>  <a href=\"javascript:gotopage('1');\">下一页</a>"
+}
+
+
+function gotopage(value){
+    try{
+    value=="-1"?showPage(pgindex-1):showPage(pgindex+1);
+ }catch(e){
+
+ }
+}
+function showPage(pageINdex)
+{
+    obj.scrollTop=(pageINdex-1)*parseInt(obj.offsetHeight);//根据高度，输出指定的页
+    console.log(obj.scrollTop)
+    pgindex=pageINdex;
+ }
