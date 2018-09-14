@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="box">
+        <button>点击</button>
+    </div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        function handler(event) {
+            alert(event.data.foo);
+            }
+        $('div').bind('click', {foo: 'bar'}, handler)
+    })
+</script>
+</html>
