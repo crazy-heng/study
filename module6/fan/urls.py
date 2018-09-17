@@ -6,5 +6,6 @@ url_patterns = [
     ("/login", login),
     ("/index", index),
     ("/favicon.ico", fav),
-    ("/time", timer)
+    ("/time", timer),
+    ("/auth", auth)
 ]
