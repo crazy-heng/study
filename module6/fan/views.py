@@ -45,7 +45,7 @@ def auth(request):
     import pymysql
 
     conn = pymysql.connect(
-        host='47.91.207.76',
+        host='*.*.*.*',
         port=3306,
         user='wordpress',
         password='word',
